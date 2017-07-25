@@ -1,4 +1,4 @@
-# Boilermaker
+# Vinylshop
 
 *Good things come in pairs*
 
