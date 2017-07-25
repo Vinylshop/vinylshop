@@ -26,6 +26,12 @@ const Product = db.define('products', {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0
+  },
+  image: {
+    type: Sequelize.ARRAY(Sequelize.STRING),
+    allowNull: false,
+    defaultValue: ['/image/vinylshoplogo.png']
   }
 })
 
+module.exports = Product;
