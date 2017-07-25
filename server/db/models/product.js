@@ -14,7 +14,13 @@ const Product = db.define('products', {
   },
   price: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    set (val) {
+      this.setDataValue('price', val * 100)
+    },
+    get () {
+      return this.getDataValue('price') / 100
+    }
   },
   quantity: {
     type: Sequelize.INTEGER,
