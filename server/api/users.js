@@ -39,7 +39,7 @@ router.get('/:userId', (req, res, next) => {
 router.put('/:userId', (req, res, next) => {
   req.user.update(req.body)
   .then(user => user.reload(User.options.scopes.populated())
-  .then(user => res.status(201).json(user))
+  .then(user => res.status(200).json(user))
   .catch(next)
 })
 
