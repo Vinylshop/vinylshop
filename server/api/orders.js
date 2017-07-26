@@ -54,7 +54,7 @@ router.get('/:orderId', (req, res, next) => {
 router.put('/:orderId', (req, res, next) => {
   req.order.update(req.body)
   .then(order => order.reload(Order.options.scopes.populated()))
-  .then(order => res.status(201).json(order))
+  .then(order => res.status(200).json(order))
   .catch(next)
 })
 
