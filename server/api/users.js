@@ -29,7 +29,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/:userId', (req, res, next) => {
-  req.user.reload(User.options.scropes.populated())
+  req.user.reload(User.options.scopes.populated())
   .then(function(popUser) {
     res.json(popUser)
   })
@@ -38,6 +38,7 @@ router.get('/:userId', (req, res, next) => {
 
 router.put('/:userId', (req, res, next) => {
   req.user.update(req.body)
+  .then(user => user.reload(User.options.scopes.populated())
   .then(user => res.status(201).json(user))
   .catch(next)
 })
