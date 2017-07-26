@@ -18,8 +18,7 @@ const Order = db.define('order', {
   instanceMethods: {
     changeStatus: function(status){
       this.status = status
-    },
-    // getTotal:
+    }
   }
 })
 
