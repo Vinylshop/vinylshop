@@ -1,8 +1,8 @@
 'use strict'
 const Sequelize = require('sequelize')
-const db = require('../index.js')
+const db = require('../db')
 
-const Review = db.define('reviews', {
+const Review = db.define('review', {
   title: {
     type: Sequelize.STRING,
     allowNull: false
