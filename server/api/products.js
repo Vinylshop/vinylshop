@@ -2,6 +2,7 @@
  * Product Routes API Module
  * Product Module: id, title, description, price, image
  */
+'use strict'
 const router = require('express').Router()
 const {Product} = require('../db/models')
 module.exports = router
