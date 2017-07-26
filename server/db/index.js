@@ -4,6 +4,6 @@ const db = require('./db')
 require('./models')
 
 // db.sync({force: true})
-db.sync()
+// db.sync()
 
 module.exports = db
