@@ -1,7 +1,8 @@
+'use strict'
+
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
-
 
 const User = db.define('user', {
   email: {
@@ -28,15 +29,29 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
-  },{
-    scopes: {
-      populated: () => ({
-        include: [{
-          model: db.model('order');
-        },{
-          model: db.model('review');
-        }]
+  },
+  promptChange: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  }
+}, {
+  scopes: {
+    populated: () => ({
+      include: [{
+        model: db.model('order')
+      }, {
+        model: db.model('review')
+      }]
+    })
+  },
+  classMethods: {
+    promptPasswordChange: function (id) {
+      User.findOne({
+        where: {userId: id}
       })
+        .then(user => {
+          user.update({promptChange: true})
+        })
     }
   }
 })
