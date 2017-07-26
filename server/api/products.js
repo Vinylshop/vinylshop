@@ -32,7 +32,7 @@ router.param('productId', (req, res, next, id) => {
 })
 
 /**
- * route /api/product
+ * route /api/products
  * GET
  * returns all products
  */
@@ -43,7 +43,7 @@ router.get('/', (req, res, next) => {
 })
 
 /**
- * route /api/product/productId     i.e. /api/product/1
+ * route /api/products/productId     i.e. /api/products/1
  * GET
  * returns a specific product by productId
  */
@@ -54,7 +54,7 @@ router.get('/:productId', (req, res, next) => {
 })
 
 /**
- * route /api/product
+ * route /api/products
  * POST
  * creates and returns new product
  */
@@ -65,7 +65,7 @@ router.post('/', (req, res, next) => {
 })
 
 /**
- * route /api/product/productId
+ * route /api/products/productId
  * PUT
  * updates and existing product by its productId
  */
@@ -76,7 +76,7 @@ router.put('/:productId', (req, res, next) => {
 })
 
 /**
- * route /api/product/productId
+ * route /api/products/productId
  * DEL
  * deletes an existing product by its productId
  */
