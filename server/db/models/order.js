@@ -27,7 +27,7 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Order.create(req.body)
   .then(order => {
-    res.json(order)
+    res.status(201).json(order)
   })
   .catch(next)
 })
@@ -54,6 +54,12 @@ router.get('/:orderId', (req, res, next) => {
 router.put('/:orderId', (req, res, next) => {
   req.order.update(req.body)
   .then(order => order.reload(Order.options.scopes.populated()))
-  .then(order => res.json(order))
+  .then(order => res.status(201).json(order))
+  .catch(next)
+})
+
+router.delete('/:orderId', (req, res, next) => {
+  req.order.destroy()
+  .then(() => res.status(204).end())
   .catch(next)
 })
