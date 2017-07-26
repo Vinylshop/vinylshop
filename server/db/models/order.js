@@ -32,7 +32,7 @@ router.post('/', (req, res, next) => {
   .catch(next)
 })
 
-//api/orders/status/:statusType
+
 router.get('/status/:statusType', (req, res, next) => {
   Order.findAll({
     where: {
@@ -43,7 +43,7 @@ router.get('/status/:statusType', (req, res, next) => {
   .catch(next)
 })
 
-//api/orders/:orderId
+
 router.get('/:orderId', (req, res, next) => {
   req.order.reload(Order.options.scopes.populated())
   .then(order => res.json(order))
