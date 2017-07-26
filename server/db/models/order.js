@@ -4,9 +4,8 @@ const db = require('../db')
 
 
 const Order = db.define('order', {
-  checkedOut: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
+  status: {
+    type: Sequelize.ENUM('CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED')
   }
 }, {
   scopes:{
@@ -17,9 +16,10 @@ const Order = db.define('order', {
     }
   },
   instanceMethods: {
-    checkOut: function(){
-      this.defaultValue = true
-    }
+    changeStatus: function(status){
+      this.status = status
+    },
+    // getTotal:
   }
 })
 
