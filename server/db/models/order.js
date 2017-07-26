@@ -2,25 +2,25 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const OrderItem = db.define('orderItem', {
-  quantity: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  productId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  price: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    set (val) {
-      this.setDataValue('price', val * 100)
+
+const Order = db.define('order', {
+  status: {
+    type: Sequelize.ENUM('CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED')
+  }
+}, {
+  scopes:{
+    populated: () => {
+      include:[{
+        model: db.model('orderItem')
+      }]
     }
-    get() {
-      return this.getDataValue('price') / 100
+  },
+  instanceMethods: {
+    changeStatus: function(status){
+      this.status = status
     }
   }
 })
 
-module.exports = OrderItem
+
+module.exports = Order
