@@ -1,16 +1,15 @@
 var Promise = require('bluebird')
 var chai = require('chai')
-chai.user(require('chai-things'))
+chai.use(require('chai-things'))
 var expect = chai.expect
-var Product = require('./product')
+var db = require('../index')
+var Product = db.model('product')
 
 describe('Product model', () => {
-  beforeEach(function (done) {
+
+  beforeEach((done) => {
     Product.sync({force: true})
-      .then(function () {
-        done()
-      })
-      .then(function () {
+      .then(() => {
         return Promise.all([
           Product.create({
             title: 'Test 1',
@@ -23,7 +22,7 @@ describe('Product model', () => {
             description: 'This is description 2',
             price: '2222',
             quantity: '2',
-            image: '/image/testImageUrl.png'
+            images: ['/image/testImageUrl.png']
           }),
           Product.create({
             title: 'Test 3',
@@ -33,38 +32,43 @@ describe('Product model', () => {
           })
         ])
       })
+      .then(() => done())
       .catch(done)
   })
 
-  it('gets all products', function (done) {
-    Product.findAll()
-      .then(function (products) {
-        expect(products).to.have.lengthOf(3)
-        expect(products[0].title).to.equal('Test 1')
-        expect(products[1].title).to.equal('Test 2')
-        expect(products[2].title).to.equal('Test 3')
-        done()
-      })
-      .catch(done)
+  describe('CRUD tests', () => {
+
+    it('gets all products', () => {
+      return Product.findAll()
+        .then(function (products) {
+          expect(products).to.have.lengthOf(3)
+          expect(products[0].title).to.equal('Test 1')
+          expect(products[1].title).to.equal('Test 2')
+          expect(products[2].title).to.equal('Test 3')
+        })
+    })
+
+    it('gets a product by productId', () => {
+      return Product.findById('1')
+        .then(product => {
+          expect(product.id).to.equal(1)
+        })
+    })
+
   })
 
-  it('gets a product by productId', function (done) {
-    Product.findById(2)
-      .then(function (product) {
-        expect(product).to.have.lengthOf(1)
-        expect(product[0].title).to.equal('Test 2') // change product.title
-        done()
-      })
-      .catch(done)
+  describe('Validations', () => {
+
+    it('errors without title', () => {
+      const product = Product.build({})
+      return product
+        .validate()
+        .catch(err => {
+          expect(err).to.exist
+          expect(err.errors).to.contain.a.thing.with.property('path', 'title')
+        })
+    })
+
   })
 
-  it('requires a title', function () {
-    var product = Product.build({})
-    return product
-      .validate()
-      .then(function (err) {
-        expect(err).to.exit
-        expect(err.errors).to.contain.a.thing.with.property('path', 'title')
-      })
-  })
 })
