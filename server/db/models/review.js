@@ -17,9 +17,9 @@ const Review = db.define('review', {
     allowNull: false,
     max: 10,
     min: 0,
-    set (val) {
-      this.setDataValue('rating', val * 2)
-    },
+    // set (val) {
+    //   this.setDataValue('rating', val * 2)
+    // },
     get () {
       return this.getDataValue('rating') / 2
     }
