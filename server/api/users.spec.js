@@ -11,6 +11,7 @@ describe('User routes', () => {
 
   describe('/api/users/', () => {
     const codysEmail = 'cody@puppybook.com'
+    const codysEmail2 = 'cody2@puppybook.com'
     const suliEmail = 'sulamita@kyu.com'
 
     beforeEach(() => {
@@ -46,10 +47,34 @@ describe('User routes', () => {
 
     it('PUT /api/users/:userId', () => {
       return request(app)
-        .put('/api/users/2', { email: codysEmail})
+        .put('/api/users/2')
+        .send({ email: codysEmail2})
         .expect(200)
         .then(res => {
-          expect(res.body.email).to.be.equal(codysEmail)
+          expect(res.body.email).to.be.equal(codysEmail2)
+        })
+    })
+
+
+    it('POST /api/users', () => {
+      return request(app)
+        .post('/api/users')
+        .send({
+          email: 'AWESOME' + suliEmail,
+          password: 'secretysecret'
+        })
+        .expect(201)
+        .then(res => {
+          expect(res.body.email).to.be.equal('AWESOME' + suliEmail)
+        })
+    })
+
+    it('DELETE /api/users/:usersId', () => {
+      return request(app)
+        .delete('/api/users/2')
+        .expect(204)
+        .then(res => {
+          // expect(res.body.email).to.be.equal('AWESOME' + suliEmail)
         })
     })
   }) // end describe('/api/users')
