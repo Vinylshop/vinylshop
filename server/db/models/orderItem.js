@@ -7,6 +7,7 @@ const OrderItem = db.define('orderItem', {
     type: Sequelize.INTEGER,
     allowNull: false
   },
+  // tk: this is already a foreign key via the relation set in index.js
   productId: {
     type: Sequelize.INTEGER,
     allowNull: false

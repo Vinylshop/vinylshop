@@ -24,6 +24,7 @@ const Order = db.define('order', {
   },
   instanceMethods: {
     changeStatus: function(status){
+      // tk: should this save? These changes won't persist if we don't save
       this.status = status
     }
   }
