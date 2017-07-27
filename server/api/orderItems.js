@@ -32,7 +32,7 @@ router.get('/:orderItemId', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   OrderItem.create(req.body)
-  .then(item => res.status(201).json(user))
+  .then(item => res.status(201).json(item))
   .catch(next)
 })
 
