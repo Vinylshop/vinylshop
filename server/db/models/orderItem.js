@@ -16,9 +16,9 @@ const OrderItem = db.define('orderItem', {
     allowNull: false,
     set (val) {
       this.setDataValue('price', val * 100)
-    }
+    },
     get() {
-      return this.getDataValue('price') / 100
+      return (this.getDataValue('price') / 100)
     }
   }
 })
