@@ -9,11 +9,11 @@ const Order = db.define('order', {
   }
 }, {
   scopes:{
-    populated: () => {
+    populated: () => ({
       include:[{
         model: db.model('orderItem')
       }]
-    }
+    })
   },
   instanceMethods: {
     changeStatus: function(status){

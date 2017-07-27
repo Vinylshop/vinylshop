@@ -3,6 +3,8 @@ var chai = require('chai')
 chai.use(require('chai-things'))
 const db = require('../db')
 const User = db.model('user')
+const Review = db.model('review')
+
 
 describe('User model', () => {
   beforeEach(() => {
@@ -85,4 +87,29 @@ describe('User model', () => {
         })
     })
   })
+
+
+  describe('Populated scope', function () {
+  let cody
+
+  beforeEach(() => {
+    return User.create({
+      email: 'cody@puppybook.com',
+      password: 'bones'
+    })
+    .then(user => {
+      cody = user
+      Review.create({
+        title: 'Test Review',
+        content: 'Test Content',
+        rating: 1,
+        userId: 1
+      })
+    })
+  })
+
+  it('populates User with reviews', function () {
+    console.log(cody.reload(User.options.scopes.populated()))
+  })
+})
 }) // end describe('User model')
