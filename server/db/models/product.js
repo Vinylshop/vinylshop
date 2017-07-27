@@ -1,6 +1,6 @@
 'use strict'
 const Sequelize = require('sequelize')
-const db = require('../index.js')
+const db = require('../db')
 
 const Product = db.define('products', {
   title: {
