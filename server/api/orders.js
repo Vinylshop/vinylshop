@@ -33,6 +33,8 @@ router.post('/', (req, res, next) => {
 })
 
 
+// tk: this whole route would be unnecessary if your GET /api/orders route
+// accepted req.query - Order.findAll({where: req.query})
 router.get('/status/:statusType', (req, res, next) => {
   Order.findAll({
     where: {

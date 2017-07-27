@@ -10,6 +10,7 @@ module.exports = router
 /**
  * Default columns to return for ALL Products and Product by ID
  */
+// tk: nice - I love this!
 const attributesToReturn = {attributes: ['id', 'title', 'description', 'price', 'image']}
 
 /**
