@@ -12,12 +12,15 @@ router.param('orderItemId', (req, res, next, id) => {
     }
     req.item = item
     next()
-    return null
+    return null // tk: could also return next(), which I think is a bit cleaner
   })
   .catch(next)
 })
 
 router.get('/', (req, res, next) => {
+  // tk: that extra object in findAll({}) is not necessary, but you should consider
+  // OrderItem.findAll({where: req.query}) - this will give you flexibility if you want
+  // to filter down the resources you receive
   OrderItem.findAll({})
   .then(items => res.json(items))
   .catch(next)

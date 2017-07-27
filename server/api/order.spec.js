@@ -69,7 +69,7 @@ describe('Order routes', () => {
       return request(app)
         .delete('/api/orders/2')
         .expect(204)
-        .then(res => {
+        .then(res => { // tk: should check that the order is in fact removed
         })
     })
   })

@@ -2,6 +2,9 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+/**
+ * tk: can products have categories?
+ */
 const Product = db.define('product', {
   title: {
     type: Sequelize.STRING,
@@ -27,6 +30,9 @@ const Product = db.define('product', {
     allowNull: false,
     defaultValue: 0
   },
+  /**
+   * tk: consider naming this `images` since it's an array
+   */
   image: {
     type: Sequelize.ARRAY(Sequelize.STRING),
     allowNull: false,
