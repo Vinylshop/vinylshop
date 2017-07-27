@@ -43,16 +43,6 @@ const User = db.define('user', {
         model: db.model('review')
       }]
     })
-  },
-  classMethods: {
-    promptPasswordChange: function (id) {
-      User.findOne({
-        where: {userId: id}
-      })
-        .then(user => {
-          user.update({promptChange: true})
-        })
-    }
   }
 })
 

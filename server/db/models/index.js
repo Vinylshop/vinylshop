@@ -1,8 +1,8 @@
 const User = require('./user')
 const Review = require('./review')
 const Product = require('./product')
-// const Order = require('./order')
-// const OrderItem = require('./orderItem')
+const Order = require('./order')
+const OrderItem = require('./orderItem')
 
 // Model Associations
 
@@ -12,11 +12,11 @@ Review.belongsTo(Product)
 User.hasMany(Review)
 Review.belongsTo(User)
 
-// User.hasMany(Order)
-// Order.belongsTo(User)
+User.hasMany(Order)
+Order.belongsTo(User)
 
-// Order.hasMany(OrderItem)
-// OrderItem.belongsTo(Order)
+Order.hasMany(OrderItem)
+OrderItem.belongsTo(Order)
 
 // Model Exports
 
@@ -24,6 +24,6 @@ module.exports = {
   User,
   Review,
   Product,
-  // Order,
-  // OrderItem
+  Order,
+  OrderItem
 }
