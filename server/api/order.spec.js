@@ -42,14 +42,6 @@ describe('Order routes', () => {
         })
     })
 
-    /**
-     * tk: sending a canned response here doesn't help us.
-     * A server route test should treat the way that route is handled
-     * like a black box. For a certain input (when the database is in
-     * a given state), we should expect a certain output.
-     * The reason we have these tests is so that we can change the implementation
-     * of our route handlers and still be sure that it's working.
-     */
     it('PUT /api/orders/:orderId', () => {
       return request(app)
         .put('/api/orders/2')
