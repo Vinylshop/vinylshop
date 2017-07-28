@@ -10,7 +10,7 @@ module.exports = router
 /**
  * Default columns to return for ALL Products and Product by ID
  */
-const attributesToReturn = {attributes: ['id', 'title', 'description', 'price', 'image']}
+const attributesToReturn = {attributes: ['id', 'title', 'description', 'price', 'images']}
 
 /**
  * ProductID Param
