@@ -5,6 +5,7 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome} from './components'
+import {ReviewList} from './components/Review/ReviewList'
 import {me} from './store'
 import {fetchUsers} from './store/users'
 import UserList from './components/User/UserList'
@@ -30,6 +31,7 @@ class Routes extends Component {
             <Route path='/signup' component={Signup} />
             <Route exact path='/users' component={UserList} />
             <Route path='/users/:id' component={UserDetail} />
+            <Route path='/reviews' component={ReviewList} />
             {
               isLoggedIn
                 ? <Switch>
