@@ -11,13 +11,11 @@ import {me} from './store'
  * COMPONENT
  */
 class Routes extends Component {
-
   componentDidMount () {
     this.props.loadInitialData()
   }
 
   render () {
-
     const {isLoggedIn} = this.props
 
     return (
@@ -25,13 +23,15 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route path='/login' component={Login} />
+            <Route path='/signup' component={Signup} />
             {
-              isLoggedIn ?
-                <Switch>
+              isLoggedIn
+                ? <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
+                  <Route path='/home' component={UserHome} />
+                  <Route exact path='/users' component={UserList} />
+                  <Route path='/users/:id' component={UserDetail} />
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}

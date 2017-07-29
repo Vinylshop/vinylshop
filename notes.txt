@@ -37,4 +37,15 @@ REACT COMPONENTS:
 	- ReviewDetail
 	
 
-AUTHENTICATION:
+SHOPPING CART:
+
+-	ADD: OrderItem to cart from ProductList or ProductDetail page
+- REMOVE: OrderItem from the cart
+- UPDATE: OrderItem quantities in the cart
+- LOGIN: Cart will persist when a user logs in
+- REFRESH: Cart will persist w/out being logged in
+
+1. The ShoppingCart component seems pretty straightforward
+2. Major question, persistence?  Do we want to use:
+		- req.session
+		- localStorage
