@@ -33,6 +33,7 @@ const randReview = () => {
 
 const randUser = () => {
   return {
+    username: faker.name.findName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     isAdmin: false
@@ -59,6 +60,7 @@ db.sync({force: true})
   .then(() => {
     console.log('Seeding Admin')
     return User.create({
+      username: 'Joe Cool',
       email: 'admin@admin.com',
       password: 'vinylShopRocks!',
       isAdmin: true
