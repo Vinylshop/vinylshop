@@ -12,7 +12,7 @@ module.exports = router
 /**
  * Default columns to return for ALL Reviews
  */
-const attributesToReturn = {attributes: ['id', 'title', 'content', 'rating', 'createdAt', 'updatedAt']}
+const attributesToReturn = {attributes: ['id', 'title', 'content', 'rating', 'createdAt', 'updatedAt', 'productId', 'userId']}
 
 /**
  * ReviewID Param
