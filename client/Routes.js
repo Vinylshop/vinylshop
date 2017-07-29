@@ -6,7 +6,8 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome} from './components'
 import {me} from './store'
-
+import OrderList from './components/Order/OrderList'
+import { fetchOrders } from './store/orders'
 /**
  * COMPONENT
  */
@@ -35,6 +36,7 @@ class Routes extends Component {
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
+            <Route exact path="/orders" component={OrderList}/>
             <Route component={Login} />
           </Switch>
         </Main>
@@ -57,6 +59,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
+      dispatch(fetchOrders())
       dispatch(me())
     }
   }
