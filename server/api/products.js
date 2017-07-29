@@ -8,7 +8,7 @@ const {Product} = require('../db/models')
 module.exports = router
 
 /**
- * Default columns to return for ALL Products and Product by ID
+ * Default columns to return for ALL products and Product by ID
  */
 const attributesToReturn = {attributes: ['id', 'title', 'description', 'price', 'images']}
 
@@ -32,7 +32,7 @@ router.param('productId', (req, res, next, id) => {
 })
 
 /**
- * route /api/Product
+ * route /api/products
  * GET
  * returns all Product
  */
@@ -43,7 +43,7 @@ router.get('/', (req, res, next) => {
 })
 
 /**
- * route /api/Product/productId     i.e. /api/Product/1
+ * route /api/products/productId     i.e. /api/products/1
  * GET
  * returns a specific Product by productId
  */
@@ -54,7 +54,7 @@ router.get('/:productId', (req, res, next) => {
 })
 
 /**
- * route /api/Product
+ * route /api/products
  * POST
  * creates and returns new Product
  */
@@ -65,9 +65,9 @@ router.post('/', (req, res, next) => {
 })
 
 /**
- * route /api/Product/productId
+ * route /api/products/productId
  * PUT
- * updates and existing Product by its productId
+ * updates and existing product by its productId
  */
 router.put('/:productId', (req, res, next) => {
   Product.update(req.body, {where: {id: req.product.id}})
@@ -76,9 +76,9 @@ router.put('/:productId', (req, res, next) => {
 })
 
 /**
- * route /api/Product/productId
+ * route /api/products/productId
  * DEL
- * deletes an existing Product by its productId
+ * deletes an existing product by its productId
  */
 router.delete('/:productId', (req, res, next) => {
   req.product.destroy()
