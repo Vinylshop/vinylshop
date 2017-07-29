@@ -25,13 +25,15 @@ export default function reducer (products = [], action) {
       return action.products
 
     case CREATE:
-      return action.product
+      return [action.product, ...products]
 
     case UPDATE:
-      return action.update
+      return products.map(product => (
+        action.product.id === product.id ? action.product : product
+      ))
 
     case REMOVE:
-      return action.update
+      return products.filter(product => product.id !== action.id)
 
     default:
       return products
