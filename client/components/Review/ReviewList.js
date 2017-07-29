@@ -2,51 +2,37 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import ReviewItem from './ReviewItem'
+import ProductItem from '../Product/ProductItem'
 
 /* -----------------    COMPONENT     ------------------ */
 
-// dummyData
-let testReviews = [
-  {
-    id: 1,
-    title: 'Test Review 1',
-    content: 'This is the content for Review 1',
-    rating: 4
-  },
-  {
-    id: 2,
-    title: 'Test Review 2',
-    content: 'This is the content for Review 2',
-    rating: 2
-  }
-]
-
-class ReviewList extends Component {
+export class ReviewList extends Component {
   constructor (props) {
     super(props)
 
-  this.renderReviewForm = this.renderReviewForm.bind(this)
-  this.onSubmit = this.onSubmit.bind(this)
-
+    this.renderReviewForm = this.renderReviewForm.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+    this.filterReview = this.filterReview.bind(this)
   }
 
-  render() {
+  render () {
     console.log("I'm here")
     return (
       <div className="container">
         <ul className="list-group">
-          { this.renderReviewForm() }
+          {this.renderReviewForm()}
           {
-            testReviews
-            .map(review => <ReviewItem review={review} key={review.id} />)
+            this.props.reviews
+              .filter(this.filterReview)
+              .map(review => <ReviewItem review={review} key={review.id} />)
           }
         </ul>
       </div>
     )
   }
 
-  renderReviewForm() {
-    return(
+  renderReviewForm () {
+    return (
       <form onSubmit={this.onSubmit}>
         <ul className="list-inline">
           <li>
@@ -70,14 +56,14 @@ class ReviewList extends Component {
         </ul>
         <button
           type="submit"
-        className="btn btn-warning btn-xs">
+          className="btn btn-warning btn-xs">
           <span className="glyphicon glyphicon-plus" />
         </button>
       </form>
     )
   }
 
-  onSubmit(event) {
+  onSubmit (event) {
     event.preventDefault()
     const review = {
       title: event.target.title.value,
@@ -90,3 +76,11 @@ class ReviewList extends Component {
     event.target.rating.value = ''
   }
 }
+
+/* -----------------    CONTAINER     ------------------ */
+
+const mapState = ({ products, reviews }) => ({ products, reviews });
+
+const mapDispatch = { addReview };
+
+export default connect(mapState, mapDispatch)(ReviewList);
