@@ -33,6 +33,7 @@ const randReview = () => {
 
 const randUser = () => {
   return {
+    username: faker.name.findName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     isAdmin: false
