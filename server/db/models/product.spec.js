@@ -48,7 +48,7 @@ describe('Product model', () => {
         })
     })
 
-    it('gets a product by productId', () => {
+    it('gets a products by productId', () => {
       return Product.findById('1')
         .then(product => {
           expect(product.id).to.equal(1)

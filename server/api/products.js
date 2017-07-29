@@ -45,7 +45,7 @@ router.get('/', (req, res, next) => {
 /**
  * route /api/products/productId     i.e. /api/products/1
  * GET
- * returns a specific product by productId
+ * returns a specific products by productId
  */
 router.get('/:productId', (req, res, next) => {
   Product.findById(req.product.id, attributesToReturn)
@@ -56,7 +56,7 @@ router.get('/:productId', (req, res, next) => {
 /**
  * route /api/products
  * POST
- * creates and returns new product
+ * creates and returns new products
  */
 router.post('/', (req, res, next) => {
   Product.create(req.body)
@@ -67,7 +67,7 @@ router.post('/', (req, res, next) => {
 /**
  * route /api/products/productId
  * PUT
- * updates and existing product by its productId
+ * updates and existing products by its productId
  */
 router.put('/:productId', (req, res, next) => {
   Product.update(req.body, {where: {id: req.product.id}})
@@ -78,7 +78,7 @@ router.put('/:productId', (req, res, next) => {
 /**
  * route /api/products/productId
  * DEL
- * deletes an existing product by its productId
+ * deletes an existing products by its productId
  */
 router.delete('/:productId', (req, res, next) => {
   req.product.destroy()
