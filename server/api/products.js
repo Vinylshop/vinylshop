@@ -34,7 +34,7 @@ router.param('productId', (req, res, next, id) => {
 /**
  * route /api/products
  * GET
- * returns all Product
+ * returns all products
  */
 router.get('/', (req, res, next) => {
   Product.findAll(attributesToReturn)
@@ -45,7 +45,7 @@ router.get('/', (req, res, next) => {
 /**
  * route /api/products/productId     i.e. /api/products/1
  * GET
- * returns a specific Product by productId
+ * returns a specific product by productId
  */
 router.get('/:productId', (req, res, next) => {
   Product.findById(req.product.id, attributesToReturn)
