@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { deleteUser } from '../../store/users'
 
 /* -----------------    COMPONENT     ------------------ */
@@ -17,7 +17,7 @@ class UserItem extends Component {
       <li className='list-group-item'>
         <div className='user-item'>
           <NavLink activeClassName='active' to={`/users/${user.id}`}>
-            <h3>{ user.name }</h3>
+            <h3>{ user.username }</h3>
           </NavLink>
         </div>
         <button className='btn-remove' onClick={this.handleRemove}>

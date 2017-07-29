@@ -6,6 +6,9 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome} from './components'
 import {me} from './store'
+import {fetchUsers} from './store/users'
+import UserList from './components/User/UserList'
+import UserDetail from './components/User/UserDetail'
 
 /**
  * COMPONENT
@@ -25,13 +28,13 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
+            <Route exact path='/users' component={UserList} />
+            <Route path='/users/:id' component={UserDetail} />
             {
               isLoggedIn
                 ? <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path='/home' component={UserHome} />
-                  <Route exact path='/users' component={UserList} />
-                  <Route path='/users/:id' component={UserDetail} />
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
@@ -57,7 +60,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
-      dispatch(me())
+      // dispatch(me())
+      dispatch(fetchUsers())
     }
   }
 }

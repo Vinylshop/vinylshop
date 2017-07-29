@@ -20,12 +20,12 @@ export function createUser (user) {
   return action
 }
 
-export function removeStudent (id) {
+export function removeUser (id) {
   const action = { type: REMOVE_USER, id }
   return action
 }
 
-export function updateStudent (student) {
+export function updateUser (student) {
   const action = { type: UPDATE_USER, user }
   return action
 }
@@ -60,7 +60,7 @@ export default function reducer (users = [], action) {
 
 export const fetchUsers = () => dispatch => {
   axios.get('/api/users')
-       .then(res => dispatch(initUser(res.data)))
+       .then(res => dispatch(initUsers(res.data)))
 }
 
 export const fetchUser = () => dispatch => {
