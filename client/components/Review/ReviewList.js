@@ -21,7 +21,7 @@ let testReviews = [
   }
 ]
 
-class ReviewList extends Component {
+export class ReviewList extends Component {
   constructor (props) {
     super(props)
 
