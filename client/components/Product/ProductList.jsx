@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ProductItem from './ProductItem'
 import { addProduct } from '../../store/product'
@@ -6,7 +6,6 @@ import { addProduct } from '../../store/product'
 /**
  * COMPONENT
  */
-
 class ProductList extends Component {
   constructor (props) {
     super(props)
@@ -122,7 +121,6 @@ class ProductList extends Component {
 /**
  *  CONTAINER
  */
-
 const mapState = ({products, currentUser}) => ({products, currentUser})
 const mapDispatch = {addProduct}
 export default connect(mapState, mapDispatch)(ProductList)
