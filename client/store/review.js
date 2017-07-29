@@ -9,10 +9,10 @@ const REMOVE = 'REMOVE_REVIEW'
 
 /* ------------   ACTION CREATORS     ------------------ */
 
-const init = products => ({ type: INITIALIZE, products })
-const create = product => ({ type: CREATE, product })
+const init = reviews => ({ type: INITIALIZE, reviews })
+const create = review => ({ type: CREATE, review })
 const remove = id => ({ type: REMOVE, id })
-const update = product => ({ type: UPDATE, product })
+const update = review => ({ type: UPDATE, review })
 
 /* ------------       REDUCERS     ------------------ */
 
@@ -32,6 +32,8 @@ export default function reducer (reviews = [], action) {
       return reviews.map(review => (
         action.review.id === review.id ? action.review : review
       ))
+    default:
+      return reviews
   }
 }
 
