@@ -7,5 +7,11 @@ import { Link } from 'react-router-dom'
 class ReviewItem extends Component {
   render() {
 
+    const {review} = this.props
+    return(
+      <li>
+        {review.title}
+      </li>
+    )
   }
 }
