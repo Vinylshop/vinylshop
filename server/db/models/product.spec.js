@@ -38,7 +38,7 @@ describe('Product model', () => {
 
   describe('CRUD tests', () => {
 
-    it('gets all Product', () => {
+    it('gets all products', () => {
       return Product.findAll()
         .then(function (products) {
           expect(products).to.have.lengthOf(3)
@@ -48,7 +48,7 @@ describe('Product model', () => {
         })
     })
 
-    it('gets a Product by productId', () => {
+    it('gets a product by productId', () => {
       return Product.findById('1')
         .then(product => {
           expect(product.id).to.equal(1)
