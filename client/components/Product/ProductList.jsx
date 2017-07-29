@@ -11,7 +11,10 @@ class ProductList extends Component {
     super(props)
 
     this.state = {
-      title: ''
+      title: '',
+      description: '',
+      price: '',
+      images: ''
     }
 
     this.renderProductSearch = this.renderProductSearch.bind(this)
@@ -21,7 +24,6 @@ class ProductList extends Component {
   }
 
   render () {
-    const {currentUser} = this.props
     return (
       <div className="container">
         { this.renderProductSearch }
@@ -57,7 +59,6 @@ class ProductList extends Component {
   }
 
   renderNewProductWidget () {
-    const { currentUser } = this.props
     return (
       <form onSubmit={this.onSubmit} className="list-group-item product-item">
         <ul className="list-inline">
@@ -110,7 +111,7 @@ class ProductList extends Component {
 
   onSubmit (event) {
     event.preventDefault()
-    const {addProduct, currentUser} = this.props
+    const {addProduct} = this.props
     const {title} = event.target
     const product = {title: title.value}
     addProduct(product)
@@ -121,6 +122,6 @@ class ProductList extends Component {
 /**
  *  CONTAINER
  */
-const mapState = ({products, currentUser}) => ({products, currentUser})
+const mapState = ({products}) => ({products})
 const mapDispatch = {addProduct}
 export default connect(mapState, mapDispatch)(ProductList)

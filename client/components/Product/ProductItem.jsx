@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { removeProduct } from '../../store/product'
 
+
+
 /**
  * COMPONENT
  */
@@ -34,3 +36,4 @@ class ProductItem extends Component {
 const mapState = ({currentUser}) => ({currentUser})
 const mapDispatch = {removeProduct}
 export default connect(mapState, mapDispatch)(ProductItem)
+
