@@ -32,7 +32,7 @@ class ProductDetail extends Component {
     }
 
     this.state({
-      product: newProps.product
+      product: newProps.retrievedProduct
     })
   }
 
@@ -92,10 +92,10 @@ class ProductDetail extends Component {
 /**
  * CONTAINER
  */
-const mapState = ({products, currentUser}, ownProps) => {
-  const product = products.find(aProduct => aProduct.id === +ownProps.match.params.id)
+const mapState = ({product, currentUser}, ownProps) => {
+  const retrievedProduct = product.find(aProduct => aProduct.id === +ownProps.match.params.id)
   const productId = ownProps.productId
-  return {product, productId, currentUser}
+  return {retrievedProduct, productId, currentUser}
 }
 
 const mapDispatch = (dispatch, ownProps) => {

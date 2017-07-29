@@ -122,6 +122,6 @@ class ProductList extends Component {
 /**
  *  CONTAINER
  */
-const mapState = ({products}) => ({products})
+const mapState = ({product}) => ({product})
 const mapDispatch = {addProduct}
 export default connect(mapState, mapDispatch)(ProductList)
