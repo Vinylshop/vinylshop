@@ -24,7 +24,7 @@ class OrderList extends React.Component {
   }
 
   render() {
-    const isAdmin = false
+    const isAdmin = true
     return (
       <div className="container">
         { isAdmin && this.renderOrderSearch() }
@@ -55,7 +55,7 @@ class OrderList extends React.Component {
 
               <option value="" disabled>(select a status to filter by)</option>
               {
-                orderStatus.map((stat, i) => (
+                orderState.map((stat, i) => (
                   <option key={i} value={stat}>{stat}</option>
                 ))
               }
