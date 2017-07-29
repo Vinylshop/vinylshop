@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { addReview } from '../store/review'
 import ReviewItem from './ReviewItem'
 import ProductItem from '../Product/ProductItem'
 
@@ -16,14 +17,14 @@ export class ReviewList extends Component {
   }
 
   render () {
-    console.log("I'm here")
+    const { products } = this.props
     return (
       <div className="container">
         <ul className="list-group">
           {this.renderReviewForm()}
           {
             this.props.reviews
-              .filter(this.filterReview)
+              .filter(review => review.productId === products.id)
               .map(review => <ReviewItem review={review} key={review.id} />)
           }
         </ul>
@@ -70,7 +71,6 @@ export class ReviewList extends Component {
       content: event.target.content.value,
       rating: event.target.rating.value
     }
-    testReviews.push(review)
     event.target.title.value = ''
     event.target.content.value = ''
     event.target.rating.value = ''
@@ -79,8 +79,8 @@ export class ReviewList extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ products, reviews }) => ({ products, reviews });
+const mapState = ({ products, reviews }) => ({ products, reviews })
 
-const mapDispatch = { addReview };
+const mapDispatch = { addReview }
 
-export default connect(mapState, mapDispatch)(ReviewList);
+export default connect(mapState, mapDispatch)(ReviewList)
