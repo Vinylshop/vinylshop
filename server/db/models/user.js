@@ -18,8 +18,8 @@ const User = db.define('user', {
     }
   },
   password: {
-    type: Sequelize.STRING
-    // allowNull: false
+    type: Sequelize.STRING,
+    allowNull: false
   },
   salt: {
     type: Sequelize.STRING

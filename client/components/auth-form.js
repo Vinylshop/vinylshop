@@ -7,26 +7,32 @@ import {auth} from '../store'
  * COMPONENT
  */
 const AuthForm = (props) => {
-
   const {name, displayName, handleSubmit, error} = props
 
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
+        {
+        (name === 'signup') &&
+          <div>
+            <label htmlFor='username'><small>Name</small></label>
+            <input name='username' type='text' />
+          </div>
+        }
         <div>
-          <label htmlFor="email"><small>Email</small></label>
-          <input name="email" type="text" />
+          <label htmlFor='email'><small>Email</small></label>
+          <input name='email' type='text' />
         </div>
         <div>
-          <label htmlFor="password"><small>Password</small></label>
-          <input name="password" type="password" />
+          <label htmlFor='password'><small>Password</small></label>
+          <input name='password' type='password' />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button type='submit'>{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <a href='/auth/google'>{displayName} with Google</a>
     </div>
   )
 }
@@ -59,9 +65,11 @@ const mapDispatch = (dispatch) => {
     handleSubmit (evt) {
       evt.preventDefault()
       const formName = evt.target.name
+      let username = null
+      if (formName === 'signup') username = evt.target.username.value
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      dispatch(auth(username, email, password, formName))
     }
   }
 }
