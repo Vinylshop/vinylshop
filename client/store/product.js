@@ -66,7 +66,7 @@ export const addProduct = (product) => dispatch => {
     .catch(err => console.error(`Creating product: ${product} unsuccessful`, err))
 }
 
-export const updateStory = (id, product) => dispatch => {
+export const updateProduct = (id, product) => dispatch => {
   axios.put(`/api/products/${id}`, product)
     .then(res => dispatch(update(res.data)))
     .catch(err => console.error(`Updating product: ${id} unsuccessful`, err))
