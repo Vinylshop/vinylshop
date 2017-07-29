@@ -8,7 +8,7 @@ const {Product} = require('../db/models')
 module.exports = router
 
 /**
- * Default columns to return for ALL Products and Product by ID
+ * Default columns to return for ALL products and Product by ID
  */
 const attributesToReturn = {attributes: ['id', 'title', 'description', 'price', 'images']}
 
@@ -56,7 +56,7 @@ router.get('/:productId', (req, res, next) => {
 /**
  * route /api/products
  * POST
- * creates and returns new product
+ * creates and returns new Product
  */
 router.post('/', (req, res, next) => {
   Product.create(req.body)

@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom'
 
 export default class ReviewItem extends Component {
   render() {
-
-    const {review} = this.props
-    return(
+    const { review } = this.props
+    return (
       <li>
         {review.title}
       </li>

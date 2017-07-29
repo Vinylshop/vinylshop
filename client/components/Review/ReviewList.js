@@ -7,6 +7,25 @@ import ProductItem from '../Product/ProductItem'
 
 /* -----------------    COMPONENT     ------------------ */
 
+<<<<<<< HEAD
+=======
+// dummyData
+let testReviews = [
+  {
+    id: 1,
+    title: 'Test Review 1',
+    content: 'This is the content for Review 1',
+    rating: 4
+  },
+  {
+    id: 2,
+    title: 'Test Review 2',
+    content: 'This is the content for Review 2',
+    rating: 2
+  }
+]
+
+>>>>>>> 52c47780d68509a710957079f4ffb89fec68fb7a
 export class ReviewList extends Component {
   constructor (props) {
     super(props)
