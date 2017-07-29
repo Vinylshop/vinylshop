@@ -87,6 +87,6 @@ class ReviewList extends Component {
     testReviews.push(review)
     event.target.title.value = ''
     event.target.content.value = ''
-    event.target.rating.value = ''
+    event.target.rating.value = '';
   }
 }
