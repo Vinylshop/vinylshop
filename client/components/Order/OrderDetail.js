@@ -1,19 +1,24 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import _ from 'lodash'
-import { updateOrder, fetchOrder } from '../../store/orders'
+import React from 'react';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import { updateOrder, fetchOrder } from '../../store/orders';
+import { Link } from 'react-router-dom';
+import Items from './Items'
 
 /* -----------------    COMPONENT     ------------------ */
 
+let orderTotal = 0;
+
 class OrderDetail extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
       order: {
         status: ''
       }
     }
+    this.updateTotal = this.updateTotal.bind(this)
   }
 
   componentDidMount () {
@@ -30,66 +35,81 @@ class OrderDetail extends React.Component {
       order: newProps.order
     })
   }
+  render() {
+    const order = this.state.order;
 
-  render () {
-    const order = this.state.order
-    let orderTotal = 0
-    if (!order) return <div />//if order has yet to load or is invalid
+    // let orderTotal = 0;
+    if (!order.userId) return <div />;//if order has yet to load or is invalid
+
+
+    const creation = order.createdAt.split('T')
     return (
       <div className="container">
         <ul className="list-inline">
           <li>
-            <Link to={`/orders/${order.id}`}>{order.id}</Link>
+            Order #: <Link to={`/orders/${order.id}`}>{order.id}</Link>
           </li>
           <li>
-            <span>Status:{order.status}</span>
+            <span>Status: {order.status}</span>
           </li>
           <li>
-            <span>by</span>
+            <span>Date: {creation[0]} Time: {creation[1].substr(0,5)}</span>
           </li>
           <li>
-            <Link to={`/users/${order.userId}`}>{order.userId}</Link>
+            <span>Shipped To:</span>
           </li>
           <li>
-            <span>on</span>
+            <Link to={`/users/${order.userId}`}>{order.user.username}</Link>
           </li>
           <li>
-            <span>{order.createdAt}</span>
+            <span>{order.address}</span>
+          </li>
+          <li>
+            <span>{order.city}, {order.state}</span>
+          </li>
+          <li>
+            <span>{order.zipCode}</span>
+          </li>
+          <li>
+            Order Items
           </li>
           <li>
             {
               order.orderItems.map(item => (
-                {orderTotal += item.quantity * item.price}
-              <Items key={item.id} item={item} />
+                (  <Items key={item.id} item={item} />)
               ))
             }
           </li>
           <li>
-            <span>SUBTOTAL:{orderTotal}</span>
+            <span>SUBTOTAL: {orderTotal}</span>
           </li>
         </ul>
         <br />
       </div>
-    )
+    );
   }
 
+  updateTotal(quantity, cost) {
+    orderTotal += (quantity * cost)
+  }
 }
+
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({orders}, ownProps) => {
-  const order = orders.find(orderIter => orderIter.id === +ownProps.match.params.id)
-  const OrderId = ownProps.orderId
-  return {order, OrderId}
-}
+const mapState = ({ orders }, ownProps) => {
+  const order = orders.find(orderIter => orderIter.id === +ownProps.match.params.id);
+  const OrderId = ownProps.orderId;
+  return { order, OrderId};
+};
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
     fetchOrderData: () => {
-      const orderId = ownProps.match.params.id
-      dispatch(fetchOrder(OrderId))
+      const orderId = ownProps.match.params.id;
+      dispatch(fetchOrder(orderId));
     }
-  }
-}
+  };
+};
 
-export default connect(mapState, mapDispatch)(OrderDetail)
+export default connect(mapState, mapDispatch)(OrderDetail);

@@ -34,7 +34,7 @@ module.exports = router
  }
 
 
-const attributesToReturn = {attributes: ['id', 'title', 'content', 'rating', 'createdAt', 'updatedAt']}
+const attributesToReturn = {attributes: ['id', 'title', 'content', 'rating', 'createdAt', 'updatedAt', 'productId']}
 /**
  * ReviewID Param
  * returns

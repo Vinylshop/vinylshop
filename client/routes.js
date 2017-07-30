@@ -10,6 +10,7 @@ import ReviewList from './components/Review/ReviewList'
 import ProductList from './components/Product/ProductList'
 import ProductDetail from './components/Product/ProductDetail'
 import OrderList from './components/Order/OrderList'
+import OrderDetail from './components/Order/OrderDetail'
 import { fetchOrders } from './store/orders'
 import {fetchUsers} from './store/users'
 import UserList from './components/User/UserList'
@@ -38,7 +39,7 @@ class Routes extends Component {
             <Route path="/products" component={ProductList}/>
             <Route exact path='/users' component={UserList} />
             <Route path='/users/:id' component={UserDetail} />
-            <Route path='/reviews' component={ReviewList} />
+            <Route exact path='/reviews' component={ReviewList} />
             {
               isLoggedIn
                 ? <Switch>
@@ -48,6 +49,7 @@ class Routes extends Component {
             }
             {/* Displays our Login component as a fallback */}
             <Route exact path="/orders" component={OrderList}/>
+            <Route path='/orders/:id' component={OrderDetail}/>
             <Route component={Login} />
           </Switch>
         </Main>

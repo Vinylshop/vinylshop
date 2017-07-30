@@ -1,91 +1,90 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { updateOrder } from '../../store/orders'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { updateOrder } from '../../store/orders';
+
 
 /* -----------------    COMPONENT     ------------------ */
-const orderState = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED',]
+const orderState = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED']
 
 class OrderItem extends Component {
-  constructor (props) {
+  constructor(props){
     super(props)
 
     this.renderOrderChange = this.renderOrderChange.bind(this)
     this.onChangeHandler = this.onChangeHandler.bind(this)
   }
-
-  render () {
-    const {order} = this.props
+  render() {
+    const { order } = this.props
     const isAdmin = true
+    const creation = order.createdAt.split('T')
     return (
-      <li className="list-group-item">
-        <ul className="list-inline">
-          <li>
-            <Link className="large-font" to={`/orders/${order.id}`}>Order #:{order.id}</Link>
-          </li>
-          <li>
-            <span>by</span>
-          </li>
-          <li>
-            <Link to={`/users/${order.userId}`}>User: {order.userId}</Link>
-          </li>
-          <li>
-            <span>on</span>
-          </li>
-          <li>
-            <span>{order.createdAt}</span>
-          </li>
-          <li>
-            <span>{order.status}</span>
-          </li>
-        </ul>
+      <div>
+        <li className="list-group-item">
+          <ul className="list-inline">
+            <li>
+              Order #: <Link to={`/orders/${order.id}`}>{order.id}</Link>
+            </li>
+            <li>
+              <span>Status: {order.status}</span>
+            </li>
+            <li>
+              <span>Date: {creation[0]} Time: {creation[1].substr(0,5)}</span>
+            </li>
+            <li>
+              <span>Shipped To:</span>
+            </li>
+            <li>
+              <Link to={`/users/${order.userId}`}>{order.user.username}</Link>
+            </li>
+          </ul>
+
+        </li>
         {
           isAdmin && this.renderOrderChange()
 
         }
-      </li>
-    )
-  }
-
-  renderOrderChange () {
-    return (
-      <div className="list-group-item">
-        <ul className="list-inline">
-          <li>
-            <select
-              name="status"
-              defaultValue=""
-              onChange={this.onChangeHandler}
-              required
-            >
-
-              <option value="" disabled>(Change Order Status)</option>
-              {
-                orderState.map((status, i) => (
-                  <option key={i} value={status}>{status}</option>
-                ))
-              }
-            </select>
-          </li>
-
-        </ul>
-        <span className="glyphicon glyphicon-search"/>
       </div>
-    )
+    );
   }
 
-  onChangeHandler (event) {
-    let updateOrder = {
+  renderOrderChange() {
+    return (
+      <div>
+
+        <select
+          name="status"
+          defaultValue=""
+          onChange={this.onChangeHandler}
+          required
+        >
+
+          <option value="" disabled>(Change Order Status)</option>
+          {
+            orderState.map((status, i) => (
+              <option key={i} value={status}>{status}</option>
+            ))
+          }
+        </select>
+
+        <span className="glyphicon glyphicon-search" />
+      </div>
+    );
+  }
+
+  onChangeHandler(event){
+    let upOrder = {
       status: event.target.value
     }
-    // console.log(this.props)
-    // this.props.updateOrder()(this.props.order.orderId, updateOrder)
+    this.props.updateOrder(this.props.order.id, upOrder)
+    event.target.value = ''
   }
 }
 
+
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = null
-const mapDispatch = ({updateOrder}) => ({updateOrder})
+const mapState = null;
+const mapDispatch = {updateOrder}
 
-export default connect(mapState, mapDispatch)(OrderItem)
+export default connect(mapState, mapDispatch)(OrderItem);

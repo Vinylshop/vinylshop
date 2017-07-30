@@ -13,16 +13,16 @@ class Items extends Component {
       <li className="list-group-item">
         <ul className="list-inline">
           <li>
-            <span>Quantity:{item.quantity}</span>
+            <span>Quantity: {item.quantity}</span>
           </li>
           <li>
-            <span>Price:{item.price}</span>
+            <span>Price: {item.price}</span>
           </li>
           <li>
-            <Link to={`/products/${item.productId}`}>{item.productId}</Link>
+            <Link to={`/products/${item.productId}`}>{item.product.title}</Link>
           </li>
           <li>
-            <span> ---> {item.quantity*item.price}</span>
+            <span> item total:  {item.quantity*item.price}</span>
           </li>
         </ul>
       </li>
@@ -34,6 +34,6 @@ class Items extends Component {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapState = null;
-const mapDispatch = { };
+const mapDispatch = null;
 
-export default connect(mapState, mapDispatch)(StoryItem);
+export default connect(mapState, mapDispatch)(Items);
