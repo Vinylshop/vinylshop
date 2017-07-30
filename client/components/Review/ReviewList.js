@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchReviews, addReview } from '../../store/review'
-import { fetchProduct, fetchProducts } from '../../store/product'
+import { fetchProduct, fetchProducts } from '../../store'
 import ReviewItem from './ReviewItem'
 
 /* -----------------    COMPONENT     ------------------ */

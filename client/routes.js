@@ -1,18 +1,21 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Router} from 'react-router'
-import {Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Router } from 'react-router'
+import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome} from './components'
+import { Main, Login, Signup, UserHome } from './components'
+import { me, fetchProducts } from './store'
 import ReviewList from './components/Review/ReviewList'
-import {me} from './store'
+import ProductList from './components/Product/ProductList'
+import ProductDetail from './components/Product/ProductDetail'
 import OrderList from './components/Order/OrderList'
 import OrderDetail from './components/Order/OrderDetail'
 import { fetchOrders } from './store/orders'
 import {fetchUsers} from './store/users'
 import UserList from './components/User/UserList'
 import UserDetail from './components/User/UserDetail'
+
 /**
  * COMPONENT
  */
@@ -32,6 +35,8 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/products/:id/reviews" component={ReviewList} />
+            <Route path="/products/:id" component={ProductDetail}/>
+            <Route path="/products" component={ProductList}/>
             <Route exact path='/users' component={UserList} />
             <Route path='/users/:id' component={UserDetail} />
             <Route exact path='/reviews' component={ReviewList} />
@@ -70,6 +75,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchUsers())
       dispatch(fetchOrders())
       dispatch(me())
+      dispatch(fetchProducts())
     }
   }
 }
