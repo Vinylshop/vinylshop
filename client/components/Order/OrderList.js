@@ -7,7 +7,7 @@ import OrderItem from './OrderItem';
 
 
 
-const orderState = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED']
+const orderState = ['ALL', 'CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED']
 
 const fakeOrders = [{
   id: 1,
@@ -34,7 +34,7 @@ class OrderList extends React.Component {
     super(props);
 
     this.state = {
-      status: '',
+      status: 'ALL',
       name: ''
     };
 
@@ -87,7 +87,8 @@ class OrderList extends React.Component {
 
 
   filterOrder(order) {
-    const statusMatch = new RegExp(this.state.status, 'i');
+    const statusMatch = (this.state.status !== "ALL") ? new RegExp(this.state.status, 'i') :
+                        new RegExp('', 'i')
     return statusMatch.test(order.status)
   }
 }

@@ -5,12 +5,18 @@ import { updateOrder } from '../../store/orders';
 
 
 /* -----------------    COMPONENT     ------------------ */
-const orderState = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED']
+const orderState = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED',]
 
 class OrderItem extends Component {
+  constructor(props){
+    super(props)
+
+    this.renderOrderChange = this.renderOrderChange.bind(this)
+    this.onChangeHandler = this.onChangeHandler.bind(this)
+  }
   render() {
-    const { order, removeOrder} = this.props
-    const isAdmin = false
+    const { order } = this.props
+    const isAdmin = true
     return (
       <li className="list-group-item">
         <ul className="list-inline">
@@ -29,14 +35,18 @@ class OrderItem extends Component {
           <li>
             <span>{order.createdAt}</span>
           </li>
+          <li>
+            <span>{order.status}</span>
+          </li>
         </ul>
         {
-          isAdmin && renderOrderChange()
+          isAdmin && this.renderOrderChange()
 
         }
       </li>
     );
   }
+
   renderOrderChange() {
     return (
       <div className="list-group-item">
@@ -45,7 +55,7 @@ class OrderItem extends Component {
             <select
               name="status"
               defaultValue=""
-              onChange={onChangeHandler}
+              onChange={this.onChangeHandler}
               required
             >
 
@@ -68,7 +78,8 @@ class OrderItem extends Component {
     let updateOrder = {
       status: event.target.value
     }
-    props.updateOrder(props.order.orderId, updateOrder)
+    // console.log(this.props)
+    // this.props.updateOrder()(this.props.order.orderId, updateOrder)
   }
 }
 
