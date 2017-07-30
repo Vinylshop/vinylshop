@@ -5,20 +5,22 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome} from './components'
-import {ReviewList} from './components/Review/ReviewList'
+import ReviewList from './components/Review/ReviewList'
 import {me} from './store'
-
+import OrderList from './components/Order/OrderList'
+import { fetchOrders } from './store/orders'
+import {fetchUsers} from './store/users'
+import UserList from './components/User/UserList'
+import UserDetail from './components/User/UserDetail'
 /**
  * COMPONENT
  */
 class Routes extends Component {
-
   componentDidMount () {
     this.props.loadInitialData()
   }
 
   render () {
-
     const {isLoggedIn} = this.props
 
     return (
@@ -28,15 +30,19 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/reviews" component={ReviewList} />
+            <Route path="/products/:id/reviews" component={ReviewList} />
+            <Route exact path='/users' component={UserList} />
+            <Route path='/users/:id' component={UserDetail} />
+            <Route path='/reviews' component={ReviewList} />
             {
-              isLoggedIn ?
-                <Switch>
+              isLoggedIn
+                ? <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
+                  <Route path='/home' component={UserHome} />
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
+            <Route exact path="/orders" component={OrderList}/>
             <Route component={Login} />
           </Switch>
         </Main>
@@ -59,7 +65,9 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
+      dispatch(fetchOrders())
       dispatch(me())
+      dispatch(fetchUsers())
     }
   }
 }

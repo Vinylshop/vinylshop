@@ -60,9 +60,12 @@ router.param('reviewId', (req, res, next, id) => {
  * GET
  * returns all reviews
  */
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> master
 router.get('/', (req, res, next) => {
   Review.findAll(attributesToReturn)
     .then(reviews => res.json(reviews))
