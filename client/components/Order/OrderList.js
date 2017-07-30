@@ -7,8 +7,27 @@ import OrderItem from './OrderItem';
 
 
 
-const orderState = ['CREATED', 'MOVED','SHIPPED', 'RECIEVED']
+const orderState = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED']
 
+const fakeOrders = [{
+  id: 1,
+  status: 'CREATED'
+},{
+  id: 2,
+  status: 'CREATED'
+},{
+  id: 3,
+    status: 'CREATED'
+},{
+  id: 4,
+    status: 'PROCESSING'
+},{
+  id: 5,
+  status: 'PROCESSING'
+},{
+  id: 6,
+  status: 'PROCESSING'
+}]
 
 class OrderList extends React.Component {
   constructor(props) {
@@ -32,9 +51,9 @@ class OrderList extends React.Component {
 
         <ul className="list-group">
           {
-            this.props.orders
+            fakeOrders
             .filter(this.filterOrder)
-            .map(order => <OrderItem order={order} key={order.id} />)
+            .map((order, i) => <OrderItem order={order} key={i} />)
           }
         </ul>
       </div>
@@ -43,26 +62,23 @@ class OrderList extends React.Component {
 
   renderOrderSearch() {
     return (
-      <div className="list-group-item">
-        <ul className="list-inline">
-          <li>
-            <select
-              name="status"
-              defaultValue=""
-              onChange={evt => this.setState({status: evt.target.value})}
-              required
-            >
+      <div>
 
-              <option value="" disabled>(select a status to filter by)</option>
-              {
-                orderState.map((stat, i) => (
-                  <option key={i} value={stat}>{stat}</option>
-                ))
-              }
-            </select>
-          </li>
+        <select
+          name="status"
+          defaultValue=""
+          onChange={evt => this.setState({status: evt.target.value})}
+          required
+        >
 
-        </ul>
+          <option value="" disabled>(select a status to filter by)</option>
+          {
+            orderState.map((stat, i) => (
+              <option key={i} value={stat}>{stat}</option>
+            ))
+          }
+        </select>
+
         <span className="glyphicon glyphicon-search" />
       </div>
     );
@@ -70,7 +86,7 @@ class OrderList extends React.Component {
 
 
 
-  filterOrder(story) {
+  filterOrder(order) {
     const statusMatch = new RegExp(this.state.status, 'i');
     return statusMatch.test(order.status)
   }

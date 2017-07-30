@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { removeOrder } from '../../store/orders';
+import { updateOrder } from '../../store/orders';
 
 
 /* -----------------    COMPONENT     ------------------ */
+const orderState = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED']
 
 class OrderItem extends Component {
   render() {
-    const { order, removeOrder} = this.props;
-    const isAdmin = false;
+    const { order, removeOrder} = this.props
+    const isAdmin = false
     return (
       <li className="list-group-item">
         <ul className="list-inline">
@@ -30,15 +31,44 @@ class OrderItem extends Component {
           </li>
         </ul>
         {
-          isAdmin &&
-          (<button
-            className="btn btn-default btn-xs"
-            onClick={ () => removeOrder(order.id) }>
-            <span className="glyphicon glyphicon-remove" />
-          </button>)
+          isAdmin && renderOrderChange()
+
         }
       </li>
     );
+  }
+  renderOrderChange() {
+    return (
+      <div className="list-group-item">
+        <ul className="list-inline">
+          <li>
+            <select
+              name="status"
+              defaultValue=""
+              onChange={onChangeHandler}
+              required
+            >
+
+              <option value="" disabled>(Change Order Status)</option>
+              {
+                orderState.map((status, i) => (
+                  <option key={i} value={status}>{status}</option>
+                ))
+              }
+            </select>
+          </li>
+
+        </ul>
+        <span className="glyphicon glyphicon-search" />
+      </div>
+    );
+  }
+
+  onChangeHandler(event){
+    let updateOrder = {
+      status: event.target.value
+    }
+    props.updateOrder(props.order.orderId, updateOrder)
   }
 }
 
@@ -46,6 +76,6 @@ class OrderItem extends Component {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapState = null;
-const mapDispatch = ({removeOrder}) => ({ removeOrder });
+const mapDispatch = ({updateOrder}) => ({ updateOrder });
 
 export default connect(mapState, mapDispatch)(OrderItem);
