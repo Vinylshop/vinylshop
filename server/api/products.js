@@ -12,6 +12,25 @@ module.exports = router
  */
 const attributesToReturn = {attributes: ['id', 'title', 'description', 'price', 'images']}
 
+function isLoggedIn(req, res,next){
+  if(req.user){
+    next()
+  }else{
+    const error = new Error('Not allowed!!')
+    error.status = 401
+    next(error)
+  }
+}
+
+function isAdmin(req, res, next){
+  if(req.user.isAdmin){
+    next()
+  }else{
+    const error = new Error('Must have admin privileges')
+    error.status = 401
+    next(error)
+  }
+}
 /**
  * ProductID Param
  * returns
@@ -58,6 +77,7 @@ router.get('/:productId', (req, res, next) => {
  * POST
  * creates and returns new Product
  */
+ //router.post('/', isAdmin, (req, res, next) => {
 router.post('/', (req, res, next) => {
   Product.create(req.body)
     .then(product => res.status(201).json(product))
@@ -69,6 +89,7 @@ router.post('/', (req, res, next) => {
  * PUT
  * updates and existing product by its productId
  */
+//router.put('/:productId', isAdmin ,(req, res, next) => {
 router.put('/:productId', (req, res, next) => {
   Product.update(req.body, {where: {id: req.product.id}})
     .then(product => res.status(200).json(product))
@@ -80,6 +101,7 @@ router.put('/:productId', (req, res, next) => {
  * DEL
  * deletes an existing product by its productId
  */
+ //router.delete('/:productId', isAdmin,(req, res, next) => {
 router.delete('/:productId', (req, res, next) => {
   req.product.destroy()
     .then(() => res.status(204).end())
