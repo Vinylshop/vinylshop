@@ -5,7 +5,7 @@ import { updateOrder } from '../../store/orders';
 
 
 /* -----------------    COMPONENT     ------------------ */
-const orderState = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED',]
+const orderState = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED']
 
 class OrderItem extends Component {
   constructor(props){
@@ -16,7 +16,7 @@ class OrderItem extends Component {
   }
   render() {
     const { order } = this.props
-    const isAdmin = true
+    const isAdmin = false
     return (
       <li className="list-group-item">
         <ul className="list-inline">
@@ -27,7 +27,7 @@ class OrderItem extends Component {
             <span>by</span>
           </li>
           <li>
-            <Link to={`/users/${order.userId}`}>User: {order.userId}</Link>
+            <Link to={`/users/${order.userId}`}>User: {order.user.username}</Link>
           </li>
           <li>
             <span>on</span>
@@ -36,7 +36,7 @@ class OrderItem extends Component {
             <span>{order.createdAt}</span>
           </li>
           <li>
-            <span>{order.status}</span>
+            <span>Status: {order.status}</span>
           </li>
         </ul>
         {
@@ -49,8 +49,8 @@ class OrderItem extends Component {
 
   renderOrderChange() {
     return (
-      <div className="list-group-item">
-        <ul className="list-inline">
+      <div>
+        <ul className="pull-right">
           <li>
             <select
               name="status"
@@ -87,6 +87,10 @@ class OrderItem extends Component {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapState = null;
-const mapDispatch = ({updateOrder}) => ({ updateOrder });
+const mapDispatch = (dispatch) => ({
+  // updateOrder: (id, updatedOrder) => ({
+  //   dispatch(updateOrder(id, updatedOrder));
+  // })
+})
 
 export default connect(mapState, mapDispatch)(OrderItem);

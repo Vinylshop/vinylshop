@@ -2,8 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { updateOrder, fetchOrder } from '../../store/orders';
+import { Link } from 'react-router-dom';
+import Items from './Items'
 
 /* -----------------    COMPONENT     ------------------ */
+
+let orderTotal = 0;
 
 class OrderDetail extends React.Component {
   constructor(props) {
@@ -14,6 +18,7 @@ class OrderDetail extends React.Component {
         status: ''
       }
     }
+    this.updateTotal = this.updateTotal.bind(this)
   }
 
   componentDidMount () {
@@ -30,42 +35,42 @@ class OrderDetail extends React.Component {
       order: newProps.order
     })
   }
-
   render() {
     const order = this.state.order;
-    let orderTotal = 0;
-    if (!order) return <div />;//if order has yet to load or is invalid
+
+    // let orderTotal = 0;
+    if (!order.userId) return <div />;//if order has yet to load or is invalid
+
+
+    const creation = order.createdAt.split('T')
     return (
       <div className="container">
         <ul className="list-inline">
           <li>
-            <Link to={`/orders/${order.id}`}>{order.id}</Link>
+            Order #: <Link to={`/orders/${order.id}`}>{order.id}</Link>
           </li>
           <li>
-            <span>Status:{order.status}</span>
+            <span>Status: {order.status}</span>
           </li>
           <li>
-            <span>by</span>
+            <Link to={`/users/${order.userId}`}>{order.user.username}</Link>
+          </li>
+
+          <li>
+            <span>Date: {creation[0]} Time: {creation[1].substr(0,5)}</span>
           </li>
           <li>
-            <Link to={`/users/${order.userId}`}>{order.userId}</Link>
-          </li>
-          <li>
-            <span>on</span>
-          </li>
-          <li>
-            <span>{order.createdAt}</span>
+            Order Items
           </li>
           <li>
             {
               order.orderItems.map(item => (
-                {orderTotal += item.quantity * item.price}
-                  <Items key={item.id} item={item} />
+                (  <Items key={item.id} item={item} />)
               ))
             }
           </li>
           <li>
-            <span>SUBTOTAL:{orderTotal}</span>
+            <span>SUBTOTAL: {orderTotal}</span>
           </li>
         </ul>
         <br />
@@ -73,6 +78,9 @@ class OrderDetail extends React.Component {
     );
   }
 
+  updateTotal(quantity, cost) {
+    orderTotal += (quantity * cost)
+  }
 }
 
 
@@ -88,7 +96,7 @@ const mapDispatch = (dispatch, ownProps) => {
   return {
     fetchOrderData: () => {
       const orderId = ownProps.match.params.id;
-      dispatch(fetchOrder(OrderId));
+      dispatch(fetchOrder(orderId));
     }
   };
 };

@@ -9,26 +9,6 @@ import OrderItem from './OrderItem';
 
 const orderState = ['ALL', 'CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED']
 
-const fakeOrders = [{
-  id: 1,
-  status: 'CREATED'
-},{
-  id: 2,
-  status: 'CREATED'
-},{
-  id: 3,
-    status: 'CREATED'
-},{
-  id: 4,
-    status: 'PROCESSING'
-},{
-  id: 5,
-  status: 'PROCESSING'
-},{
-  id: 6,
-  status: 'PROCESSING'
-}]
-
 class OrderList extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +24,7 @@ class OrderList extends React.Component {
 
   render() {
     const isAdmin = true
-    if (!this.props.orders.length) return (<div>NO ORDERS TO DISPLAY</div>)
+    if (!this.props.orders.length) return (<div> NO ORDERS TO DISPLAY </div>)
     return (
       <div className="container">
         { isAdmin && this.renderOrderSearch() }
