@@ -19,7 +19,7 @@ class ProductList extends Component {
     this.renderProductSearch = this.renderProductSearch.bind(this)
     this.filterProduct = this.filterProduct.bind(this)
     this.renderProducts = this.renderProducts.bind(this)
-    this.renderAddProduct = this.renderAddProduct.bind(this)
+    this.renderAddProductForm = this.renderAddProductForm.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
 
@@ -30,7 +30,7 @@ class ProductList extends Component {
         <hr />
         { this.renderProductSearch() }
         <br />
-        { this.renderAddProduct() }
+        { this.renderAddProductForm() }
         <br />
         <div className="product-list">
           { this.renderProducts() }
@@ -86,7 +86,7 @@ class ProductList extends Component {
       && product.quantity > 0
   }
 
-  renderAddProduct () {
+  renderAddProductForm () {
     return (
       <div className="container-fluid">
         <form className="list-group-item" onSubmit={this.onSubmit}>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { updateProduct, fetchProduct } from '../../store'
+import ImageWithStatusText from '../Utils/ImageWithStatusText'
 
 /**
  * COMPONENT
@@ -21,6 +22,11 @@ class ProductDetail extends Component {
       }
     }
     this.onProductUpdate = this.onProductUpdate.bind(this)
+    this.renderProductDetailForm = this.renderProductDetailForm.bind(this)
+    this.renderProductDetail = this.renderProductDetail.bind(this)
+    this.renderProductImage = this.renderProductImage.bind(this)
+    this.renderProductMainTitle = this.renderProductMainTitle.bind(this)
+    this.renderProductDescription = this.renderProductDescription.bind(this)
   }
 
   componentDidMount () {
@@ -37,14 +43,75 @@ class ProductDetail extends Component {
     })
   }
 
+  /**
+   *   PRODUCT DETAIL COMPONENT
+   *
+   *****************************************************/
   render () {
-    const product = this.state.product
-    if (!product) return <div />
     return (
       <div className="container product-container">
         <h1>Product Detail</h1>
         <hr />
-        Title, Price, Description, imageUrl<br />
+        { this.renderProductDetailForm() }
+        <hr />
+        { this.renderProductDetail() }
+        { this.renderProductDescription() }
+      </div>
+    )
+  }
+
+  /*****************************************************/
+
+  renderProductDetail () {
+    const product = this.state.product
+    if (!product) return <div />
+    return (
+      <div>
+        {this.renderProductMainTitle()}
+        {this.renderProductImage()}
+      </div>
+    )
+  }
+
+  renderProductMainTitle () {
+    const product = this.state.product
+    if (!product || !product.images) return <div />
+    return (
+      <div className="container-fluid">
+        <h2>{product.title}</h2>
+      </div>
+    )
+  }
+
+  renderProductImage () {
+    const height = 240
+    const width = 320
+    const product = this.state.product
+    if (!product.images) return <div />
+    return (
+      <div className="container-fluid">
+        <ImageWithStatusText imageUrl={product.images} height={height} width={width}/>
+      </div>
+    )
+  }
+
+  renderProductDescription () {
+    const product = this.state.product
+    if (!product.images) return <div />
+    return (
+      <div className="container-fluid">
+        {product.description}
+      </div>
+    )
+  }
+
+  renderProductDetailForm () {
+    const product = this.state.product
+    if (!product) return <div />
+    return (
+      <div>
+        <h4>Detail Form</h4>
+        Title, Price, Description, Quantity, imageUrl<br />
         <form className="list-group-item product-item" onSubmit={this.onSubmit}>
           <input
             className="form-like large-font"
