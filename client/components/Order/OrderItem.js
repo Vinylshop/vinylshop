@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { updateOrder } from '../../store/orders';
-
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { updateOrder } from '../../store/orders'
 
 /* -----------------    COMPONENT     ------------------ */
 const orderState = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED',]
 
 class OrderItem extends Component {
-  constructor(props){
+  constructor (props) {
     super(props)
 
     this.renderOrderChange = this.renderOrderChange.bind(this)
     this.onChangeHandler = this.onChangeHandler.bind(this)
   }
-  render() {
-    const { order } = this.props
+
+  render () {
+    const {order} = this.props
     const isAdmin = true
     return (
       <li className="list-group-item">
@@ -44,10 +44,10 @@ class OrderItem extends Component {
 
         }
       </li>
-    );
+    )
   }
 
-  renderOrderChange() {
+  renderOrderChange () {
     return (
       <div className="list-group-item">
         <ul className="list-inline">
@@ -69,12 +69,12 @@ class OrderItem extends Component {
           </li>
 
         </ul>
-        <span className="glyphicon glyphicon-search" />
+        <span className="glyphicon glyphicon-search"/>
       </div>
-    );
+    )
   }
 
-  onChangeHandler(event){
+  onChangeHandler (event) {
     let updateOrder = {
       status: event.target.value
     }
@@ -83,10 +83,9 @@ class OrderItem extends Component {
   }
 }
 
-
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = null;
-const mapDispatch = ({updateOrder}) => ({ updateOrder });
+const mapState = null
+const mapDispatch = ({updateOrder}) => ({updateOrder})
 
-export default connect(mapState, mapDispatch)(OrderItem);
+export default connect(mapState, mapDispatch)(OrderItem)

@@ -1,13 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import _ from 'lodash';
-import { updateOrder, fetchOrder } from '../../store/orders';
+import React from 'react'
+import { connect } from 'react-redux'
+import _ from 'lodash'
+import { updateOrder, fetchOrder } from '../../store/orders'
 
 /* -----------------    COMPONENT     ------------------ */
 
 class OrderDetail extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       order: {
@@ -31,10 +31,10 @@ class OrderDetail extends React.Component {
     })
   }
 
-  render() {
-    const order = this.state.order;
-    let orderTotal = 0;
-    if (!order) return <div />;//if order has yet to load or is invalid
+  render () {
+    const order = this.state.order
+    let orderTotal = 0
+    if (!order) return <div />//if order has yet to load or is invalid
     return (
       <div className="container">
         <ul className="list-inline">
@@ -60,7 +60,7 @@ class OrderDetail extends React.Component {
             {
               order.orderItems.map(item => (
                 {orderTotal += item.quantity * item.price}
-                  <Items key={item.id} item={item} />
+              <Items key={item.id} item={item} />
               ))
             }
           </li>
@@ -70,27 +70,26 @@ class OrderDetail extends React.Component {
         </ul>
         <br />
       </div>
-    );
+    )
   }
 
 }
 
-
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ orders }, ownProps) => {
-  const order = orders.find(orderIter => orderIter.id === +ownProps.match.params.id);
-  const OrderId = ownProps.orderId;
-  return { order, OrderId};
-};
+const mapState = ({orders}, ownProps) => {
+  const order = orders.find(orderIter => orderIter.id === +ownProps.match.params.id)
+  const OrderId = ownProps.orderId
+  return {order, OrderId}
+}
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
     fetchOrderData: () => {
-      const orderId = ownProps.match.params.id;
-      dispatch(fetchOrder(OrderId));
+      const orderId = ownProps.match.params.id
+      dispatch(fetchOrder(OrderId))
     }
-  };
-};
+  }
+}
 
-export default connect(mapState, mapDispatch)(StoryDetail);
+export default connect(mapState, mapDispatch)(OrderDetail)

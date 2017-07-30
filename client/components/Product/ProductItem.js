@@ -15,11 +15,11 @@ class ProductItem extends Component {
       <div>
         <Link className="large-font" to={`/products/${product.id}`}>{product.title}</Link>
         {
-          authorized ? <button
+          <button
             className="btn btn-default btn-xs"
-            onClick={ () => removeProduct(product.title) }>
+            onClick={ () => removeProduct(product.id, product) }>
+            X
           </button>
-            : null
         }
       </div>
     )

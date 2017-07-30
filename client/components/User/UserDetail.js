@@ -3,26 +3,26 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import { Link, NavLink } from 'react-router-dom'
 import UserItem from '../User/UserItem'
-import OrderItem from './OrderItem'
-// import { updateUser } from '../../store/users'
+import OrderItem from '../Order/OrderItem'
+import { updateUser } from '../../store/users'
 
 /* -----------------    COMPONENT     ------------------ */
 
 const UserDetail = (props) => {
-  const { user, orders } = this.props
+  const { user, orders } = props
 
   return (
     <div className='container'>
       <div className='row'>
         <div className='col'>
-          <UserItem campus={user} />
+          <UserItem user={user} />
           <ul>
             <li>
               {
-              orders
-              .filter(order => order.userId === user.id)
-              .map(order => <OrderItem order={order} key={order.id} />)
-            }
+                orders
+                .filter(order => order.userId === user.id)
+                .map(order => <OrderItem order={order} key={order.id} />)
+              }
             </li>
           </ul>
         </div>

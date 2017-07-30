@@ -8,6 +8,7 @@ import { Main, Login, Signup, UserHome } from './components'
 import { me, fetchProducts } from './store'
 import ReviewList from './components/Review/ReviewList'
 import ProductList from './components/Product/ProductList'
+import ProductDetail from './components/Product/ProductDetail'
 import OrderList from './components/Order/OrderList'
 import { fetchOrders } from './store/orders'
 import {fetchUsers} from './store/users'
@@ -33,6 +34,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/products/:id/reviews" component={ReviewList} />
+            <Route path="/products/:id" component={ProductDetail}/>
             <Route path="/products" component={ProductList}/>
             <Route exact path='/users' component={UserList} />
             <Route path='/users/:id' component={UserDetail} />
@@ -68,10 +70,10 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
+      dispatch(fetchUsers())
       dispatch(fetchOrders())
       dispatch(me())
       dispatch(fetchProducts())
-      dispatch(fetchUsers())
     }
   }
 }

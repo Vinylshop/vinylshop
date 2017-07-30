@@ -16,6 +16,7 @@ class ProductDetail extends Component {
         title: '',
         description: '',
         price: '',
+        quantity: '',
         images: ''
       }
     }
@@ -31,7 +32,7 @@ class ProductDetail extends Component {
       this.props.fetchProductData()
     }
 
-    this.state({
+    this.setState({
       product: newProps.product
     })
   }
@@ -41,32 +42,49 @@ class ProductDetail extends Component {
     if (!product) return <div />
     return (
       <div className="container product-container">
-        <ul className="list-inline large-font">
-          <li>
-            <input
-              className="form-like large-font"
-              value={product.title}
-              onChange={evt => this.onProductUpdate({title: evt.target.value})}
-            />
-            <input
-              className="form-like large-font"
-              value={product.description}
-              onChange={evt => this.onProductUpdate({description: evt.target.value})}
-            />
-            <input
-              className="form-like large-font"
-              value={product.price}
-              onChange={evt => this.onProductUpdate({price: evt.target.value})}
-            />
-            <input
-              className="form-like large-font"
-              value={product.images}
-              onChange={evt => this.onProductUpdate({images: evt.target.value})}
-            />
-          </li>
-        </ul>
+        <h1>Product Detail</h1>
+        <hr />
+        Title, Price, Description, imageUrl<br />
+        <form className="list-group-item product-item" onSubmit={this.onSubmit}>
+          <input
+            className="form-like large-font"
+            value={product.title}
+            onChange={evt => this.onProductUpdate({title: evt.target.value})}
+          />
+          <input
+            className="form-like large-font"
+            value={product.description}
+            onChange={evt => this.onProductUpdate({description: evt.target.value})}
+          />
+          <input
+            className="form-like large-font"
+            value={product.price}
+            onChange={evt => this.onProductUpdate({price: evt.target.value})}
+          />
+          <input
+            className="form-like large-font"
+            value={product.quantity}
+            onChange={evt => this.onProductUpdate({quantity: evt.target.value})}
+          />
+          <input
+            className="form-like large-font"
+            value={product.images}
+            onChange={evt => this.onProductUpdate({images: evt.target.value})}
+          />
+          <button
+            type="submit"
+            className="btn btn-default">
+            <span className="glyphicon glyphicon-plus"/>
+            Submit
+          </button>
+        </form>
       </div>
     )
+  }
+
+  onSubmit (evt) {
+    this.preventDefault()
+    this.onProductUpdate(this.state.product)
   }
 
   onProductUpdate (productUpdateObj) {

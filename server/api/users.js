@@ -22,6 +22,8 @@ function isAdmin (req, res, next) {
   }
 }
 
+const attributesToReturn = { attributes: [ 'username', 'email', 'isAdmin', 'id']}
+
 router.param('userId', (req, res, next, id) => {
   User.findById(id)
     .then(user => {

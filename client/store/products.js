@@ -56,10 +56,11 @@ export const fetchProduct = (id) => dispatch => {
     .catch(err => console.error(`Fetching product unsuccessful`, err))
 }
 
-export const removeProduct = (id) => dispatch => {
-  dispatch(remove(id))
-  axios.delete(`/api/products/${id}`)
-    .catch(err => console.error(`Removing product: ${id} unsuccessful`, err))
+export const removeProduct = (id, product) => dispatch => {
+  const obj = Object.assign({}, product, {quantity: 0})
+  axios.put(`/api/products/${id}`, obj)
+    .then(() => dispatch(remove(id)))
+    .catch(err => console.error(`Removing product inventory: ${id} unsuccessful`, err))
 }
 
 export const addProduct = (product) => dispatch => {
