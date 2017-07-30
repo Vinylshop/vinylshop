@@ -2,33 +2,73 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { Link, NavLink } from 'react-router-dom'
-import UserItem from '../User/UserItem'
+import UserItem from './UserItem'
 import OrderItem from '../Order/OrderItem'
 import { updateUser } from '../../store/users'
 
 /* -----------------    COMPONENT     ------------------ */
+const adminState = ['true', 'false']
+const promptState = ['true', 'false']
 
-const UserDetail = (props) => {
-  const { user, orders } = props
+class UserDetail extends Component {
+  constructor (props) {
+    super(props)
+    this.renderAdminChange = this.renderAdminChange.bind(this)
+    this.handleAdminChange = this.handleAdminChange.bind(this)
+  }
 
-  return (
-    <div className='container'>
-      <div className='row'>
-        <div className='col'>
-          <UserItem user={user} />
-          <ul>
-            <li>
+  render () {
+    const { user, orders } = this.props
+    const isAdmin = true
+    return (
+      <div className='container'>
+        <div className='row'>
+          <div className='col'>
+            <UserItem user={user} />
+            <div>
+              <span>Administrator: {user.isAdmin}</span>
               {
+              isAdmin && this.renderAdminChange()
+              }
+            </div>
+            <ul>
+              <li>
+                {
                 orders
                 .filter(order => order.userId === user.id)
                 .map(order => <OrderItem order={order} key={order.id} />)
               }
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
+
+  renderAdminChange () {
+    return (
+      <div>
+        <select name='isAdmin' defaultValue='' onChange={this.handleAdminChange} required>
+          <option value='' disabled>(Administrator)</option>
+          {
+            adminState.map((isAdmin, i) => (
+              <option key={i} value={isAdmin}>{isAdmin}</option>
+            ))
+          }
+        </select>
+        <span className='glyphicon glyphicon-search' />
+      </div>
+    )
+  }
+
+  handleAdminChange (event) {
+    let upAdmin = {
+      isAdmin: event.target.value
+    }
+    this.props.updateUser(this.props.user.id, upAdmin)
+    event.target.value = ''
+  }
 }
 
 /* -----------------    CONTAINER     ------------------ */
