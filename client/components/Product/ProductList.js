@@ -1,101 +1,90 @@
+'use strict'
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { fetchProduct } from '../../store'
 import ProductItem from './ProductItem'
 
 /* -----------------    COMPONENT     ------------------ */
+class ProductList extends Component {
 
-// dummyData
-let testProducts = [
-  {
-    id: 1,
-    title: 'Test Product 1',
-    description: 'This is the content for Review 1',
-    price: 4939,
-    images: '/directory/on/some/server/imageURL.png'
-  },
-  {
-    id: 2,
-    title: 'Test Product 2',
-    description: 'This is the content for Review 2',
-    price: 9493,
-    images: '/directory/on/some/server/imageURL.png'
-  }
-]
-
-export default class ProductList extends Component {
   constructor (props) {
     super(props)
-    this.renderProductForm = this.renderProductForm.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
+    this.state = {
+      title: '',
+      description: '',
+      price: '',
+      images: ''
+    }
+    this.renderProductSearch = this.renderProductSearch.bind(this)
+    this.filterProduct = this.filterProduct.bind(this)
+    this.renderProducts = this.renderProducts.bind(this)
   }
 
   render () {
-    console.log('I\'m here')
+    const {title, description, price, images} = this.state
     return (
-      <div className="container">
-        <ul className="list-group">
-          { this.renderProductForm() }
-          {
-            testProducts
-              .map(product => <ProductItem product={product} key={product.id}/>)
-          }
-        </ul>
+      <div className="container-fluid">
+        <h1>Product List</h1>
+        <hr />
+        { this.renderProductSearch() }
+        <br />
+        <div className="product-list">
+          { this.renderProducts() }
+        </div>
       </div>
     )
   }
 
-  renderProductForm () {
+  renderProducts () {
+    const {products} = this.props
+    return products
+      .filter(this.filterProduct)
+      .map(product => <ProductItem product={product} key={product.id}/>)
+  }
+
+  renderProductSearch () {
     return (
-      <form onSubmit={this.onSubmit}>
-        <ul className="list-inline">
-          <li>
-            <input
-              name="title"
-              type="text"
-              placeholder="Product Title"
-            />
-            <input
-              name="description"
-              type="text"
-              placeholder="Product Description"
-            />
-            <input
-              name="price"
-              type="text"
-              placeholder="Product $$$$"
-            />
-            <input
-              name="images"
-              type="text"
-              placeholder="Product Images"
-            />
-          </li>
-          <button
-            type="submit"
-            className="btn btn-warning btn-xs">
-            <span className="glyphicon glyphicon-plus"/>
-          </button>
-        </ul>
-      </form>
+      <div className="container-fluid">
+        <form className="list-group-item product-item">
+          <input
+            name="title"
+            type="text"
+            className="form-like large-font"
+            placeholder="Product Title"
+            onChange={evt => this.setState({title: evt.target.value})}
+            value={this.state.title}
+          />
+          <input
+            name="description"
+            type="text"
+            className="form-like large-font"
+            placeholder="Product Description"
+            onChange={evt => this.setState({description: evt.target.value})}
+            value={this.state.description}
+          />
+        </form>
+      </div>
     )
   }
 
-  onSubmit (event) {
-    event.preventDefault()
+  filterProduct (product) {
+    const titleMatch = new RegExp(this.state.title, 'i')
+    const descriptionMatch = new RegExp(this.state.description, 'i')
 
-    const product = {
-      title: event.target.title.value,
-      description: event.target.description.value,
-      price: event.target.price.value,
-      images: event.target.images.value
+    console.log(product)
+
+    return titleMatch.test(product.title)
+      && descriptionMatch.test(product.description)
+  }
+
+}
+
+const mapState = ({products}) => ({products})
+const mapDispatch = (dispatch) => {
+  return {
+    fetchProductItem (id) {
+      dispatch(fetchProduct(id))
     }
-
-    testProducts.push(product)
-
-    event.target.title.value = ''
-    event.target.description.value = ''
-    event.target.price.value = ''
-    event.target.images.value = ''
   }
 }
+export default connect(mapState, mapDispatch)(ProductList)

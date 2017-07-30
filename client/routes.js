@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Router} from 'react-router'
-import {Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Router } from 'react-router'
+import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome} from './components'
-import {ReviewList} from './components/Review/ReviewList'
+import { Main, Login, Signup, UserHome } from './components'
+import { ReviewList } from './components/Review/ReviewList'
 import ProductList from './components/Product/ProductList'
-import {me} from './store'
+import { me, fetchProducts } from './store'
 
 /**
  * COMPONENT
@@ -27,19 +27,18 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/reviews" component={ReviewList} />
-            <Route path="/products" component={ProductList} />
+            <Route path="/login" component={Login}/>
+            <Route path="/signup" component={Signup}/>
+            <Route path="/reviews" component={ReviewList}/>
+            <Route path="/products" component={ProductList}/>
             {
-              isLoggedIn ?
-                <Switch>
-                  {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
-                </Switch> : null
+              isLoggedIn ? <Switch>
+                {/* Routes placed here are only available after logging in */}
+                <Route path="/home" component={UserHome}/>
+              </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route component={Login}/>
           </Switch>
         </Main>
       </Router>
@@ -62,6 +61,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
+      dispatch(fetchProducts())
     }
   }
 }
