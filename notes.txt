@@ -1,0 +1,51 @@
+REQUIREMENTS:
+
+	Unauthenticated Users >
+		- View products
+		- Manage a shopping cart
+		- Create an account
+		- Checkout (w/out an acccount)
+
+	Authenticated Users >
+		- Login/logout
+		- Manage their account
+		- Give products reviews
+
+	Admin Users >
+		- Product management
+		- Order management
+		- User management
+
+REACT COMPONENTS:
+
+	- UserList
+	- UserItem
+	- UserDetail
+
+	- ShoppingCart (Local Storage Web API or req.session)
+
+	- ProductList
+	- ProductItem
+	- ProductDetail
+
+	- OrderList
+	- OrderItem
+	- OrderDetail
+
+	- ReviewList
+	- ReviewItem
+	- ReviewDetail
+	
+
+SHOPPING CART:
+
+-	ADD: OrderItem to cart from ProductList or ProductDetail page
+- REMOVE: OrderItem from the cart
+- UPDATE: OrderItem quantities in the cart
+- LOGIN: Cart will persist when a user logs in
+- REFRESH: Cart will persist w/out being logged in
+
+1. The ShoppingCart component seems pretty straightforward
+2. Major question, persistence?  Do we want to use:
+		- req.session
+		- localStorage

@@ -63,7 +63,7 @@ export const addReview = review => dispatch => {
     .catch(err => console.error(`Creating review: ${review} unsuccessful`, err))
 }
 
-export const updateStory = (id, review) => dispatch => {
+export const updateReview = (id, review) => dispatch => {
   axios.put(`/api/reviews/${id}`, review)
     .then(res => dispatch(update(res.data)))
     .catch(err => console.error(`Updating review: ${review} unsuccessful`, err))

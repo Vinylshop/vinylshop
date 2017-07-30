@@ -5,12 +5,29 @@ import { Link } from 'react-router-dom'
 /* -----------------    COMPONENT     ------------------ */
 
 export default class ReviewItem extends Component {
-  render() {
+  render () {
     const { review } = this.props
     return (
-      <li>
-        {review.title}
-      </li>
+      <ul>
+        <li>
+          Review Title:
+          <br />
+          {review.title}
+        </li>
+        <li>
+          Review Content:
+          <br />
+          {review.content}
+        </li>
+        <li>
+          Review Rating: {review.rating}
+        </li>
+        <li>
+          By Customer:
+        </li>
+        <br />
+        <br />
+      </ul>
     )
   }
 }
