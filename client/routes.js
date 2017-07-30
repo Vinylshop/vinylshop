@@ -65,9 +65,9 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
+      dispatch(fetchUsers())
       dispatch(fetchOrders())
       dispatch(me())
-      dispatch(fetchUsers())
     }
   }
 }

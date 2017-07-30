@@ -44,6 +44,7 @@ class OrderList extends React.Component {
 
   render() {
     const isAdmin = true
+    if (!this.props.orders.length) return (<div>NO ORDERS TO DISPLAY</div>)
     return (
       <div className="container">
         { isAdmin && this.renderOrderSearch() }
