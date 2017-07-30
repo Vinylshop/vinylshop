@@ -2,6 +2,26 @@ const router = require('express').Router()
 const {Order} = require('../db/models')
 module.exports = router
 
+function isLoggedIn(req, res,next){
+  if(req.user){
+    next()
+  }else{
+    const error = new Error('Not allowed!!')
+    error.status = 401
+    next(error)
+  }
+}
+
+function isAdmin(req, res, next){
+  if(req.user.isAdmin){
+    next()
+  }else{
+    const error = new Error('Must have admin privileges')
+    error.status = 401
+    next(error)
+  }
+}
+
 router.param('orderId', (req, res, next, id) =>  {
   Order.findById(id)
   .then(order => {
@@ -17,7 +37,7 @@ router.param('orderId', (req, res, next, id) =>  {
   .catch(next)
 })
 
-
+//router.get('/',isLoggedIn ,(req, res, next) => {
 router.get('/', (req, res, next) => {
   Order.findAll({})
     .then(orders => res.json(orders))
@@ -43,14 +63,14 @@ router.get('/status/:statusType', (req, res, next) => {
   .catch(next)
 })
 
-
+//router.get('/:orderId', isLoggedIn ,(req, res, next) => {
 router.get('/:orderId', (req, res, next) => {
   req.order.reload(Order.options.scopes.populated())
   .then(order => res.json(order))
   .catch(next)
 })
 
-
+//router.put('/:orderId', isAdmin ,(req, res, next) => {
 router.put('/:orderId', (req, res, next) => {
   req.order.update(req.body)
   .then(order => order.reload(Order.options.scopes.populated()))
@@ -58,6 +78,7 @@ router.put('/:orderId', (req, res, next) => {
   .catch(next)
 })
 
+//router.delete('/:orderId', isAdmin ,(req, res, next) => {
 router.delete('/:orderId', (req, res, next) => {
   req.order.destroy()
   .then(() => res.status(204).end())
