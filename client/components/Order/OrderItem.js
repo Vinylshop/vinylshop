@@ -77,6 +77,7 @@ class OrderItem extends Component {
       status: event.target.value
     }
     this.props.updateOrder(this.props.order.id, upOrder)
+    event.target.value = ''
   }
 }
 
