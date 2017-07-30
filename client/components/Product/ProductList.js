@@ -21,7 +21,6 @@ class ProductList extends Component {
   }
 
   render () {
-    const {title, description, price, images} = this.state
     return (
       <div className="container-fluid">
         <h1>Product List</h1>

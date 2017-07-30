@@ -5,21 +5,24 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import { Main, Login, Signup, UserHome } from './components'
-import { ReviewList } from './components/Review/ReviewList'
-import ProductList from './components/Product/ProductList'
 import { me, fetchProducts } from './store'
+import ReviewList from './components/Review/ReviewList'
+import ProductList from './components/Product/ProductList'
+import OrderList from './components/Order/OrderList'
+import { fetchOrders } from './store/orders'
+import {fetchUsers} from './store/users'
+import UserList from './components/User/UserList'
+import UserDetail from './components/User/UserDetail'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-
   componentDidMount () {
     this.props.loadInitialData()
   }
 
   render () {
-
     const {isLoggedIn} = this.props
 
     return (
@@ -27,18 +30,23 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/login" component={Login}/>
-            <Route path="/signup" component={Signup}/>
-            <Route path="/reviews" component={ReviewList}/>
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/products/:id/reviews" component={ReviewList} />
             <Route path="/products" component={ProductList}/>
+            <Route exact path='/users' component={UserList} />
+            <Route path='/users/:id' component={UserDetail} />
+            <Route path='/reviews' component={ReviewList} />
             {
-              isLoggedIn ? <Switch>
-                {/* Routes placed here are only available after logging in */}
-                <Route path="/home" component={UserHome}/>
-              </Switch> : null
+              isLoggedIn
+                ? <Switch>
+                  {/* Routes placed here are only available after logging in */}
+                  <Route path='/home' component={UserHome} />
+                </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login}/>
+            <Route exact path="/orders" component={OrderList}/>
+            <Route component={Login} />
           </Switch>
         </Main>
       </Router>
@@ -60,8 +68,10 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
+      dispatch(fetchOrders())
       dispatch(me())
       dispatch(fetchProducts())
+      dispatch(fetchUsers())
     }
   }
 }

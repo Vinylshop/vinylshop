@@ -4,18 +4,17 @@ const db = require('../db')
 const app = require('../index')
 const Order = db.model('order')
 
-describe('Order routes', () => {
+xdescribe('Order routes', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
 
   describe('/api/orders/', () => {
-
     beforeEach(() => {
       return Order.create({
         status: 'CREATED'
       })
-      .then( ()  => {
+      .then(() => {
         return Order.create({
           status: 'CREATED'
         })
@@ -51,7 +50,6 @@ describe('Order routes', () => {
           expect(res.body.status).to.be.equal('COMPLETED')
         })
     })
-
 
     it('POST /api/orders', () => {
       return request(app)

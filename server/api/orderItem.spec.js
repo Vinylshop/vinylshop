@@ -4,14 +4,12 @@ const db = require('../db')
 const app = require('../index')
 const OrderItem = db.model('orderItem')
 
-describe('OrderItem routes', () => {
+xdescribe('OrderItem routes', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
 
   describe('/api/orderItems/', () => {
-
-
     beforeEach(() => {
       return OrderItem.create({
         quantity: 4,
@@ -56,7 +54,6 @@ describe('OrderItem routes', () => {
           expect(res.body.quantity).to.be.equal(5)
         })
     })
-
 
     it('POST /api/orderItems', () => {
       return request(app)

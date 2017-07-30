@@ -12,7 +12,7 @@ module.exports = router
 /**
  * Default columns to return for ALL Reviews
  */
-const attributesToReturn = {attributes: ['id', 'title', 'content', 'rating', 'createdAt', 'updatedAt']}
+const attributesToReturn = {attributes: ['id', 'title', 'content', 'rating', 'createdAt', 'updatedAt', 'productId', 'userId']}
 
 /**
  * ReviewID Param
@@ -38,7 +38,6 @@ router.param('reviewId', (req, res, next, id) => {
  * GET
  * returns all reviews
  */
-
 router.get('/', (req, res, next) => {
   Review.findAll(attributesToReturn)
     .then(reviews => res.json(reviews))

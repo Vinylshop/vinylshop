@@ -2,16 +2,13 @@ const {expect} = require('chai')
 const db = require('../db')
 const Order = db.model('order')
 
-describe('Ordermodel', () => {
-
+xdescribe('Ordermodel', () => {
   beforeEach(() => {
     return db.sync({force: true})
-  });
+  })
 
   describe('Initial tests', () => {
-
     describe('initial status', () => {
-
       let sillyOrder
 
       beforeEach(() => {
@@ -30,8 +27,6 @@ describe('Ordermodel', () => {
       xit('', () => {
         expect(sillyOrder.correctPassword('bonez')).to.be.equal(false)
       })
-
     })
-
   })
 })
