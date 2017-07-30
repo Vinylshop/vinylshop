@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchReviews, addReview } from '../../store/review'
-import { fetchProduct, fetchProducts } from '../../store/product'
+import { fetchProduct, fetchProducts } from '../../store/products'
 import ReviewItem from './ReviewItem'
 
 /* -----------------    COMPONENT     ------------------ */
@@ -42,7 +42,7 @@ class ReviewList extends Component {
   }
 
   render () {
-    const { product } = this.state
+    const {product} = this.state
     console.log(this.props.review)
     return (
       <div className="container">
@@ -51,7 +51,7 @@ class ReviewList extends Component {
           {
             this.props.review
               .filter(filteredReview => filteredReview.productId === product.id)
-              .map(review => <ReviewItem review={review} key={review.id} />)
+              .map(review => <ReviewItem review={review} key={review.id}/>)
           }
         </ul>
       </div>
@@ -76,9 +76,9 @@ class ReviewList extends Component {
               onChange={ event => this.setState({review: {content: event.target.value}}) }
             />
             <select name="rating"
-            defaultValue=""
-            onChange={ event => this.setState({review: {rating: event.target.value}}) }
-            required>
+                    defaultValue=""
+                    onChange={ event => this.setState({review: {rating: event.target.value}}) }
+                    required>
               <option value="" disabled>(Select a Rating)</option>
               <option key='1' value="1">1</option>
               <option key='2' value="2">2</option>
@@ -89,7 +89,7 @@ class ReviewList extends Component {
         <button
           type="submit"
           className="btn btn-warning btn-xs">
-          <span className="glyphicon glyphicon-plus" />
+          <span className="glyphicon glyphicon-plus"/>
           Submit Review
         </button>
       </form>
@@ -113,10 +113,10 @@ class ReviewList extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ product, review }, ownProps) => {
-  const retrievedProduct = product.find(aProduct => aProduct.id === +ownProps.match.params.id)
+const mapState = ({products, review}, ownProps) => {
+  const retrievedProduct = products.find(aProduct => aProduct.id === +ownProps.match.params.id)
 
-  return { retrievedProduct, review }
+  return {retrievedProduct, review}
 }
 
 const mapDispatch = (dispatch, ownProps) => {
