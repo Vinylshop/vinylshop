@@ -37,9 +37,9 @@ class StoryDetail extends React.Component {
     if (!order) return <div />;//if order has yet to load or is invalid
     return (
       <div className="container">
-        <ul className="list-inline large-font">
+        <ul className="list-inline">
           <li>
-            <Link className="large-font" to={`/orders/${order.id}`}>{order.id}</Link>
+            <Link to={`/orders/${order.id}`}>{order.id}</Link>
           </li>
           <li>
             <span>Status:{order.status}</span>
