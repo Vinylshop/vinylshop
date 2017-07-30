@@ -5,7 +5,7 @@ import { updateOrder, fetchOrder } from '../../store/orders';
 
 /* -----------------    COMPONENT     ------------------ */
 
-class StoryDetail extends React.Component {
+class OrderDetail extends React.Component {
   constructor(props) {
     super(props);
 
