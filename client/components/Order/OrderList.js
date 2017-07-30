@@ -51,7 +51,7 @@ class OrderList extends React.Component {
 
         <ul className="list-group">
           {
-            fakeOrders
+            this.props.orders
             .filter(this.filterOrder)
             .map((order, i) => <OrderItem order={order} key={i} />)
           }
