@@ -46,6 +46,6 @@ class OrderItem extends Component {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapState = null;
-const mapDispatch = { removeOrder };
+const mapDispatch = ({removeOrder}) => ({ removeOrder });
 
 export default connect(mapState, mapDispatch)(OrderItem);

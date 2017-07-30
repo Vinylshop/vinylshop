@@ -36,7 +36,7 @@ class StoryDetail extends React.Component {
     let orderTotal = 0;
     if (!order) return <div />;//if order has yet to load or is invalid
     return (
-      <div className="container story-container">
+      <div className="container">
         <ul className="list-inline large-font">
           <li>
             <Link className="large-font" to={`/orders/${order.id}`}>{order.id}</Link>
@@ -60,7 +60,7 @@ class StoryDetail extends React.Component {
             {
               order.orderItems.map(item => (
                 {orderTotal += item.quantity * item.price}
-                <Items key={item.id} item={item} />
+                  <Items key={item.id} item={item} />
               ))
             }
           </li>
