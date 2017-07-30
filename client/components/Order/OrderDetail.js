@@ -93,4 +93,4 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(StoryDetail);
+export default connect(mapState, mapDispatch)(OrderDetail);

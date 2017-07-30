@@ -6,11 +6,7 @@
   "scripts": {
     "build-client": "webpack",
     "build-client-watch": "webpack -w",
-<<<<<<< HEAD
-    "deploy": "webpack -p && git add -f public/bundle.js public/bundle.js.map && git commit --allow-empty -m 'Deploying' && git push heroku deploy:master",
-=======
     "deploy": "bash deploy.sh",
->>>>>>> master
     "seed": "node seed",
     "start": "node server",
     "start-dev": "npm run build-client-watch & npm run start-server",
