@@ -3,6 +3,7 @@ const Review = require('./review')
 const Product = require('./product')
 const Order = require('./order')
 const OrderItem = require('./orderItem')
+const List = require('./list')
 
 // Model Associations
 
@@ -20,6 +21,11 @@ OrderItem.belongsTo(Order)
 
 OrderItem.belongsTo(Product)
 Product.hasMany(OrderItem)
+
+List.belongsTo(User)
+User.hasOne(List, {as: 'cart'})
+User.hasMany(List, {as: 'wishlists'})
+
 // Model Exports
 
 module.exports = {
@@ -27,5 +33,6 @@ module.exports = {
   Review,
   Product,
   Order,
-  OrderItem
+  OrderItem,
+  List
 }
