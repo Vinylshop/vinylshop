@@ -17,33 +17,34 @@ class OrderItem extends Component {
   render() {
     const { order } = this.props
     const isAdmin = true
+    const creation = order.createdAt.split('T')
     return (
-      <li className="list-group-item">
-        <ul className="list-inline">
-          <li>
-            <Link className="large-font" to={`/orders/${order.id}`}>Order #:{order.id}</Link>
-          </li>
-          <li>
-            <span>by</span>
-          </li>
-          <li>
-            <Link to={`/users/${order.userId}`}>User: {order.user.username}</Link>
-          </li>
-          <li>
-            <span>on</span>
-          </li>
-          <li>
-            <span>{order.createdAt}</span>
-          </li>
-          <li>
-            <span>Status: {order.status}</span>
-          </li>
-        </ul>
+      <div>
+        <li className="list-group-item">
+          <ul className="list-inline">
+            <li>
+              Order #: <Link to={`/orders/${order.id}`}>{order.id}</Link>
+            </li>
+            <li>
+              <span>Status: {order.status}</span>
+            </li>
+            <li>
+              <span>Date: {creation[0]} Time: {creation[1].substr(0,5)}</span>
+            </li>
+            <li>
+              <span>Shipped To:</span>
+            </li>
+            <li>
+              <Link to={`/users/${order.userId}`}>{order.user.username}</Link>
+            </li>
+          </ul>
+
+        </li>
         {
           isAdmin && this.renderOrderChange()
 
         }
-      </li>
+      </div>
     );
   }
 
