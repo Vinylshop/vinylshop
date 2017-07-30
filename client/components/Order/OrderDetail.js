@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { updateOrder, fetchOrder } from '../../redux/orders';
+import { updateOrder, fetchOrder } from '../../store/orders';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -73,8 +73,6 @@ class StoryDetail extends React.Component {
     );
   }
 
-  renderOrderUpdate(storyUpdateObj) {
-  }
 }
 
 
