@@ -21,13 +21,13 @@ class OrderItem extends Component {
       <li className="list-group-item">
         <ul className="list-inline">
           <li>
-            <Link className="large-font" to={`/orders/${order.id}`}>{order.id}</Link>
+            <Link className="large-font" to={`/orders/${order.id}`}>Order #:{order.id}</Link>
           </li>
           <li>
             <span>by</span>
           </li>
           <li>
-            <Link to={`/users/${order.userId}`}>{order.userId}</Link>
+            <Link to={`/users/${order.userId}`}>User: {order.userId}</Link>
           </li>
           <li>
             <span>on</span>
