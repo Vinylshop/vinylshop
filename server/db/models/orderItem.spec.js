@@ -2,16 +2,13 @@ const {expect} = require('chai')
 const db = require('../db')
 const OrderItem = db.model('orderItem')
 
-describe('OrderItem model', () => {
-
+xdescribe('OrderItem model', () => {
   beforeEach(() => {
     return db.sync({force: true})
-  });
+  })
 
   describe('', () => {
-
     describe('', () => {
-
       let sillyOrderItem
 
       beforeEach(() => {
@@ -36,8 +33,6 @@ describe('OrderItem model', () => {
       it('will have price of 4', () => {
         expect(sillyOrderItem.getDataValue('price')).to.be.equal(425)
       })
-
     })
-
   })
 })

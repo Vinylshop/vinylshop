@@ -6,7 +6,11 @@
   "scripts": {
     "build-client": "webpack",
     "build-client-watch": "webpack -w",
+<<<<<<< HEAD
+    "deploy": "webpack -p && git add -f public/bundle.js public/bundle.js.map && git commit --allow-empty -m 'Deploying' && git push heroku deploy:master",
+=======
     "deploy": "bash deploy.sh",
+>>>>>>> master
     "seed": "node seed",
     "start": "node server",
     "start-dev": "npm run build-client-watch & npm run start-server",
@@ -22,6 +26,7 @@
     "connect-session-sequelize": "^4.1.0",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
+    "faker": "^4.1.0",
     "history": "^4.6.3",
     "lodash": "^4.17.4",
     "morgan": "^1.8.1",

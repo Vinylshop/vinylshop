@@ -7,10 +7,11 @@ import history from './history'
 import {Main, Login, Signup, UserHome} from './components'
 import ReviewList from './components/Review/ReviewList'
 import {me} from './store'
+import OrderList from './components/Order/OrderList'
+import { fetchOrders } from './store/orders'
 import {fetchUsers} from './store/users'
 import UserList from './components/User/UserList'
 import UserDetail from './components/User/UserDetail'
-
 /**
  * COMPONENT
  */
@@ -41,6 +42,7 @@ class Routes extends Component {
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
+            <Route exact path="/orders" component={OrderList}/>
             <Route component={Login} />
           </Switch>
         </Main>
@@ -63,7 +65,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
-      // dispatch(me())
+      dispatch(fetchOrders())
+      dispatch(me())
       dispatch(fetchUsers())
     }
   }
