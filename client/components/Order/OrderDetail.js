@@ -53,11 +53,22 @@ class OrderDetail extends React.Component {
             <span>Status: {order.status}</span>
           </li>
           <li>
+            <span>Date: {creation[0]} Time: {creation[1].substr(0,5)}</span>
+          </li>
+          <li>
+            <span>Shipped To:</span>
+          </li>
+          <li>
             <Link to={`/users/${order.userId}`}>{order.user.username}</Link>
           </li>
-
           <li>
-            <span>Date: {creation[0]} Time: {creation[1].substr(0,5)}</span>
+            <span>{order.address}</span>
+          </li>
+          <li>
+            <span>{order.city}, {order.state}</span>
+          </li>
+          <li>
+            <span>{order.zipCode}</span>
           </li>
           <li>
             Order Items

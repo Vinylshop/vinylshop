@@ -16,7 +16,7 @@ class OrderItem extends Component {
   }
   render() {
     const { order } = this.props
-    const isAdmin = false
+    const isAdmin = true
     return (
       <li className="list-group-item">
         <ul className="list-inline">
@@ -50,36 +50,32 @@ class OrderItem extends Component {
   renderOrderChange() {
     return (
       <div>
-        <ul className="pull-right">
-          <li>
-            <select
-              name="status"
-              defaultValue=""
-              onChange={this.onChangeHandler}
-              required
-            >
 
-              <option value="" disabled>(Change Order Status)</option>
-              {
-                orderState.map((status, i) => (
-                  <option key={i} value={status}>{status}</option>
-                ))
-              }
-            </select>
-          </li>
+        <select
+          name="status"
+          defaultValue=""
+          onChange={this.onChangeHandler}
+          required
+        >
 
-        </ul>
+          <option value="" disabled>(Change Order Status)</option>
+          {
+            orderState.map((status, i) => (
+              <option key={i} value={status}>{status}</option>
+            ))
+          }
+        </select>
+
         <span className="glyphicon glyphicon-search" />
       </div>
     );
   }
 
   onChangeHandler(event){
-    let updateOrder = {
+    let upOrder = {
       status: event.target.value
     }
-    // console.log(this.props)
-    // this.props.updateOrder()(this.props.order.orderId, updateOrder)
+    this.props.updateOrder(this.props.order.id, upOrder)
   }
 }
 
@@ -87,10 +83,6 @@ class OrderItem extends Component {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapState = null;
-const mapDispatch = (dispatch) => ({
-  // updateOrder: (id, updatedOrder) => ({
-  //   dispatch(updateOrder(id, updatedOrder));
-  // })
-})
+const mapDispatch = {updateOrder}
 
 export default connect(mapState, mapDispatch)(OrderItem);
