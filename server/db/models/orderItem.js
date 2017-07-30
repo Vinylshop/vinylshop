@@ -1,13 +1,11 @@
 'use strict'
 const Sequelize = require('sequelize')
 const db = require('../db')
+const {Product} = require('./product')
+
 
 const OrderItem = db.define('orderItem', {
   quantity: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  productId: {
     type: Sequelize.INTEGER,
     allowNull: false
   },

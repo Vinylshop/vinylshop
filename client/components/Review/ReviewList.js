@@ -43,14 +43,16 @@ class ReviewList extends Component {
 
   render () {
     const { product } = this.state
-    console.log(this.props.review)
+    // console.log(this.props.review)
+    console.log(product)
+    if(!product.id) return <div></div>
     return (
       <div className="container">
         <ul className="list-group">
           {this.renderReviewForm()}
           {
             this.props.review
-              .filter(filteredReview => filteredReview.productId === product.id)
+            .filter(filteredReview => filteredReview.productId === product.id)
               .map(review => <ReviewItem review={review} key={review.id} />)
           }
         </ul>

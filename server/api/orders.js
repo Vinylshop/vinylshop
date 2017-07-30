@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order} = require('../db/models')
+const {Order, User, OrderItem, Product} = require('../db/models')
 module.exports = router
 
 function isLoggedIn(req, res,next){
@@ -23,7 +23,13 @@ function isAdmin(req, res, next){
 }
 
 router.param('orderId', (req, res, next, id) =>  {
-  Order.findById(id)
+  Order.findOne({
+    where: { id: id},
+    include: [
+      { model: OrderItem, include: [ { model: Product, attributes: ['title', 'price'] } ] },
+      { model: User, attributes: ['username']}
+    ]
+  })
   .then(order => {
     if(!order) {
       const err = Error('User not found')
@@ -39,7 +45,11 @@ router.param('orderId', (req, res, next, id) =>  {
 
 //router.get('/',isLoggedIn ,(req, res, next) => {
 router.get('/', (req, res, next) => {
-  Order.findAll({})
+  Order.findAll({
+      include: [
+        { model: User , attributes: ['username']}
+      ]
+    })
     .then(orders => res.json(orders))
     .catch(next)
 })
@@ -65,7 +75,7 @@ router.get('/status/:statusType', (req, res, next) => {
 
 //router.get('/:orderId', isLoggedIn ,(req, res, next) => {
 router.get('/:orderId', (req, res, next) => {
-  req.order.reload(Order.options.scopes.populated())
+  req.order.reload()
   .then(order => res.json(order))
   .catch(next)
 })

@@ -2,6 +2,8 @@
 const TOTAL_USERS = 200
 const TOTAL_PRODUCTS = TOTAL_USERS * 2.5
 const TOTAL_REVIEWS = TOTAL_PRODUCTS * 4
+const TOTAL_ORDERS = TOTAL_USERS / 4
+const TOTAL_ORDER_ITEMS = TOTAL_ORDERS * 6
 
 const Promise = require('bluebird')
 const faker = require('faker')
@@ -10,6 +12,10 @@ const db = require('./server/db/index')
 const Product = db.model('product')
 const Review = db.model('review')
 const User = db.model('user')
+const Order = db.model('order')
+const OrderItem = db.model('orderItem')
+
+const ORDER_STATUS = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED']
 
 const randProduct = () => {
   return {
@@ -40,6 +46,26 @@ const randUser = () => {
   }
 }
 
+const randOrder = () => {
+  return {
+    status: ORDER_STATUS[Math.floor(Math.random() * 4)],
+    address: faker.address.streetAddress(),
+    city: faker.address.city(),
+    state: faker.address.state(),
+    zipCode: faker.address.zipCode(),
+    userId: Math.ceil(Math.random() * (TOTAL_USERS + 1))
+  }
+}
+
+const randOrderItem = () => {
+  return {
+    quantity: Math.ceil(Math.random() * 12),
+    productId: Math.ceil(Math.random() * TOTAL_PRODUCTS),
+    price: faker.commerce.price(),
+    orderId: Math.ceil(Math.random() * TOTAL_ORDERS)
+  }
+}
+
 const generateItems = (total = 200, callback, type) => {
   const items = []
   for (let i = 0; i < total; i++) {
@@ -52,6 +78,10 @@ const generateItems = (total = 200, callback, type) => {
     return items.map(user => User.build(user))
   } else if (type === 'review') {
     return items.map(review => Review.build(review))
+  } else if (type === 'order') {
+    return items.map(order => Order.build(order))
+  } else if (type === 'orderItem') {
+    return items.map(orderItem => OrderItem.build(orderItem))
   }
 }
 
@@ -77,6 +107,14 @@ db.sync({force: true})
   .then(() => {
     console.log('Seeding Reviews')
     return Promise.map(generateItems(TOTAL_REVIEWS, randReview, 'review'), review => review.save())
+  })
+  .then(() => {
+    console.log('Seeding Orders')
+    return Promise.map(generateItems(TOTAL_ORDERS, randOrder, 'order'), order => order.save())
+  })
+  .then(() => {
+    console.log('Seeding Order Items')
+    return Promise.map(generateItems(TOTAL_ORDER_ITEMS, randOrderItem, 'orderItem'), orderItem => orderItem.save())
   })
   .then(() => {
     console.log('Seeding Completed')
