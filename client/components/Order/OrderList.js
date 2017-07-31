@@ -23,7 +23,7 @@ class OrderList extends React.Component {
   }
 
   render() {
-    const isAdmin = true
+    const isAdmin = this.props.user.isAdmin
     if (!this.props.orders.length) return (<div> NO ORDERS TO DISPLAY </div>)
     return (
       <div className="container">
@@ -76,7 +76,7 @@ class OrderList extends React.Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ orders }) => ({ orders });
+const mapState = ({ orders, user }) => ({ orders,user });
 
 const mapDispatch = {};
 

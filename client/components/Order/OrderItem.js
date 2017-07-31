@@ -16,7 +16,7 @@ class OrderItem extends Component {
   }
   render() {
     const { order } = this.props
-    const isAdmin = true
+    const isAdmin = this.props.user.isAdmin
     const creation = order.createdAt.split('T')
     return (
       <div>
@@ -84,7 +84,7 @@ class OrderItem extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = null;
+const mapState = (state) => ({user : state.user});
 const mapDispatch = {updateOrder}
 
 export default connect(mapState, mapDispatch)(OrderItem);

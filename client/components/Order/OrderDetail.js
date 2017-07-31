@@ -97,10 +97,10 @@ class OrderDetail extends React.Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ orders }, ownProps) => {
+const mapState = ({ orders, user }, ownProps) => {
   const order = orders.find(orderIter => orderIter.id === +ownProps.match.params.id);
   const OrderId = ownProps.orderId;
-  return { order, OrderId};
+  return { order, OrderId, user};
 };
 
 const mapDispatch = (dispatch, ownProps) => {
