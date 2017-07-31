@@ -1,5 +1,13 @@
 import axios from 'axios'
 
+const initialState = [{
+  title: 'Vinyl',
+  description: 'Vinyl',
+  price: 12.34,
+  quantity: 4,
+  images:'/public/image/vinlyshoplogo.png'
+}]
+
 /**
  * ACTION TYPES
  */
@@ -19,7 +27,7 @@ const remove = id => ({type: REMOVE, id})
 /**
  * REDUCERS
  */
-export default function reducer (products = [], action) {
+export default function reducer (products = initialState, action) {
   switch (action.type) {
     case INITIALIZE:
       return action.products

@@ -50,7 +50,7 @@ class ProductDetail extends Component {
    *
    *****************************************************/
   render () {
-    const product = this.state.product
+    const {product} = this.state
     console.log(product)
     return (
       <div className="container product-container">
@@ -69,7 +69,7 @@ class ProductDetail extends Component {
   /*****************************************************/
 
   renderProductDetail () {
-    const product = this.state.product
+    const {product} = this.state
     if (!product) return <div/>
     return (
       <div>
@@ -80,7 +80,7 @@ class ProductDetail extends Component {
   }
 
   renderProductMainTitle () {
-    const product = this.state.product
+    const {product} = this.state
     if (!product || !product.images) return <div/>
     return (
       <div className="container-fluid">
@@ -92,7 +92,7 @@ class ProductDetail extends Component {
   renderProductImage () {
     const height = 240
     const width = 320
-    const product = this.state.product
+    const {product} = this.state
     if (!product.images) return <div/>
     return (
       <div className="container-fluid">
@@ -102,7 +102,7 @@ class ProductDetail extends Component {
   }
 
   renderProductDescription () {
-    const product = this.state.product
+    const {product} = this.state
     if (!product.images) return <div/>
     return (
       <div className="container-fluid">
@@ -112,27 +112,21 @@ class ProductDetail extends Component {
   }
 
   renderProductReviews () {
-    const product = this.state.product
-    if (!product.reviews) return <div>Be the first to review a {product.name}!</div>
+    const {product} = this.state
+    if (!product.reviews) return <div>Be the first to review a {product.title}!</div>
     return (
       <div>
         <h3>Product Reviews</h3>
         {
-          product.reviews.map(review => {
-            return (
-              <div>
-                <h6><strong>{review.title}</strong></h6><div>{review.rating / 2} stars</div>
-                <p>{review.content}</p>
-              </div>
-            )
-          })
+          product.reviews
+            .map(review => <ReviewItem review={review} key={review.id}/>)
         }
       </div>
     )
   }
 
   renderProductDetailForm () {
-    const product = this.state.product
+    const {product} = this.state
     if (!product) return <div/>
     return (
       <div>
