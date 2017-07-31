@@ -18,6 +18,8 @@ class OrderItem extends Component {
     const { order } = this.props
     const isAdmin = true
     const creation = order.createdAt.split('T')
+
+
     return (
       <div>
         <li className="list-group-item">

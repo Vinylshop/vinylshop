@@ -11,6 +11,7 @@ import { updateUser } from '../../store/users'
 const UserDetail = (props) => {
   const { user, orders } = props
 
+  if(!user.id) return <div />
   return (
     <div className='container'>
       <div className='row'>
