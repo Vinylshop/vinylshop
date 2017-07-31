@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter, Link, NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Link, NavLink } from 'react-router-dom'
 import {logout} from '../store'
 
 /* -----------------    COMPONENT     ------------------ */
@@ -10,7 +10,7 @@ const Navbar = (props) => {
   const {handleClick, isLoggedIn} = props
 
   return (
-    <nav className='navbar navbar-default'>
+    <nav className='navbar navbar-inverse'>
       <div className='container'>
         <div className='navbar-header'>
           <button
@@ -22,27 +22,31 @@ const Navbar = (props) => {
             <span className='icon-bar' />
             <span className='icon-bar' />
           </button>
-          <Link className='navbar-brand' to='/'><img src='/images/vinylshoplogo.png' /></Link>
+          <a class='navbar-brand' href='#'>Vinylshop</a>
         </div>
-        <div className='collapse navbar-collapse'>
-          <ul className='nav navbar-nav justify-content-end'>
-            {
-              isLoggedIn
-                ? <li>
-                  {/* The navbar will show these links after you log in */}
-                  <NavLink to='/home' activeClassName='active'>Home</NavLink>
-                  <a href='#' onClick={handleClick}>Logout</a>
-                </li>
-                : <li>
-                  {/* The navbar will show these links before you log in */}
-                  <NavLink to='/login' activeClassName='active'>Login</NavLink>
-                  <NavLink to='/signup' activeClassName='active'>Sign Up</NavLink>
-                </li>
-            }
-          </ul>
-          { this.renderLogout() }
-          { this.renderLoginSignup() }
-        </div>
+        {
+          isLoggedIn
+          ? <div className='collapse navbar-collapse'>
+            <ul className='nav navbar-nav navbar-right'>
+              <li>
+                <NavLink to='/home' activeClassName='active'>Home</NavLink>
+              </li>
+              <li>
+                <a href='#' onClick={handleClick}>Logout</a>
+              </li>
+            </ul>
+          </div>
+          : <div className='collapse navbar-collapse'>
+            <ul className='nav navbar-nav navbar-right'>
+              <li>
+                <NavLink to='/signup' activeClassName='active'>Signup</NavLink>
+              </li>
+              <li>
+                <NavLink to='/login' activeClassName='active'>login</NavLink>
+              </li>
+            </ul>
+          </div>
+      }
       </div>
     </nav>
   )
@@ -52,7 +56,7 @@ const Navbar = (props) => {
 
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.currentUser.id
   }
 }
 
@@ -64,9 +68,9 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
-
-/* -----------------    PROP TYPES     ------------------ */
+// The `withRouter` wrapper makes sure that updates are not blocked
+// when the url changes
+export default withRouter(connect(mapState, mapDispatch)(Navbar))
 
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
