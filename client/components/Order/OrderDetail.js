@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { updateOrder, fetchOrder } from '../../store/orders';
 import { Link } from 'react-router-dom';
 import Items from './Items'
+import OrderItem from './OrderItem'
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -41,34 +42,26 @@ class OrderDetail extends React.Component {
     // let orderTotal = 0;
     if (!order.userId) return <div />;//if order has yet to load or is invalid
 
-
-    const creation = order.createdAt.split('T')
     return (
       <div className="container">
+        <OrderItem order={order} key={order.id}/>
+
         <ul className="list-inline">
-          <li>
-            Order #: <Link to={`/orders/${order.id}`}>{order.id}</Link>
-          </li>
-          <li>
-            <span>Status: {order.status}</span>
-          </li>
-          <li>
-            <span>Date: {creation[0]} Time: {creation[1].substr(0,5)}</span>
-          </li>
-          <li>
-            <span>Shipped To:</span>
-          </li>
-          <li>
-            <Link to={`/users/${order.userId}`}>{order.user.username}</Link>
-          </li>
-          <li>
-            <span>{order.address}</span>
-          </li>
-          <li>
-            <span>{order.city}, {order.state}</span>
-          </li>
-          <li>
-            <span>{order.zipCode}</span>
+          <li className="list-group-item">
+            <ul className="list-inline">
+              <li></li>
+              <li/>
+              <li> Shipped to: </li>
+              <li>
+                <span>{order.address}</span>
+              </li>
+              <li>
+                <span>{order.city}, {order.state}</span>
+              </li>
+              <li>
+                <span>{order.zipCode}</span>
+              </li>
+            </ul>
           </li>
           <li>
             Order Items
@@ -97,10 +90,10 @@ class OrderDetail extends React.Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ orders }, ownProps) => {
+const mapState = ({ orders, currentUser }, ownProps) => {
   const order = orders.find(orderIter => orderIter.id === +ownProps.match.params.id);
   const OrderId = ownProps.orderId;
-  return { order, OrderId};
+  return { order, OrderId, currentUser};
 };
 
 const mapDispatch = (dispatch, ownProps) => {

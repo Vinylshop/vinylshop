@@ -28,13 +28,11 @@ class ReviewList extends Component {
 
   componentDidMount () {
     this.props.fetchReviewsData()
-    this.props.fetchProductsData()
   }
 
   componentWillReceiveProps (newProps) {
 
     if (newProps.match.params.id !== this.props.match.params.id) {
-      this.props.fetchProductsData()
     }
     this.setState({
       product: newProps.retrievedProduct
@@ -42,14 +40,15 @@ class ReviewList extends Component {
   }
 
   render () {
-    const { product } = this.state
-    // console.log(this.props.review)
-    console.log(product)
-    if(!product.id) return <div></div>
+    const { product, review } = this.state
+    const { isLoggedIn, currentUser, products} = this.props
+    console.log(isLoggedIn)
+    if(!product.id ) return <div></div>
+    // if(!currentUser.id) return <div/>
     return (
       <div className="container">
         <ul className="list-group">
-          {this.renderReviewForm()}
+          { isLoggedIn && this.renderReviewForm()}
           {
             this.props.review
             .filter(filteredReview => filteredReview.productId === product.id)
@@ -115,10 +114,11 @@ class ReviewList extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ product, review }, ownProps) => {
-  const retrievedProduct = product.find(aProduct => aProduct.id === +ownProps.match.params.id)
-
-  return { retrievedProduct, review }
+const mapState = (state, ownProps) => {
+  const { products, review, currentUser } = state
+  const retrievedProduct = products.find(aProduct => aProduct.id === +ownProps.match.params.id)
+  const isLoggedIn = !!currentUser.id
+  return { retrievedProduct, review, currentUser, isLoggedIn, products }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
@@ -129,9 +129,6 @@ const mapDispatch = (dispatch, ownProps) => {
     fetchProductData: (ownProps) => {
       const productId = ownProps.match.params.id
       dispatch(fetchProduct(productId))
-    },
-    fetchProductsData: () => {
-      dispatch(fetchProducts())
     },
     addReviewData: (newReview) => {
       dispatch(addReview(newReview))

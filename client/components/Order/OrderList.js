@@ -23,16 +23,18 @@ class OrderList extends React.Component {
   }
 
   render() {
-    const isAdmin = true
-    if (!this.props.orders.length) return (<div> NO ORDERS TO DISPLAY </div>)
+    const {orders, currentUser} = this.props
+    if (!orders.length) return (<div> NO ORDERS TO DISPLAY </div>)
+    orders.sort((a,b) => {a.id-b.id})
+    if (!currentUser.isAdmin) return (<div> Only Admin can view all Orders</div>)
     return (
       <div className="container">
-        { isAdmin && this.renderOrderSearch() }
+        { this.renderOrderSearch() }
         <br />
 
         <ul className="list-group">
           {
-            this.props.orders
+            orders
             .filter(this.filterOrder)
             .map((order, i) => <OrderItem order={order} key={i} />)
           }
@@ -76,7 +78,7 @@ class OrderList extends React.Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ orders }) => ({ orders });
+const mapState = ({ orders, currentUser }) => ({ orders,currentUser });
 
 const mapDispatch = {};
 
