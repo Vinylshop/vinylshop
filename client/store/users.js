@@ -25,7 +25,7 @@ export function removeUser (id) {
   return action
 }
 
-export function updateUser (student) {
+export function updateUser (user) {
   const action = { type: UPDATE_USER, user }
   return action
 }

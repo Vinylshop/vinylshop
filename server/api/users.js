@@ -58,7 +58,7 @@ router.get('/:userId', (req, res, next) => {
 // router.put('/:userId', isAdmin, (req, res, next) =>
 router.put('/:userId', (req, res, next) => {
   req.user.update(req.body)
-    .then(user => user.reload(User.scope('populated')))
+    // .then(user => user.reload(User.scope('populated')))
     .then(user => res.status(200).json(user))
     .catch(next)
 })
