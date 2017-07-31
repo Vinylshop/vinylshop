@@ -27,7 +27,7 @@ router.param('orderId', (req, res, next, id) =>  {
     where: { id: id},
     include: [
       { model: OrderItem, include: [ { model: Product, attributes: ['title', 'price'] } ] },
-      { model: User, attributes: ['username']}
+      { model: User, attributes: ['username'] }
     ]
   })
   .then(order => {

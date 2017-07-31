@@ -21,7 +21,7 @@ const UserHome = (props) => {
  */
 const mapState = (state) => {
   return {
-    email: state.user.email
+    email: state.currentUser.email
   }
 }
 
