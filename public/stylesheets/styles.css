@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+  margin: 0px;
+}
+
+.container {
+  width: 100%;
+}
+
+label {
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+}
+
+.navbar {
+  background-color: black;
+  margin-bottom: 120px;
+}
+
+.navbar-nav>li>a {
+  color: white;
+  font-size: 1.25em;
+}
+
+.navbar-nav>li>a:hover {
+  background-color: transparent;
+  color: grey;
+  font-size: 1.25em;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.oauth {
+  text-align: center;
+  padding-top: 25px;
+}
+
+.btn-submit {
+  margin-top: 25px;
+}
+
+.btn-remove {
+  border: none;
+  background: none;
+}
+
+.heading {
+  height: 75px;
+  width: 100%;
+}
+
+.btn-submit {
+  width: 100%;
+  margin-top: 25px;
+  background-color: black;
+  color: white;
+}
+
