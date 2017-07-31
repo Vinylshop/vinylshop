@@ -30,6 +30,7 @@ class UserItem extends Component {
   handleRemove (event) {
     event.stopPropagation()
     const { user } = this.props
+    console.log(user)
     this.props.deleteUser(user.id)
   }
 }

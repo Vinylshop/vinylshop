@@ -15,9 +15,10 @@ class OrderItem extends Component {
     this.onChangeHandler = this.onChangeHandler.bind(this)
   }
   render() {
-    const { order } = this.props
-    const isAdmin = true
+    const { currentUser, order } = this.props
     const creation = order.createdAt.split('T')
+
+
     return (
       <div>
         <li className="list-group-item">
@@ -26,7 +27,7 @@ class OrderItem extends Component {
               Order #: <Link to={`/orders/${order.id}`}>{order.id}</Link>
             </li>
             <li>
-              <span>Status: {order.status}</span>
+              <span>Status: {order.status} {currentUser.isAdmin && this.renderOrderChange() }</span>
             </li>
             <li>
               <span>Date: {creation[0]} Time: {creation[1].substr(0,5)}</span>
@@ -40,17 +41,13 @@ class OrderItem extends Component {
           </ul>
 
         </li>
-        {
-          isAdmin && this.renderOrderChange()
-
-        }
+        
       </div>
     );
   }
 
   renderOrderChange() {
     return (
-      <div>
 
         <select
           name="status"
@@ -67,8 +64,7 @@ class OrderItem extends Component {
           }
         </select>
 
-        <span className="glyphicon glyphicon-search" />
-      </div>
+
     );
   }
 
@@ -84,7 +80,7 @@ class OrderItem extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = null;
+const mapState = ({currentUser}) => ({currentUser})
 const mapDispatch = {updateOrder}
 
 export default connect(mapState, mapDispatch)(OrderItem);

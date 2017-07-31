@@ -4,7 +4,7 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const GET_USER = 'GET_USER'
+const LOGIN_USER = 'LOGIN_USER'
 const LOGOUT_USER = 'LOGOUT_USER'
 
 /**
@@ -15,7 +15,7 @@ const defaultUser = {}
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
+const getUser = user => ({type: LOGIN_USER, user})
 const removeUser = () => ({type: LOGOUT_USER})
 
 /**
@@ -52,7 +52,7 @@ export const logout = () =>
  */
 export default function (state = defaultUser, action) {
   switch (action.type) {
-    case GET_USER:
+    case LOGIN_USER:
       return action.user
     case LOGOUT_USER:
       return defaultUser

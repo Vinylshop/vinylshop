@@ -5,14 +5,14 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import { Main, Login, Signup, UserHome } from './components'
-import { me, fetchProducts } from './store'
+import { me, fetchProducts, fetchLists } from './store'
 import ReviewList from './components/Review/ReviewList'
 import ProductList from './components/Product/ProductList'
 import ProductDetail from './components/Product/ProductDetail'
 import OrderList from './components/Order/OrderList'
 import OrderDetail from './components/Order/OrderDetail'
 import { fetchOrders } from './store/orders'
-import {fetchUsers} from './store/users'
+import { fetchUsers } from './store/users'
 import UserList from './components/User/UserList'
 import UserDetail from './components/User/UserDetail'
 
@@ -40,7 +40,7 @@ class Routes extends Component {
             <Route exact path='/users' component={UserList} />
             <Route path='/users/:id' component={UserDetail} />
             <Route exact path='/reviews' component={ReviewList} />
-            
+
             {
               isLoggedIn
                 ? <Switch>
@@ -66,7 +66,7 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.currentUser.id
   }
 }
 
@@ -77,6 +77,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchOrders())
       dispatch(me())
       dispatch(fetchProducts())
+      dispatch(fetchLists())
     }
   }
 }
