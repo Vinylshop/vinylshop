@@ -19,9 +19,9 @@ class UserDetail extends Component {
   }
 
   render(){
-    const { user, orders } = this.props
-    const isAdmin = true
-
+    const { user, orders, currentUser } = this.props
+    // const isAdmin = true
+    //if an admin user, add a link to let them access all the orders(?)
 
     if(!user.id) return <div />
     return (
@@ -32,7 +32,7 @@ class UserDetail extends Component {
             <div>
               <span>{user.isAdmin ? "Administrator" : "Regular User"}</span>
               {
-                isAdmin && this.renderAdminChange()
+                currentUser.isAdmin && this.renderAdminChange()
               }
             </div>
             <ul>
@@ -80,11 +80,12 @@ class UserDetail extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ users, orders }, ownProps) => {
+const mapState = ({ users, orders, currentUser }, ownProps) => {
   const paramId = Number(ownProps.match.params.id)
   return {
     user: _.find(users, user => user.id === paramId),
-    orders
+    orders,
+    currentUser
   }
 }
 
