@@ -99,6 +99,9 @@ class ReviewList extends Component {
 
   onSubmit (event) {
     console.log(event.target.title.value)
+    // tk: if you're using the values from the event, why are there change listeners storing the values on state?
+    // Pick one approach - and generally, if you want to programmatically change the value of the form input, you
+    // should favor using controlled form components.
     const review = {
       title: event.target.title.value,
       content: event.target.content.value,
@@ -106,9 +109,9 @@ class ReviewList extends Component {
       productId: this.state.product.id
     }
     this.props.addReviewData(review)
-    event.target.title.value = ''
-    event.target.content.value = ''
-    event.target.rating.value = ''
+    event.target.title.value = '' // tk:   :(
+    event.target.content.value = '' // tk: :(
+    event.target.rating.value = '' // tk:  :(
   }
 }
 

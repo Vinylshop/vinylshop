@@ -8,6 +8,9 @@ import OrderItem from './OrderItem'
 
 /* -----------------    COMPONENT     ------------------ */
 
+/**
+  * tk: don't cheat! This belongs on state
+  */
 let orderTotal = 0;
 
 class OrderDetail extends React.Component {

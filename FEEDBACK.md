@@ -1,0 +1,4 @@
+# Feedback
+
+* It looks like your components are modeled after the format of Auther. I think that's great - having a Detail/Item/List for each resource is a nice pattern and helps make it easy to predict the way that other parts of the application work. Be careful about copy/pasting too much though - Auther's components are set up a certain way to handle a tricky "save-as-you-go" workflow with its forms, and admins and users share a lot of mutual views, which you don't necessarily need here. You don't want to end up with a codebase that's more complicated than you need. The overall consistency is good though.
+* Be sure to clean up the code for your forms - right now, you have state set aside for the values of the form elements, but you're not using them - you're picking the values off from the event
