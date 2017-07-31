@@ -1,16 +1,16 @@
 const router = require('express').Router()
-const {Order, User, OrderItem, Product} = require('../db/models')
+const {List, OrderItem, Product} = require('../db/models')
 module.exports = router
 
 
+
 router.get('/', (req, res, next) => {
-  // res.json(req.user)
   res.json(req.session.cart || {total: 0, items: []})
 })
 
 
 router.put('/addItem', (req, res, next) => {
-  let cart = req.session.cart || { total: 0, items: []}
+  let cart = req.session.cart || { total: 0, items: []} 
   let found = false
   const itemToAdd = req.body
   cart.items.map(item => {
