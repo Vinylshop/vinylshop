@@ -1,40 +1,74 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { Link, NavLink } from 'react-router-dom'
+import {logout} from '../store'
 
 /* -----------------    COMPONENT     ------------------ */
 
 const Navbar = (props) => {
+  const {handleClick, isLoggedIn} = props
+
   return (
-    <div className='container'>
-      <ul className='nav justify-content-end'>
-        <li className='nav-item'><NavLink to='/' className='nav-link'>Home</NavLink></li>
-        <li className='nav-item'><NavLink to='/signup' className='nav-link'>Signup</NavLink></li>
-        <li className='nav-item'><NavLink to='/login' className='nav-link'>Login</NavLink></li>
-      </ul>
-    </div>
+    <nav className='navbar navbar-default'>
+      <div className='container'>
+        <div className='navbar-header'>
+          <button
+            type='button'
+            className='navbar-toggle collapsed'
+            data-toggle='collapse'
+            data-target='.navbar-collapse'>
+            <span className='icon-bar' />
+            <span className='icon-bar' />
+            <span className='icon-bar' />
+          </button>
+          <Link className='navbar-brand' to='/'><img src='/images/vinylshoplogo.png' /></Link>
+        </div>
+        <div className='collapse navbar-collapse'>
+          <ul className='nav navbar-nav justify-content-end'>
+            {
+              isLoggedIn
+                ? <li>
+                  {/* The navbar will show these links after you log in */}
+                  <NavLink to='/home' activeClassName='active'>Home</NavLink>
+                  <a href='#' onClick={handleClick}>Logout</a>
+                </li>
+                : <li>
+                  {/* The navbar will show these links before you log in */}
+                  <NavLink to='/login' activeClassName='active'>Login</NavLink>
+                  <NavLink to='/signup' activeClassName='active'>Sign Up</NavLink>
+                </li>
+            }
+          </ul>
+          { this.renderLogout() }
+          { this.renderLoginSignup() }
+        </div>
+      </div>
+    </nav>
   )
 }
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = null
-const mapDispatch = null
+const mapState = (state) => {
+  return {
+    isLoggedIn: !!state.user.id
+  }
+}
+
+const mapDispatch = (dispatch) => {
+  return {
+    handleClick () {
+      dispatch(logout())
+    }
+  }
+}
 
 export default connect(mapState, mapDispatch)(Navbar)
 
-<nav>
-        {
-          isLoggedIn
-            ? <div>
-              {/* The navbar will show these links after you log in */}
-              <Link to='/home'>Home</Link>
-              <a href='#' onClick={handleClick}>Logout</a>
-            </div>
-            : <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to='/login'>Login</Link>
-              <Link to='/signup'>Sign Up</Link>
-            </div>
-        }
-      </nav>
+/* -----------------    PROP TYPES     ------------------ */
+
+Navbar.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
+}
