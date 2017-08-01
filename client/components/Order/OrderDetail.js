@@ -38,8 +38,6 @@ class OrderDetail extends React.Component {
   }
   render() {
     const order = this.state.order;
-
-    // let orderTotal = 0;
     if (!order.userId) return <div />;//if order has yet to load or is invalid
 
     return (
@@ -69,13 +67,12 @@ class OrderDetail extends React.Component {
           <li>
             {
               order.orderItems.map(item => {
-                orderTotal += item.price * item.quantity
                 return  <Items key={item.id} item={item} />
               })
             }
           </li>
           <li>
-            <span>SUBTOTAL: {orderTotal}</span>
+            <span>SUBTOTAL:</span>
           </li>
         </ul>
         <br />
