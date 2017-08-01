@@ -42,28 +42,33 @@ export default function reducer (orders = [], action) {
 /* ------------   THUNK CREATORS     ------------------ */
 
 export const fetchOrders = () => dispatch => {
-  axios.get('/api/orders').then(res => dispatch(init(res.data))).catch(err => console.error(`Fetching users unsuccesful`, err))
+  axios.get('/api/orders')
+    .then(res => dispatch(init(res.data)))
+    .catch(err => console.error(`Fetching users unsuccesful`, err))
 }
 
 export const fetchOrder = (id) => dispatch => {
-  axios.get(`/api/orders/${id}`).then(res => dispatch(update(res.data))).catch(err => console.error('Fetching order unsuccesful', err))
+  axios.get(`/api/orders/${id}`)
+    .then(res => dispatch(update(res.data)))
+    .catch(err => console.error('Fetching order unsuccesful', err))
 }
 
 export const removeOrder = id => dispatch => {
-  dispatch(remove(id));
-  axios.delete(`/api/orders/${id}`).catch(err => console.error(`Removing order: ${id} unsuccesful`, err))
+  dispatch(remove(id))
+  axios.delete(`/api/orders/${id}`)
+    .catch(err => console.error(`Removing order: ${id} unsuccesful`, err))
 }
 
 export const addOrder = order => dispatch => {
-  axios.post('/api/order', order).then(res => {
-    axios.post(`/api/sendEmail`, res.data)
+  axios.post('/api/orders', order).then(res => {
+    axios.post(`/api/sendEmail/sendInitial`, res.data)
     dispatch(create(res.data))
   }).catch(err => console.error(`Creating order: ${order} unsuccesful`, err))
 }
 
 export const updateOrder = (id, orderUp) => dispatch => {
   axios.put(`/api/orders/${id}`, orderUp).then(res => {
-    if (orderUp.status) axios.post(`/api/sendEmail`, res.data)
+    if (orderUp.status) axios.post(`/api/sendEmail/sendUpdate`, res.data)
     return dispatch(update(res.data))
   }).catch(err => console.error(`Updating order: ${update} unsuccesful`, err))
 }

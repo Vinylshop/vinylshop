@@ -1,35 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, NavLink} from 'react-router-dom'
-// import { getCart, addToCart } from '../../store/users'
 import Items from './Order/Items'
 
 /* -----------------    COMPONENT     ------------------ */
 
-const cartItems = [
-  {
-    productId: 2,
-    product: {
-      title: 1
-    },
-    quantity: 4,
-    price: 12
-  }, {
-    productId: 4,
-    product: {
-      title: 'Example2'
-    },
-    quantity: 2,
-    price: 10
-  }, {
-    productId: 5,
-    product: {
-      title: 'Example3'
-    },
-    quantity: 4,
-    price: 12
-  }
-]
 class ShoppingCart extends Component {
   constructor (props) {
     super(props)
@@ -41,8 +16,8 @@ class ShoppingCart extends Component {
   }
 
   render () {
-    const {currentUser, isLoggedIn} = this.props
-    let total = 0
+    const {currentUser, isLoggedIn, cart} = this.props
+    const cartItems = cart.items
     return (
       <div className='container'>
         <div className='row'>
@@ -53,17 +28,19 @@ class ShoppingCart extends Component {
                 : 'Guest'}</span>
 
             </div>
+            {!cartItems.length && <div>No products added yet. Go add some!</div>}
             {cartItems.map((item, index) => {
               return (
                 <div>
-                  <Items key={index} item={item}/> {this.editItemRender(item)}
+                  <Items key={index} item={item}/>
                 </div>
               )
             })
             }
-            <div>Subtotal: {total}</div>
+            <div>Subtotal: {cart.total}</div>
           </div>
         </div>
+        {}
         {this.renderCreditCardForm()}
       </div>
     )
@@ -113,10 +90,12 @@ class ShoppingCart extends Component {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapState = ({
-  currentUser
+  currentUser,
+  cart
 }, ownProps) => {
   return {
     currentUser,
+    cart,
     isLoggedIn: !!currentUser.id
   }
 }

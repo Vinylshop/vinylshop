@@ -12,12 +12,9 @@ xdescribe('Ordermodel', () => {
       let sillyOrder
 
       beforeEach(() => {
-        return Order.create({
-          status: 'CREATED'
+        return Order.create({status: 'CREATED'}).then(order => {
+          sillyOrder = order
         })
-          .then(order => {
-            sillyOrder = order
-          })
       })
 
       it('will have status of created', () => {
