@@ -21,26 +21,26 @@ class OrderItem extends Component {
 
     return (
       <div>
-        <li className="list-group-item">
-          <ul className="list-inline">
+
+        <ul className="list-inline">
+          <li className="list-group-item">
+            {currentUser.isAdmin && this.renderOrderChange() }
             <li>
               Order #: <Link to={`/orders/${order.id}`}>{order.id}</Link>
             </li>
             <li>
-              <span>Status: {order.status} {currentUser.isAdmin && this.renderOrderChange() }</span>
+              <span>Status: {order.status} </span>
             </li>
             <li>
               <span>Date: {creation[0]} Time: {creation[1].substr(0,5)}</span>
             </li>
             <li>
-              <span>Shipped To:</span>
-            </li>
-            <li>
+              Shipped To:
+
               <Link to={`/users/${order.userId}`}>{order.user.username}</Link> ({order.email})
             </li>
-          </ul>
-
-        </li>
+          </li>
+        </ul>
 
       </div>
     );

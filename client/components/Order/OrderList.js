@@ -25,7 +25,6 @@ class OrderList extends React.Component {
   render() {
     const {orders, currentUser} = this.props
     if (!orders.length) return (<div> NO ORDERS TO DISPLAY </div>)
-    orders.sort((a,b) => {a.id-b.id})
     if (!currentUser.isAdmin) return (<div> Only Admin can view all Orders</div>)
     return (
       <div className="container">

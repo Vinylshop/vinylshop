@@ -10,22 +10,21 @@ class Items extends Component {
     const { item } = this.props;
 
     return (
-      <li className="list-group-item">
-        <ul className="list-inline">
+        <ul className="list-group-item">
+          <li>
+            <Link to={`/products/${item.productId}`}>{item.product ? item.product.title : item.productname }</Link>
+          </li>
           <li>
             <span>Quantity: {item.quantity}</span>
           </li>
           <li>
             <span>Price: {item.price}</span>
           </li>
-          <li>
-            <Link to={`/products/${item.productId}`}>{item.product ? item.product.title : item.productname }</Link>
-          </li>
+
           <li>
             <span> item total:  {item.quantity*item.price}</span>
           </li>
         </ul>
-      </li>
     );
   }
 }
