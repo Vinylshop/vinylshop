@@ -8,10 +8,7 @@ const stripe = require('stripe')(keySecret)
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  req.session.cart = req.session.cart || {
-    total: 0,
-    items: []
-  }
+  req.session.cart = req.session.cart || {total: 0, items: []}
   res.json(req.session.cart)
 })
 
@@ -36,9 +33,19 @@ router.put('/addItem', (req, res, next) => {
 router.post('checkout/charge', (req, res) => {
   const cart = req.session.cart
   const charge = cart.total
-  stripe.customers.create({email: req.body.stripeEmail, source: req.body.stripeToken}).then(customer => stripe.charges.create({charge, description: 'Buying vinyls', currency: 'usd', customer: customer.id})).then(charge => {
-    return res.redirect('/orders')
-  }).catch(console.log)
+  stripe.customers.create({
+    email: req.body.stripeEmail,
+    source: req.body.stripeToken
+  })
+    .then(customer =>
+      stripe.charges.create({
+        charge,
+        description: 'Buying vinyls',
+        currency: 'usd',
+        customer: customer.id
+      }))
+    .then(charge)
+    .catch(console.log)
 })
 
 router.delete('/', (req, res, next) => {

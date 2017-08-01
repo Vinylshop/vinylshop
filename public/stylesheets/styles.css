@@ -11,6 +11,18 @@ html, body {
   width: 100%;
 }
 
+.row {
+  margin: 0;
+}
+
+.text-align {
+  text-align: center;
+}
+
+h4 {
+  padding: 15px 0 15px 0;
+}
+
 label {
   display: block;
 }
@@ -29,7 +41,7 @@ label {
   font-size: 1.25em;
 }
 
-.navbar-nav>li>a:hover {
+.navbar-nav>li>a:hover, .navbar-nav>li>a:active {
   background-color: transparent;
   color: grey;
   font-size: 1.25em;
@@ -45,6 +57,10 @@ a {
   padding-top: 25px;
 }
 
+#user-name {
+  font-size: 1.5em;
+}
+
 .btn-submit {
   margin-top: 25px;
 }
@@ -52,6 +68,7 @@ a {
 .btn-remove {
   border: none;
   background: none;
+  float: right;
 }
 
 .heading {

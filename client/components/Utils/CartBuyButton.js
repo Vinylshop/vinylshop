@@ -13,7 +13,7 @@ class CartBuyButton extends Component {
   render () {
     return (
       <div>
-        <form>
+        <form onSubmit={this.onSubmit}>
           <input
             className="form-like large-font"
             value={this.state.quantity}
