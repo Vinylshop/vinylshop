@@ -43,38 +43,32 @@ class OrderDetail extends React.Component {
     return (
       <div className="container">
         <OrderItem order={order} key={order.id}/>
-
         <ul className="list-inline">
           <li className="list-group-item">
-            <ul className="list-inline">
-              <li></li>
-              <li/>
-              <li> Shipping Address: </li>
-              <li>
-                <span>{order.address}</span>
-              </li>
-              <li>
-                <span>{order.city}, {order.state}</span>
-              </li>
-              <li>
-                <span>{order.zipCode}</span>
-              </li>
-            </ul>
+
+            <li> Shipping Address: </li>
+            <li>
+              <span>{order.address}</span>
+            </li>
+            <li>
+              <span>{order.city}, {order.state}</span>
+            </li>
+            <li>
+              <span>{order.zipCode}</span>
+            </li>
           </li>
-          <li>
-            Order Items
-          </li>
-          <li>
-            {
-              order.orderItems.map(item => {
-                return  <Items key={item.id} item={item} />
-              })
-            }
-          </li>
-          <li>
-            <span>SUBTOTAL:</span>
-          </li>
+
         </ul>
+        <div>
+          <div>Order Items</div>
+          {
+            order.orderItems.map(item => {
+              return  <Items key={item.id} item={item} />
+            })
+          }
+
+          <span>SUBTOTAL:</span>
+        </div>
         <br />
       </div>
     );
