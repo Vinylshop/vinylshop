@@ -1,32 +1,10 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import _ from 'lodash'
-import { Link, NavLink } from 'react-router-dom'
-// import { getCart, addToCart } from '../../store/users'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Link, NavLink} from 'react-router-dom'
 import Items from './Order/Items'
 
 /* -----------------    COMPONENT     ------------------ */
 
-
-  const cartItems = [
-    {
-      productId: 2,
-      product:{title: 1},
-      quantity: 4,
-      price: 12
-    },{
-      productId: 4,
-      product:{title: 'Example2'},
-      quantity: 2,
-      price: 10
-    },
-    {
-      productId: 5,
-      product:{title: 'Example3'},
-      quantity: 4,
-      price: 12
-    }
-  ]
 class ShoppingCart extends Component {
   constructor (props) {
     super(props)
@@ -37,97 +15,91 @@ class ShoppingCart extends Component {
     this.renderCreditCardForm = this.renderCreditCardForm.bind(this)
   }
 
-  render(){
-    const { currentUser,isLoggedIn } = this.props
-    let total = 0
+  render () {
+    const {currentUser, isLoggedIn, cart} = this.props
+    const cartItems = cart.items
     return (
       <div className='container'>
         <div className='row'>
           <div className='col'>
             <div>
-              <span>Shopping Cart for {isLoggedIn ? currentUser.username : "Guest"}</span>
+              <span>Shopping Cart for {isLoggedIn
+                ? currentUser.username
+                : 'Guest'}</span>
 
             </div>
-            {
-              cartItems
-              .map((item, index) => {
-
-
-                return (
-                  <div>
-                    <Items key={index} item={item}/>
-                    {this.editItemRender(item)}
-                  </div>
-                )
-
-              })
+            {!cartItems.length && <div>No products added yet. Go add some!</div>}
+            {cartItems.map((item, index) => {
+              return (
+                <div>
+                  <Items key={index} item={item}/>
+                </div>
+              )
+            })
             }
-            <div>Subtotal: {total}</div>
+            <div>Subtotal: {cart.total}</div>
           </div>
         </div>
+        {}
         {this.renderCreditCardForm()}
       </div>
     )
   }
 
-  editItemRender(it){
-    return(
+  editItemRender (item) {
+    return (
       <div className="d-inline">
-        <form className="list-inline" onSubmit={(event) =>{
+        <form className="list-inline" onSubmit={(event) => {
           event.preventDefault()
-          console.log(`Item ${it.product.title} quantity changed`)}}>
+          console.log(`Item ${item.product.title} quantity changed`)
+        }}>
           <ul className="list-inline">
             <li className="list-inline">
-              <input
-                name="quantity"
-                type="text"
-                value={it.quantity}
-              />
+              <input name="quantity" type="text" value={item.quantity}/>
             </li>
           </ul>
-          <button
-            type="submit"
-          className="btn btn-warning btn-xs d-inline">
-            <span className="glyphicon glyphicon-pencil" />
+          <button type="submit" className="btn btn-warning btn-xs d-inline">
+            <span className="glyphicon glyphicon-pencil"/>
             Update
           </button>
 
         </form>
-        <button
-          className="btn btn-warning btn-xs d-inline"
-          onClick={(event) => {
-            event.preventDefault()
-            console.log(`Item ${it.product.title} deleted`)
-          }}
-        >
+        <button className="btn btn-warning btn-xs d-inline" onClick={(event) => {
+          event.preventDefault()
+          console.log(`Item ${item.product.title} deleted`)
+        }}>
           Delete
         </button>
       </div>
     )
   }
 
-  renderCreditCardForm(){
-    return(
-       <form>
-         <input type='text' data-stripe='number' placeholder='credit card number' /><br />
-         <input type='text' data-stripe='exp-month' placeholder='expiration month' /><br />
-         <input type='text' data-stripe='exp-year' placeholder='expiration year' /><br />
-         <input type='text' data-stripe='cvc' placeholder='cvc' /><br />
-         <input type='submit' value='Purchase' />
-       </form>
-     )
+  renderCreditCardForm () {
+    return (
+      <form>
+        <input type='text' data-stripe='number' placeholder='credit card number'/><br/>
+        <input type='text' data-stripe='exp-month' placeholder='expiration month'/><br/>
+        <input type='text' data-stripe='exp-year' placeholder='expiration year'/><br/>
+        <input type='text' data-stripe='cvc' placeholder='cvc'/><br/>
+        <input type='submit' value='Purchase'/>
+      </form>
+    )
   }
 }
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ currentUser }, ownProps) => {
+const mapState = ({
+  currentUser,
+  cart
+}, ownProps) => {
   return {
-        currentUser,
-        isLoggedIn: !!currentUser.id
+    currentUser,
+    cart,
+    isLoggedIn: !!currentUser.id
   }
 }
 
-const mapDispatch = {  }
+const mapDispatch = {}
 
 export default connect(mapState, mapDispatch)(ShoppingCart)

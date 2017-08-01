@@ -40,7 +40,7 @@ export const addToCart = (itemToAdd) => dispatch => {
 }
 
 export const removeCart = () => dispatch => {
-  axios.delete(`/cart`)
+  axios.delete(`/api/cart`)
     .then(res => dispatch(del(res.data)))
     .catch(err => console.error('Removing cart', err))
 }

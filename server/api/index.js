@@ -10,7 +10,6 @@ router.use('/lists', require('./lists'))
 router.use('/cart', require('./cart'))
 router.use('/sendEmail', require('./sendEmail'))
 
-
 router.use((req, res, next) => {
   const error = new Error('Not Found')
   error.status = 404

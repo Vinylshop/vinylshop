@@ -15,11 +15,11 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-router.post('/', sendEmail)
+router.post('/sendInitial', sendInitial)
+router.post('/sendUpdate', sendEmail)
 router.get('/dummy', sendDummy)
 
-
-function sendEmail(req, res, next){
+function sendEmail (req, res, next) {
   const order = req.body
   let message = `Congratulations ${order.user.username} Order ${order.id} has been ${order.status}.\n`
   message += `Order details:\n`
@@ -32,16 +32,34 @@ function sendEmail(req, res, next){
     subject: `Order ${req.body.id} Update`,
     text: message
   }
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error){
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
       console.log(error)
-    }else{
+    } else {
       console.log('Message sent' + info.response)
     }
   })
 }
 
-function sendDummy(req, res, next){
+function sendInitial (req, res, next) {
+  const order = req.body
+  let message = `Congratulations\nOrder ${order.id} has been created.\n`
+  message += `Order detail will be emailed in subsequent emails\nThanks for buying!The most hydrated team appreciates you`
+  const mailOptions = {
+    from: 'vinylrocksgs@gmail.com',
+    to: req.body.email,
+    subject: `Order ${req.body.id} Update`,
+    text: message
+  }
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error)
+    } else {
+      console.log('Message sent' + info.response)
+    }
+  })
+}
+function sendDummy (req, res, next) {
   const message = `Order 4 has been created.`
   const mailOptions = {
     from: 'vinylrocksgs@gmail.com',
@@ -50,13 +68,13 @@ function sendDummy(req, res, next){
     text: message
 
   }
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error){
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
       console.log(error)
-      res.json({yo: error});
-    }else{
+      res.json({yo: error})
+    } else {
       console.log('Message sent' + info.response)
-      res.json({yo: info.response});
+      res.json({yo: info.response})
     }
   })
 }

@@ -39,7 +39,7 @@ router.post('checkout/charge', (req, res) => {
   })
     .then(customer =>
       stripe.charges.create({
-        amount,
+        charge,
         description: 'Buying vinyls',
         currency: 'usd',
         customer: customer.id
@@ -50,5 +50,4 @@ router.post('checkout/charge', (req, res) => {
 
 router.delete('/', (req, res, next) => {
   req.session.cart.destroy()
-
 })
