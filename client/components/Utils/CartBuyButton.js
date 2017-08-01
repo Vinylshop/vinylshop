@@ -5,7 +5,7 @@ import { addToCart } from '../../store'
 class CartBuyButton extends Component {
   constructor (props) {
     super(props)
-    this.state = {quantity: '1'}
+    this.state = {quantity: 1}
 
     this.onSubmit = this.onSubmit.bind(this)
   }
@@ -17,7 +17,7 @@ class CartBuyButton extends Component {
           <input
             className="form-like large-font"
             value={this.state.quantity}
-            onChange={evt => this.setState({quantity: evt.target.value})}
+            onChange={evt => this.setState({quantity: Number(evt.target.value)})}
           />
           <button
             type="submit"
