@@ -4,7 +4,7 @@
  */
 'use strict'
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, Review} = require('../db/models')
 module.exports = router
 
 /**
@@ -31,12 +31,18 @@ function isAdmin (req, res, next) {
     next(error)
   }
 }
+
 /**
  * ProductID Param
  * returns
  */
 router.param('productId', (req, res, next, id) => {
-  Product.findById(id)
+  Product.findById(id,
+    {
+      include: [
+        {model: Review, attributes: ['title', 'content', 'rating']}
+      ]
+    })
     .then(product => {
       if (!product) {
         const err = Error('Product not found')
@@ -67,9 +73,7 @@ router.get('/', (req, res, next) => {
  * returns a specific product by productId
  */
 router.get('/:productId', (req, res, next) => {
-  Product.findById(req.product.id, attributesToReturn)
-    .then(product => res.json(product))
-    .catch(next)
+  res.json(req.product)
 })
 
 /**

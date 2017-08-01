@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import { updateProduct, fetchProduct } from '../../store'
 import ImageWithStatusText from '../Utils/ImageWithStatusText'
+import ReviewItem from '../Review/ReviewItem'
 
 /**
  * COMPONENT
@@ -27,6 +28,7 @@ class ProductDetail extends Component {
     this.renderProductImage = this.renderProductImage.bind(this)
     this.renderProductMainTitle = this.renderProductMainTitle.bind(this)
     this.renderProductDescription = this.renderProductDescription.bind(this)
+    this.renderProductReviews = this.renderProductReviews.bind(this)
   }
 
   componentDidMount () {
@@ -48,14 +50,18 @@ class ProductDetail extends Component {
    *
    *****************************************************/
   render () {
+    const {product} = this.state
+    console.log(product)
     return (
       <div className="container product-container">
         <h1>Product Detail</h1>
-        <hr />
-        { this.renderProductDetailForm() }
-        <hr />
-        { this.renderProductDetail() }
-        { this.renderProductDescription() }
+        <hr/>
+        {this.renderProductDetailForm()}
+        <hr/>
+        {this.renderProductDetail()}
+        {this.renderProductDescription()}
+        <hr/>
+        {this.renderProductReviews()}
       </div>
     )
   }
@@ -63,8 +69,8 @@ class ProductDetail extends Component {
   /*****************************************************/
 
   renderProductDetail () {
-    const product = this.state.product
-    if (!product) return <div />
+    const {product} = this.state
+    if (!product) return <div/>
     return (
       <div>
         {this.renderProductMainTitle()}
@@ -74,8 +80,8 @@ class ProductDetail extends Component {
   }
 
   renderProductMainTitle () {
-    const product = this.state.product
-    if (!product || !product.images) return <div />
+    const {product} = this.state
+    if (!product || !product.images) return <div/>
     return (
       <div className="container-fluid">
         <h2>{product.title}</h2>
@@ -86,8 +92,8 @@ class ProductDetail extends Component {
   renderProductImage () {
     const height = 240
     const width = 320
-    const product = this.state.product
-    if (!product.images) return <div />
+    const {product} = this.state
+    if (!product.images) return <div/>
     return (
       <div className="container-fluid">
         <ImageWithStatusText imageUrl={product.images} height={height} width={width}/>
@@ -96,8 +102,8 @@ class ProductDetail extends Component {
   }
 
   renderProductDescription () {
-    const product = this.state.product
-    if (!product.images) return <div />
+    const {product} = this.state
+    if (!product.images) return <div/>
     return (
       <div className="container-fluid">
         {product.description}
@@ -105,13 +111,27 @@ class ProductDetail extends Component {
     )
   }
 
+  renderProductReviews () {
+    const {product} = this.state
+    if (!product.reviews) return <div>Be the first to review a {product.title}!</div>
+    return (
+      <div>
+        <h3>Product Reviews</h3>
+        {
+          product.reviews
+            .map(review => <ReviewItem review={review} key={review.id}/>)
+        }
+      </div>
+    )
+  }
+
   renderProductDetailForm () {
-    const product = this.state.product
-    if (!product) return <div />
+    const {product} = this.state
+    if (!product) return <div/>
     return (
       <div>
         <h4>Detail Form</h4>
-        Title, Price, Description, Quantity, imageUrl<br />
+        Title, Price, Description, Quantity, imageUrl<br/>
         <form className="list-group-item product-item" onSubmit={this.onSubmit}>
           <input
             className="form-like large-font"
