@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const INITIALIZE = 'INITIALIZE_ORDER'
 const CREATE     = 'CREATE_ORDER'
-export const REMOVE = 'REMOVE_ORDER'
+const REMOVE = 'REMOVE_ORDER'
 const UPDATE     = 'UPDATE_ORDER'
 
 
@@ -63,12 +63,18 @@ export const removeOrder = id => dispatch => {
 
 export const addOrder = order => dispatch => {
   axios.post('/api/order', order)
-       .then(res => dispatch(create(res.data)))
+       .then(res => {
+         axios.post(`/api/sendEmail`, res.data)
+         dispatch(create(res.data))
+       })
        .catch(err => console.error(`Creating order: ${order} unsuccesful`, err))
 }
 
-export const updateOrder = (id, order) => dispatch => {
-  axios.put(`/api/orders/${id}`, order)
-       .then(res => dispatch(update(res.data)))
-       .catch(err => console.error(`Updating order: ${order} unsuccesful`, err))
+export const updateOrder = (id, orderUp) => dispatch => {
+  axios.put(`/api/orders/${id}`, orderUp)
+       .then(res => {
+         if(orderUp.status) axios.post(`/api/sendEmail`, res.data)
+         return dispatch(update(res.data))
+       })
+       .catch(err => console.error(`Updating order: ${update} unsuccesful`, err))
 }
