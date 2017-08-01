@@ -19,8 +19,7 @@ class Checkout extends Component {
 
   render () {
     const {currentUser, isLoggedIn, cart} = this.props
-    // const cartItems = cart.items
-    // if (!cartItems.length) return <div>No products added yet. Go add some!</div>
+    if (!cart.items.length) return <div>No products added yet. Go add some!</div>
     return (
       <div className='container'>
         <div className='row'>

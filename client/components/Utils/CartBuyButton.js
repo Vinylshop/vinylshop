@@ -32,8 +32,8 @@ class CartBuyButton extends Component {
 
   onSubmit (e) {
     e.preventDefault()
-    const {productId, price} = this.props
-    this.props.addToCart(({productId, price, quantity: this.state.quantity}))
+    const {productId, price, productname} = this.props
+    this.props.addToCart(({productId, price, quantity: this.state.quantity, productname}))
     this.setState({quantity: 1})
   }
 }
