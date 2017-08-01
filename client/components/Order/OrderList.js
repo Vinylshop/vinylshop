@@ -25,6 +25,8 @@ class OrderList extends React.Component {
   render() {
     const {orders, currentUser} = this.props
     if (!orders.length) return (<div> NO ORDERS TO DISPLAY </div>)
+    // tk: you could optimize this next line by moving the definintion of the anon function outside the render
+    // Remember that in general, it's good to avoid defining functions within the render method
     orders.sort((a,b) => {a.id-b.id})
     if (!currentUser.isAdmin) return (<div> Only Admin can view all Orders</div>)
     return (

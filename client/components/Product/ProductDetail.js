@@ -21,6 +21,19 @@ class ProductDetail extends Component {
         images: ''
       }
     }
+    /**
+     * tk: want to be super cool? Try defining your methods as class properties!
+     *
+     * ex:
+     * class Something {
+     *
+     *   someMethod: () => {}
+     * }
+     *
+     * If you make those properties arrow functions, then the context will be bound for you,
+     * so you can stop doing .bind(this) all the time. Class properties are a stage-2 language feature,
+     * but we can use them thanks to babel/webpack
+     */
     this.onProductUpdate = this.onProductUpdate.bind(this)
     this.renderProductDetailForm = this.renderProductDetailForm.bind(this)
     this.renderProductDetail = this.renderProductDetail.bind(this)

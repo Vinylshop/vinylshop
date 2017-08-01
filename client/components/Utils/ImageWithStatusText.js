@@ -21,6 +21,7 @@ class ImageWithStatusText extends React.Component {
           src={this.props.imageUrl}
           height={this.props.height}
           width={this.props.width}
+          {/* tk: these should be bound in the constructor (or should be class properties) */}
           onLoad={this.handleImageLoaded.bind(this)}
           onError={this.handleImageErrored.bind(this)}
         />

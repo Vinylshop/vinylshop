@@ -7,8 +7,7 @@ import OrderItem from '../Order/OrderItem'
 import { updateUser } from '../../store/users'
 
 /* -----------------    COMPONENT     ------------------ */
-
-const adminState = ['true', 'false']
+const adminState = ['true', 'false'] // tk: why have two?
 const promptState = ['true', 'false']
 
 class UserDetail extends Component {
