@@ -38,8 +38,6 @@ class OrderDetail extends React.Component {
   }
   render() {
     const order = this.state.order;
-
-    // let orderTotal = 0;
     if (!order.userId) return <div />;//if order has yet to load or is invalid
 
     return (
@@ -51,7 +49,7 @@ class OrderDetail extends React.Component {
             <ul className="list-inline">
               <li></li>
               <li/>
-              <li> Shipped to: </li>
+              <li> Shipping Address: </li>
               <li>
                 <span>{order.address}</span>
               </li>
@@ -68,13 +66,13 @@ class OrderDetail extends React.Component {
           </li>
           <li>
             {
-              order.orderItems.map(item => (
-                (  <Items key={item.id} item={item} />)
-              ))
+              order.orderItems.map(item => {
+                return  <Items key={item.id} item={item} />
+              })
             }
           </li>
           <li>
-            <span>SUBTOTAL: {orderTotal}</span>
+            <span>SUBTOTAL:</span>
           </li>
         </ul>
         <br />

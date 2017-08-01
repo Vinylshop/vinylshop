@@ -2,51 +2,37 @@ import axios from 'axios'
 
 /* -----------------    ACTION TYPES ------------------ */
 
-const INITIALIZE_USERS = 'INITIALIZE_USERS'
-const GET_USER = 'GET_USER'
-const CREATE_USER = 'CREATE_USER'
-export const REMOVE_USER = 'REMOVE_USER'
-const UPDATE_USER = 'UPDATE_USER'
+const INITIALIZE = 'INITIALIZE_USERS'
+const GET = 'GET_USER'
+const CREATE = 'CREATE_USER'
+const REMOVE = 'REMOVE_USER'
+const UPDATE = 'UPDATE_USER'
 
 /* ------------   ACTION CREATORS     ------------------ */
 
-export function initUsers (users) {
-  const action = { type: INITIALIZE_USERS, users }
-  return action
-}
-
-export function createUser (user) {
-  const action = { type: CREATE_USER, user }
-  return action
-}
-
-export function removeUser (id) {
-  const action = { type: REMOVE_USER, id }
-  return action
-}
-
-export function updateUser (user) {
-  const action = { type: UPDATE_USER, user }
-  return action
-}
+const init = users => ({ type: INITIALIZE, users })
+const get = user => ({ type: GET, user })
+const create = user => ({ type: CREATE, user })
+const remove = id => ({ type: REMOVE, id })
+const update = user => ({ type: UPDATE, user })
 
 /* ------------       REDUCER     ------------------ */
 
 export default function reducer (users = [], action) {
   switch (action.type) {
-    case INITIALIZE_USERS:
+    case INITIALIZE:
       return action.users
 
-    case GET_USER:
+    case GET:
       return action.user
 
-    case CREATE_USER:
+    case CREATE:
       return [action.user, ...users]
 
-    case REMOVE_USER:
+    case REMOVE:
       return users.filter(user => user.id !== action.id)
 
-    case UPDATE_USER:
+    case UPDATE:
       return users.map(user => (
         action.user.id === user.id ? action.user : user
       ))
@@ -60,29 +46,29 @@ export default function reducer (users = [], action) {
 
 export const fetchUsers = () => dispatch => {
   axios.get('/api/users')
-       .then(res => dispatch(initUsers(res.data)))
+       .then(res => dispatch(init(res.data)))
 }
 
 export const fetchUser = () => dispatch => {
   axios.get(`/api/users/${id}`)
-       .then(res => dispatch(getUser(res.data)))
+       .then(res => dispatch(get(res.data)))
 }
 
 // optimistic
-export const deleteUser = id => dispatch => {
-  dispatch(removeUser(id))
+export const removeUser = id => dispatch => {
+  dispatch(remove(id))
   axios.delete(`/api/users/${id}`)
        .catch(err => console.error(`Removing user: ${id} unsuccesful`, err))
 }
 
-export const postUser = user => dispatch => {
+export const addUser = user => dispatch => {
   axios.post('/api/users', user)
-       .then(res => dispatch(createUser(res.data)))
+       .then(res => dispatch(create(res.data)))
        .catch(err => console.error(`Creating user: ${user} unsuccesful`, err))
 }
 
-export const putUser = (id, user) => dispatch => {
+export const updateUser = (id, user) => dispatch => {
   axios.put(`/api/users/${id}`, user)
-       .then(res => dispatch(updateUser(res.data)))
+       .then(res => dispatch(update(res.data)))
        .catch(err => console.error(`Updating user: ${user} unsuccesful`, err))
 }

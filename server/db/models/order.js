@@ -7,6 +7,9 @@ const Order = db.define('order', {
   status: {
     type: Sequelize.ENUM('CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED')
   },
+  email: {
+    type: Sequelize.STRING
+  },
   address: {
     type: Sequelize.STRING
   },
@@ -18,19 +21,6 @@ const Order = db.define('order', {
   },
   zipCode: {
     type: Sequelize.STRING
-  }
-}, {
-  scopes:{
-    populated: () => {
-      include:[{
-        model: db.model('orderItem')
-      }]
-    }
-  },
-  instanceMethods: {
-    changeStatus: function(status){
-      this.status = status
-    }
   }
 })
 
