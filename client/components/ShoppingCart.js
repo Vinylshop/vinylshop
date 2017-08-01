@@ -108,8 +108,7 @@ class ShoppingCart extends Component {
 
   renderCreditCardForm(){
     return(
-       <form >
-         <span></span><br />
+       <form>
          <input type='text' data-stripe='number' placeholder='credit card number' /><br />
          <input type='text' data-stripe='exp-month' placeholder='expiration month' /><br />
          <input type='text' data-stripe='exp-year' placeholder='expiration year' /><br />
