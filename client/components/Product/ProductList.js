@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchProduct, addProduct } from '../../store'
-import ProductItem from './ProductItem'
+import ProductCard from './ProductCard'
 
 /* -----------------    COMPONENT     ------------------ */
 class ProductList extends Component {
@@ -64,9 +64,7 @@ class ProductList extends Component {
       .filter(this.filterProduct)
       .map(product => {
         return (
-          <div className='col-lg-4'>
-            <ProductItem product={product} key={product.id} />
-          </div>
+          <ProductCard product={product} key={product.id} />
         )
       })
   }
