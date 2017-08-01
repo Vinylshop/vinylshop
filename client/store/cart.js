@@ -34,6 +34,7 @@ export const fetchCart = () => dispatch => {
 }
 
 export const addToCart = (itemToAdd) => dispatch => {
+  console.log(itemToAdd)
   axios.put(`/api/cart/addItem`, itemToAdd)
     .then(res => dispatch(add(res.data)))
     .catch(err => console.error('Adding item to cart', err))
