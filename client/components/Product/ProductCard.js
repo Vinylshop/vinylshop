@@ -12,7 +12,7 @@ class ProductCard extends Component {
     const {product} = this.props
     return (
       <div className='col-lg-4'>
-        <h3 className='display-5'>{product.title}</h3>
+        <p className='h4 text-center'>{product.title}</p>
         <Link to={`/products/${product.id}`}>
           <ImageWithStatusText imageUrl={product.images} />
         </Link>
