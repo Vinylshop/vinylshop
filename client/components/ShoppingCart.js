@@ -30,13 +30,16 @@ import Items from './Order/Items'
 class ShoppingCart extends Component {
   constructor (props) {
     super(props)
-
+    this.state = {
+      total: 0
+    }
     this.editItemRender = this.editItemRender.bind(this)
+    this.renderCreditCardForm = this.renderCreditCardForm.bind(this)
   }
 
   render(){
     const { currentUser,isLoggedIn } = this.props
-    let total = 0;
+    let total = 0
     return (
       <div className='container'>
         <div className='row'>
@@ -48,7 +51,7 @@ class ShoppingCart extends Component {
             {
               cartItems
               .map((item, index) => {
-                  total += item.price * item.quantity
+
 
                 return (
                   <div>
@@ -62,6 +65,7 @@ class ShoppingCart extends Component {
             <div>Subtotal: {total}</div>
           </div>
         </div>
+        {this.renderCreditCardForm()}
       </div>
     )
   }
@@ -69,7 +73,9 @@ class ShoppingCart extends Component {
   editItemRender(it){
     return(
       <div className="d-inline">
-        <form className="list-inline">
+        <form className="list-inline" onSubmit={(event) =>{
+          event.preventDefault()
+          console.log(`Item ${it.product.title} quantity changed`)}}>
           <ul className="list-inline">
             <li className="list-inline">
               <input
@@ -82,22 +88,36 @@ class ShoppingCart extends Component {
           <button
             type="submit"
           className="btn btn-warning btn-xs d-inline">
-            <span className="glyphicon glyphicon-plus" />
+            <span className="glyphicon glyphicon-pencil" />
             Update
           </button>
 
         </form>
         <button
-          type="submit"
-        className="btn btn-warning btn-xs d-inline">
-          <span className="glyphicon glyphicon-plus" />
+          className="btn btn-warning btn-xs d-inline"
+          onClick={(event) => {
+            event.preventDefault()
+            console.log(`Item ${it.product.title} deleted`)
+          }}
+        >
           Delete
         </button>
       </div>
     )
   }
 
-
+  renderCreditCardForm(){
+    return(
+       <form >
+         <span></span><br />
+         <input type='text' data-stripe='number' placeholder='credit card number' /><br />
+         <input type='text' data-stripe='exp-month' placeholder='expiration month' /><br />
+         <input type='text' data-stripe='exp-year' placeholder='expiration year' /><br />
+         <input type='text' data-stripe='cvc' placeholder='cvc' /><br />
+         <input type='submit' value='Purchase' />
+       </form>
+     )
+  }
 }
 
 /* -----------------    CONTAINER     ------------------ */
