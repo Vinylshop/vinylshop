@@ -29,20 +29,22 @@ class UserDetail extends Component {
     return (
       <div className='container'>
         <div className='row'>
-          <div className='col'>
+          <div className='col-lg-6 col-lg-offset-3'>
             <UserItem user={user} />
             <div>
-              <span>{user.isAdmin ? 'Administrator' : 'Regular User'}</span>
+              <h5>{user.isAdmin ? 'Administrator' : 'Regular User'}</h5>
               {
                 currentUser.isAdmin && this.renderAdminChange()
               }
             </div>
             <div>
-              <span>{user.promptChange ? 'Reset Password' : 'No Password Change'}</span>
+              <h5>{user.promptChange ? 'Reset Password' : 'No Password Change'}</h5>
               {
                 currentUser.isAdmin && this.renderPromptChange()
               }
             </div>
+          </div>
+          <div className='col-lg-6 col-lg-offset-3'>
             <ul>
               <li>
                 {
@@ -61,15 +63,14 @@ class UserDetail extends Component {
   renderAdminChange () {
     return (
       <div>
-        <select name='isAdmin' defaultValue='' onChange={this.handleAdminChange} required>
-          <option value='' disabled>(Administrator)</option>
+        <select className='form-control' name='isAdmin' defaultValue='' onChange={this.handleAdminChange} required>
+          <option value='' disabled>Administrator?</option>
           {
               adminState.map((isAdmin, i) => (
                 <option key={i} value={isAdmin}>{isAdmin}</option>
               ))
             }
         </select>
-        <span className='glyphicon glyphicon-search' />
       </div>
     )
   }
@@ -77,15 +78,14 @@ class UserDetail extends Component {
   renderPromptChange () {
     return (
       <div>
-        <select name='prompt' defaultValue='' onChange={this.handlePromptChange} required>
-          <option value='' disabled>(Reset Password)</option>
+        <select className='form-control' name='prompt' defaultValue='' onChange={this.handlePromptChange} required>
+          <option value='' disabled>Reset Password?</option>
           {
               promptState.map((prompt, i) => (
                 <option key={i} value={prompt}>{prompt}</option>
               ))
             }
         </select>
-        <span className='glyphicon glyphicon-search' />
       </div>
     )
   }
@@ -95,7 +95,6 @@ class UserDetail extends Component {
       isAdmin: (event.target.value === 'true')
     }
     this.props.updateUser(this.props.user.id, upAdmin)
-    event.target.value = ''
   }
 
   handlePromptChange (event) {
@@ -103,7 +102,6 @@ class UserDetail extends Component {
       promptChange: (event.target.value === 'true')
     }
     this.props.updateUser(this.props.user.id, upPrompt)
-    event.target.value = ''
   }
 }
 
