@@ -23,6 +23,8 @@ OrderItem.belongsTo(Product)
 Product.hasMany(OrderItem)
 
 List.belongsTo(User)
+List.hasMany(OrderItem)
+OrderItem.belongsTo(List)
 User.hasOne(List, {as: 'cart'})
 User.hasMany(List, {as: 'wishlists'})
 
