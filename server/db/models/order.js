@@ -2,7 +2,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-
 const Order = db.define('order', {
   status: {
     type: Sequelize.ENUM('CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED')
@@ -23,6 +22,5 @@ const Order = db.define('order', {
     type: Sequelize.STRING
   }
 })
-
 
 module.exports = Order

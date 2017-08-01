@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, NavLink} from 'react-router-dom'
 import Items from './Order/Items'
+import { addToCart, removeFromCart } from '../store/cart'
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -17,7 +18,7 @@ class ShoppingCart extends Component {
 
   render () {
     const {currentUser, isLoggedIn, cart} = this.props
-    const cartItems = cart.items
+    console.log('CARRRRTTTTTT ======>', cart)
     return (
       <div className='container'>
         <div className='row'>
@@ -28,11 +29,11 @@ class ShoppingCart extends Component {
                 : 'Guest'}</span>
 
             </div>
-            {!cartItems.length && <div>No products added yet. Go add some!</div>}
-            {cartItems.map((item, index) => {
+            {!cart.items.length && <div>No products added yet. Go add some!</div>}
+            {cart.items.map((item, index) => {
               return (
                 <div>
-                  <Items key={index} item={item}/>
+                  <Items key={index} item={item}/>{this.editItemRender(item)}
                 </div>
               )
             })
@@ -40,8 +41,6 @@ class ShoppingCart extends Component {
             <div>Subtotal: {cart.total}</div>
           </div>
         </div>
-        {}
-        {this.renderCreditCardForm()}
       </div>
     )
   }
@@ -49,24 +48,33 @@ class ShoppingCart extends Component {
   editItemRender (item) {
     return (
       <div className="d-inline">
-        <form className="list-inline" onSubmit={(event) => {
-          event.preventDefault()
-          console.log(`Item ${item.product.title} quantity changed`)
-        }}>
+        <form className="list-inline"
+          onSubmit={(event) => {
+            event.preventDefault()
+            let newItem = item
+            console.log(item)
+            newItem.quantity = Number(event.target.quantity.value)
+            this.props.addToCart((item))
+          }}>
           <ul className="list-inline">
             <li className="list-inline">
-              <input name="quantity" type="text" value={item.quantity}/>
+              <input
+                name="quantity"
+                type="text"
+                placeholder={item.quantity}
+                onChange={evt => this.setState({quantity: evt.target.value})}
+              />
             </li>
           </ul>
           <button type="submit" className="btn btn-warning btn-xs d-inline">
             <span className="glyphicon glyphicon-pencil"/>
             Update
           </button>
-
+          
         </form>
-        <button className="btn btn-warning btn-xs d-inline" onClick={(event) => {
-          event.preventDefault()
-          console.log(`Item ${item.product.title} deleted`)
+        <button className="btn btn-warning btn-xs d-inline" onClick={() =>{
+          this.props.deleteFromCart((item))
+          console.log(item)
         }}>
           Delete
         </button>
@@ -100,6 +108,14 @@ const mapState = ({
   }
 }
 
-const mapDispatch = {}
-
+const mapDispatch = (dispatch) => {
+  return {
+    addToCart (itemObj) {
+      dispatch(addToCart(itemObj))
+    },
+    deleteFromCart (itemObj) {
+      dispatch(removeFromCart(itemObj))
+    }
+  }
+}
 export default connect(mapState, mapDispatch)(ShoppingCart)
