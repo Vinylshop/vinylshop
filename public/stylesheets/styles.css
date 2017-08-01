@@ -19,6 +19,10 @@ html, body {
   text-align: center;
 }
 
+.form-control {
+  margin-bottom: 15px;
+}
+
 h4 {
   padding: 15px 0 15px 0;
 }
@@ -27,8 +31,20 @@ label {
   display: block;
 }
 
+ul {
+  list-style: none;
+}
+
 .form-control {
   width: 100%;
+}
+
+.form-inline .form-control {
+  width: 50%;
+}
+
+.separator {
+  height: 50px;
 }
 
 .navbar {
@@ -82,4 +98,5 @@ a {
   background-color: black;
   color: white;
 }
+
 
