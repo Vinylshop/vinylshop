@@ -49,6 +49,7 @@ const randUser = () => {
 const randOrder = () => {
   return {
     status: ORDER_STATUS[Math.floor(Math.random() * 4)],
+    email: faker.internet.email(),
     address: faker.address.streetAddress(),
     city: faker.address.city(),
     state: faker.address.state(),

@@ -36,12 +36,12 @@ class OrderItem extends Component {
               <span>Shipped To:</span>
             </li>
             <li>
-              <Link to={`/users/${order.userId}`}>{order.user.username}</Link>
+              <Link to={`/users/${order.userId}`}>{order.user.username}</Link> ({order.email})
             </li>
           </ul>
 
         </li>
-        
+
       </div>
     );
   }

@@ -19,7 +19,7 @@ class Items extends Component {
             <span>Price: {item.price}</span>
           </li>
           <li>
-            <Link to={`/products/${item.productId}`}>{item.product.title}</Link>
+            <Link to={`/products/${item.productId}`}>{item.product ? item.product.title : item.productname }</Link>
           </li>
           <li>
             <span> item total:  {item.quantity*item.price}</span>
