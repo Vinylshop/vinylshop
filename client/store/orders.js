@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const INITIALIZE = 'INITIALIZE_ORDER'
 const CREATE     = 'CREATE_ORDER'
-export const REMOVE = 'REMOVE_ORDER'
+const REMOVE = 'REMOVE_ORDER'
 const UPDATE     = 'UPDATE_ORDER'
 
 
