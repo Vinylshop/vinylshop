@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { updateProduct, fetchProduct } from '../../store'
 import ImageWithStatusText from '../Utils/ImageWithStatusText'
 import ReviewItem from '../Review/ReviewItem'
+import CartBuyButton from '../Utils/CartBuyButton'
 
 /**
  * COMPONENT
@@ -60,6 +61,7 @@ class ProductDetail extends Component {
         <hr/>
         {this.renderProductDetail()}
         {this.renderProductDescription()}
+        <CartBuyButton productId={product.id} price={product.price}/>
         <hr/>
         {this.renderProductReviews()}
       </div>

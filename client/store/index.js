@@ -7,8 +7,9 @@ import products from './products'
 import orders from './orders'
 import review from './review'
 import lists from './lists'
+import cart from './cart'
 
-const reducer = combineReducers({orders, users, currentUser, products, review, lists})
+const reducer = combineReducers({cart, orders, users, currentUser, products, review, lists})
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 const store = createStore(reducer, middleware)
 
@@ -19,3 +20,4 @@ export * from './products'
 export * from './orders'
 export * from './review'
 export * from './lists'
+export * from './cart'
