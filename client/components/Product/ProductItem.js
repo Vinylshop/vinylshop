@@ -9,11 +9,11 @@ import { removeProduct } from '../../store'
 class ProductItem extends Component {
   render () {
     const {product, removeProduct, currentUser} = this.props
-    const authorized = currentUser && currentUser.isAdmin
+    // const authorized = currentUser && currentUser.isAdmin
 
     return (
       <div>
-        <Link className="large-font" to={`/products/${product.id}`}>{product.title}</Link>
+        <Link className="large-font" key={this.props.productId} to={`/products/${product.id}`}>{product.title}</Link>
         {
           <button
             className="btn btn-default btn-xs"

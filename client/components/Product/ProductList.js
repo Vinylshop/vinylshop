@@ -1,7 +1,7 @@
 'use strict'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchProduct, addProduct } from '../../store'
+import { fetchProducts, addProduct } from '../../store'
 import ProductItem from './ProductItem'
 
 /* -----------------    COMPONENT     ------------------ */
@@ -23,17 +23,21 @@ class ProductList extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
+  componentDidLoad () {
+    this.props.fetchProducts()
+  }
+
   render () {
     return (
       <div className="container product-container">
         <h1>Product List</h1>
-        <hr />
-        { this.renderProductSearch() }
-        <br />
-        { this.renderAddProductForm() }
-        <br />
+        <hr/>
+        {this.renderProductSearch()}
+        <br/>
+        {this.renderAddProductForm()}
+        <br/>
         <div className="product-list">
-          { this.renderProducts() }
+          {this.renderProducts()}
         </div>
       </div>
     )
@@ -43,13 +47,15 @@ class ProductList extends Component {
     const {products} = this.props
     const {title, description} = this.state
     if (!title && !description) return <div className="container-fluid">Please search for product</div>
-    return products
-      .filter(this.filterProduct)
-      .map(product => {
-        return (
-          <ProductItem product={product} key={product.id}/>
-        )
-      })
+    return (
+      <div>
+        {
+          products
+            .filter(this.filterProduct)
+            .map(product => <ProductItem key={product.id} product={product} />)
+        })
+      </div>
+    )
   }
 
   renderProductSearch () {
@@ -120,7 +126,7 @@ class ProductList extends Component {
             onChange={evt => this.setState({images: evt.target.value})}
             placeholder="Product Image"
           />
-          <br />
+          <br/>
           <button
             type="submit"
             className="btn btn-default">
@@ -152,8 +158,8 @@ class ProductList extends Component {
 const mapState = ({products}) => ({products})
 const mapDispatch = (dispatch) => {
   return {
-    fetchProductItem (id) {
-      dispatch(fetchProduct(id))
+    fetchProducts () {
+      dispatch(fetchProducts())
     },
     addNewProduct (product) {
       dispatch(addProduct(product))

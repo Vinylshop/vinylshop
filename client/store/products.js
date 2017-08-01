@@ -1,5 +1,15 @@
 import axios from 'axios'
 
+const initialState = [
+  {
+    title: 'Vinylshop',
+    description: 'Vinylshop',
+    price: '4444',
+    quantity: '4444',
+    images: 'http://localhost:8080/images/vinlyshoplogo.png'
+  }
+]
+
 /**
  * ACTION TYPES
  */
@@ -19,7 +29,7 @@ const remove = id => ({type: REMOVE, id})
 /**
  * REDUCERS
  */
-export default function reducer (products = [], action) {
+export default function reducer (products = initialState, action) {
   switch (action.type) {
     case INITIALIZE:
       return action.products
@@ -28,6 +38,7 @@ export default function reducer (products = [], action) {
       return [action.product, ...products]
 
     case UPDATE:
+      console.log(products)
       return products.map(product => (
         action.product.id === product.id ? action.product : product
       ))

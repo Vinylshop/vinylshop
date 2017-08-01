@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import { Main, Login, Signup, UserHome } from './components'
-import { me, fetchProducts, fetchLists } from './store'
+import { me, fetchProducts, fetchLists, fetchCart } from './store'
 import ReviewList from './components/Review/ReviewList'
 import ProductList from './components/Product/ProductList'
 import ProductDetail from './components/Product/ProductDetail'
@@ -33,26 +33,26 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/products/:id/reviews" component={ReviewList} />
+            <Route path="/login" component={Login}/>
+            <Route path="/signup" component={Signup}/>
+            <Route path="/products/:id/reviews" component={ReviewList}/>
             <Route path="/products/:id" component={ProductDetail}/>
             <Route path="/products" component={ProductList}/>
-            <Route exact path='/users' component={UserList} />
-            <Route path='/users/:id' component={UserDetail} />
-            <Route exact path='/reviews' component={ReviewList} />
-            <Route path='/cart' component={ShoppingCart} />
+            <Route exact path='/users' component={UserList}/>
+            <Route path='/users/:id' component={UserDetail}/>
+            <Route exact path='/reviews' component={ReviewList}/>
+            <Route path='/cart' component={ShoppingCart}/>
             {
               isLoggedIn
                 ? <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path='/home' component={UserHome} />
+                  <Route path='/home' component={UserHome}/>
                   <Route exact path="/orders" component={OrderList}/>
                   <Route path='/orders/:id' component={OrderDetail}/>
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route component={Login}/>
           </Switch>
         </Main>
       </Router>
@@ -74,11 +74,12 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
-      dispatch(fetchUsers())
-      dispatch(fetchOrders())
       dispatch(me())
+      dispatch(fetchUsers())
       dispatch(fetchProducts())
+      dispatch(fetchOrders())
       dispatch(fetchLists())
+      dispatch(fetchCart())
     }
   }
 }

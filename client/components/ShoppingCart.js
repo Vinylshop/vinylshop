@@ -7,26 +7,26 @@ import Items from './Order/Items'
 
 /* -----------------    COMPONENT     ------------------ */
 
+const cartItems = [
+  {
+    productId: 2,
+    product: {title: 1},
+    quantity: 4,
+    price: 12
+  }, {
+    productId: 4,
+    product: {title: 'Example2'},
+    quantity: 2,
+    price: 10
+  },
+  {
+    productId: 5,
+    product: {title: 'Example3'},
+    quantity: 4,
+    price: 12
+  }
+]
 
-  const cartItems = [
-    {
-      productId: 2,
-      product:{title: 1},
-      quantity: 4,
-      price: 12
-    },{
-      productId: 4,
-      product:{title: 'Example2'},
-      quantity: 2,
-      price: 10
-    },
-    {
-      productId: 5,
-      product:{title: 'Example3'},
-      quantity: 4,
-      price: 12
-    }
-  ]
 class ShoppingCart extends Component {
   constructor (props) {
     super(props)
@@ -34,30 +34,30 @@ class ShoppingCart extends Component {
     this.editItemRender = this.editItemRender.bind(this)
   }
 
-  render(){
-    const { currentUser,isLoggedIn } = this.props
-    let total = 0;
+  render () {
+    const {currentUser, isLoggedIn} = this.props
+    let total = 0
     return (
       <div className='container'>
         <div className='row'>
           <div className='col'>
             <div>
-              <span>Shopping Cart for {isLoggedIn ? currentUser.username : "Guest"}</span>
+              <span>Shopping Cart for {isLoggedIn ? currentUser.username : 'Guest'}</span>
 
             </div>
             {
               cartItems
-              .map((item, index) => {
+                .map((item, index) => {
                   total += item.price * item.quantity
 
-                return (
-                  <div>
-                    <Items key={index} item={item}/>
-                    {this.editItemRender(item)}
-                  </div>
-                )
+                  return (
+                    <div>
+                      <Items key={index} item={item}/>
+                      {this.editItemRender(item)}
+                    </div>
+                  )
 
-              })
+                })
             }
             <div>Subtotal: {total}</div>
           </div>
@@ -66,8 +66,8 @@ class ShoppingCart extends Component {
     )
   }
 
-  editItemRender(it){
-    return(
+  editItemRender (it) {
+    return (
       <div className="d-inline">
         <form className="list-inline">
           <ul className="list-inline">
@@ -81,34 +81,33 @@ class ShoppingCart extends Component {
           </ul>
           <button
             type="submit"
-          className="btn btn-warning btn-xs d-inline">
-            <span className="glyphicon glyphicon-plus" />
+            className="btn btn-warning btn-xs d-inline">
+            <span className="glyphicon glyphicon-plus"/>
             Update
           </button>
 
         </form>
         <button
           type="submit"
-        className="btn btn-warning btn-xs d-inline">
-          <span className="glyphicon glyphicon-plus" />
+          className="btn btn-warning btn-xs d-inline">
+          <span className="glyphicon glyphicon-plus"/>
           Delete
         </button>
       </div>
     )
   }
 
-
 }
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ currentUser }, ownProps) => {
+const mapState = ({currentUser}, ownProps) => {
   return {
-        currentUser,
-        isLoggedIn: !!currentUser.id
+    currentUser,
+    isLoggedIn: !!currentUser.id
   }
 }
 
-const mapDispatch = {  }
+const mapDispatch = {}
 
 export default connect(mapState, mapDispatch)(ShoppingCart)

@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import { updateProduct, fetchProduct } from '../../store'
 import ImageWithStatusText from '../Utils/ImageWithStatusText'
+import ReviewDetail from '../Review/ReviewDetail'
+import CartBuyButton from '../Utils/CartBuyButton'
 
 /**
  * COMPONENT
@@ -48,14 +50,17 @@ class ProductDetail extends Component {
    *
    *****************************************************/
   render () {
+    const {product} = this.state
     return (
       <div className="container product-container">
         <h1>Product Detail</h1>
-        <hr />
-        { this.renderProductDetailForm() }
-        <hr />
-        { this.renderProductDetail() }
-        { this.renderProductDescription() }
+        <CartBuyButton productId={product.id} price={product.price} />
+        <hr/>
+        {this.renderProductDetailForm()}
+        <hr/>
+        {this.renderProductDetail()}
+        {this.renderProductDescription()}
+
       </div>
     )
   }
@@ -63,8 +68,8 @@ class ProductDetail extends Component {
   /*****************************************************/
 
   renderProductDetail () {
-    const product = this.state.product
-    if (!product) return <div />
+    const {product} = this.state
+    if (!product) return <div/>
     return (
       <div>
         {this.renderProductMainTitle()}
@@ -74,8 +79,8 @@ class ProductDetail extends Component {
   }
 
   renderProductMainTitle () {
-    const product = this.state.product
-    if (!product || !product.images) return <div />
+    const {product} = this.state
+    if (!product || !product.images) return <div/>
     return (
       <div className="container-fluid">
         <h2>{product.title}</h2>
@@ -86,8 +91,8 @@ class ProductDetail extends Component {
   renderProductImage () {
     const height = 240
     const width = 320
-    const product = this.state.product
-    if (!product.images) return <div />
+    const {product} = this.state
+    if (!product.images) return <div/>
     return (
       <div className="container-fluid">
         <ImageWithStatusText imageUrl={product.images} height={height} width={width}/>
@@ -96,8 +101,8 @@ class ProductDetail extends Component {
   }
 
   renderProductDescription () {
-    const product = this.state.product
-    if (!product.images) return <div />
+    const {product} = this.state
+    if (!product.images) return <div/>
     return (
       <div className="container-fluid">
         {product.description}
@@ -106,12 +111,12 @@ class ProductDetail extends Component {
   }
 
   renderProductDetailForm () {
-    const product = this.state.product
-    if (!product) return <div />
+    const {product} = this.state
+    if (!product) return <div/>
     return (
       <div>
         <h4>Detail Form</h4>
-        Title, Price, Description, Quantity, imageUrl<br />
+        Title, Price, Description, Quantity, imageUrl<br/>
         <form className="list-group-item product-item" onSubmit={this.onSubmit}>
           <input
             className="form-like large-font"
