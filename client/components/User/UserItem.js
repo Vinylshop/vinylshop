@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
-import { deleteUser } from '../../store/users'
+import { removeUser } from '../../store/users'
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -31,13 +31,13 @@ class UserItem extends Component {
     event.stopPropagation()
     const { user } = this.props
     console.log(user)
-    this.props.deleteUser(user.id)
+    this.props.removeUser(user.id)
   }
 }
 
 /* -----------------    CONTAINER     ------------------ */
 
 const mapState = null
-const mapDispatch = { deleteUser }
+const mapDispatch = { removeUser }
 
 export default connect(mapState, mapDispatch)(UserItem)
