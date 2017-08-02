@@ -21,6 +21,7 @@ class ProductList extends Component {
     this.renderProducts = this.renderProducts.bind(this)
     this.renderAddProductForm = this.renderAddProductForm.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+    this.getUnique = this.getUnique.bind(this)
   }
 
   render () {
@@ -40,7 +41,7 @@ class ProductList extends Component {
             </div>
           </div>
         </div>)
-        }}
+        }
         <div className="row separator"/>
 
         <div className="row heading text-center">
@@ -61,6 +62,14 @@ class ProductList extends Component {
     )
   }
 
+  getUnique (array) {
+    let seen = {}
+    array.map((item) => {
+      if (!seen.hasOwnProperty(item.categories)) seen[item.categories] = true
+    })
+    return seen
+  }
+
   renderProducts () {
     const {products} = this.props
     const {title, description} = this.state
@@ -75,6 +84,9 @@ class ProductList extends Component {
   }
 
   renderProductSearch () {
+    const categories = ['Bacon', 'Chicken', 'Wood' ]
+    const {products} = this.props
+
     return (
       <div className="row">
         <form>
@@ -96,10 +108,10 @@ class ProductList extends Component {
                 onChange={evt => this.setState({description: evt.target.value})}
                 value={this.state.description}
               >
-                <option value="Bacon">Bacon</option>
-                <option value="Chicken">Chicken</option>
-                <option value="Fish">Fish</option>
-                <option value="Wood">Wood</option>
+                <option value="">All Categories</option>
+                {
+                  categories.map(category => <option value={category}>{category}</option>)
+                }
               </select>
             </div>
           </div>

@@ -23,6 +23,7 @@ const randProduct = () => {
     description: faker.lorem.paragraph(),
     price: faker.commerce.price(),
     quantity: 100,
+    category: faker.commerce.product(),
     images: faker.image.imageUrl()
   }
 }

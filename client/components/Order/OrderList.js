@@ -34,7 +34,7 @@ class OrderList extends React.Component {
 
         <div className='row'>
           <div className='col-lg-6 col-lg-offset-3'>
-            { this.renderOrderSearch() }
+            {this.renderOrderSearch()}
           </div>
         </div>
 
@@ -43,8 +43,8 @@ class OrderList extends React.Component {
             <ul className='list-group'>
               {
                 orders
-                .filter(this.filterOrder)
-                .map((order, i) => <OrderItem order={order} key={i} />)
+                  .filter(this.filterOrder)
+                  .map((order, i) => <OrderItem order={order} key={i}/>)
               }
             </ul>
           </div>
@@ -84,7 +84,7 @@ class OrderList extends React.Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ orders, currentUser }) => ({ orders, currentUser })
+const mapState = ({orders, currentUser}) => ({orders, currentUser})
 
 const mapDispatch = {}
 
