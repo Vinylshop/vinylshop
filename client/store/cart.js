@@ -1,5 +1,6 @@
 'use strict'
 import axios from 'axios'
+import history from '../history'
 
 const initialState = {
   total: 0,
@@ -74,6 +75,8 @@ export const removeFromCart = (itemToRemove) => dispatch => {
 }
 export const removeCart = () => dispatch => {
   axios.delete(`/api/cart`)
-    .then(res => dispatch(del()))
+    .then(res => {
+      return dispatch(del())
+    })
     .catch(err => console.error('Removing cart', err))
 }

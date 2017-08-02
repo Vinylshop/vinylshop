@@ -1,5 +1,6 @@
 import axios from 'axios'
 const Bluebird = require('bluebird')
+import history from '../history'
 /* -----------------    ACTIONS     ------------------ */
 
 const INITIALIZE = 'INITIALIZE_ORDER'
@@ -65,7 +66,10 @@ export const addOrder = (order, items) => dispatch => {
     Bluebird.map(items, (item) => {
       item.orderId = res.data.id
       axios.post(`/api/orderItems`, item)
-    }).then(() => dispatch(create(res.data)))
+    }).then(() => {
+      dispatch(create(res.data))
+      history.push('/home')
+    })
   }).catch(err => console.error(`Creating order: ${order} unsuccesful`, err))
 }
 

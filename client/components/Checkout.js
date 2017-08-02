@@ -4,7 +4,6 @@ import {Link, NavLink} from 'react-router-dom'
 import { removeCart } from '../store/cart'
 import { addOrder } from '../store/orders'
 import Items from './Order/Items'
-import StripeCheckout from 'react-stripe-checkout';
 
 class Checkout extends Component {
   constructor (props) {
@@ -42,44 +41,9 @@ class Checkout extends Component {
           </div>
         </div>
         {this.renderCheckOutForm()}
-
-      <StripeCheckout
-  name="Vinyl Rocks!"
-  description="your best source for the unexpected"
-  ComponentClass="div"
-  panelLabel="Buy those vinyls!"
-  amount={cart.total}
-  currency="USD"
-  stripeKey="pk_test_LW9HNJMnUxHo0N3C1RBDSXnI"
-  locale="zh"
-  email="vinylrocksgs@gmail.com"
-  billingAddress={true}
-  zipCode={true}
-  token={this.onToken}
-  reconfigureOnUpdate={false}
-  >
-  <button className="btn btn-primary">
-    Pay with Stripe
-  </button>
-</StripeCheckout>
       </div>
     )
   }
-
-
-  onToken = (token) => {
-    console.log(token)
-    fetch('/save-stripe-token', {
-      method: 'POST',
-      body: JSON.stringify(token),
-    }).then(response => {
-      response.json().then(data => {
-
-        alert(`We are in business, ${data.email}`);
-      });
-    });
-  }
-
 
   renderCheckOutForm () {
     return (
@@ -106,7 +70,7 @@ class Checkout extends Component {
           zipCode:
           <input type="text" name="zipcode" required/>
         </label>
-          <input type="submit" value="Submit" required/>
+        <input type="submit" value="Submit" required/>
       </form>
     )
   }
@@ -126,8 +90,6 @@ class Checkout extends Component {
     console.log(newOrder)
     this.props.placeOrder(newOrder, this.props.cart.items)
   }
-
-
 }
 
 /* -----------------    CONTAINER     ------------------ */
