@@ -1,8 +1,8 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import _ from 'lodash'
-import {updateOrder, fetchOrder} from '../../store/orders'
-import {Link} from 'react-router-dom'
+import { updateOrder, fetchOrder } from '../../store/orders'
+import { Link } from 'react-router-dom'
 import Items from './Items'
 import OrderItem from './OrderItem'
 
@@ -33,41 +33,55 @@ class OrderDetail extends React.Component {
 
     this.setState({order: newProps.order})
   }
+
   render () {
     const order = this.state.order
     if (!order.id) return <div/> // if order has yet to load or is invalid
 
     return (
-      <div className="container">
-        <OrderItem order={order} key={order.id}/>
-        <ul className="list-inline">
-          <li className="list-group-item">
+      <div className='container'>
+        <div className='row'>
+          <div className='col-lg-6 col-lg-offset-3'>
+            <OrderItem order={order} key={order.id} />
+          </div>
 
-            <li>
-              Shipping Address:
-            </li>
-            <li>
-              <span>{order.address}</span>
-            </li>
-            <li>
-              <span>{order.city}, {order.state}</span>
-            </li>
-            <li>
-              <span>{order.zipCode}</span>
-            </li>
-          </li>
+          <div className='row'>
+            <div className='col-lg-6 col-lg-offset-3'>
+              <ul className='list-group'>
+                <li className='list-group-item'>
 
-        </ul>
-        <div>
-          <div>Order Items</div>
-          {order.orderItems.map(item => {
-            return <Items key={item.id} item={item}/>
-          })
-          }
+                  <li> Shipping Address: </li>
+                  <li>
+                    <span>{order.address}</span>
+                  </li>
+                  <li>
+                    <span>{order.city}, {order.state}</span>
+                  </li>
+                  <li>
+                    <span>{order.zipCode}</span>
+                  </li>
+                </li>
+              </ul>
+            </div>
+          </div>
 
-          <span>SUBTOTAL:</span>
+          <div className='row heading text-center'>
+            <div className='col-lg-6 col-lg-offset-3'>
+              <div>ORDER ITEMS</div>
+            </div>
+          </div>
+
+          <div className='row'>
+            <div className='col-lg-6 col-lg-offset-3'>
+              {
+                order.orderItems.map(item => {
+                  return <Items key={item.id} item={item} />
+                })
+              }
+              <span>SUBTOTAL:</span>
+            </div>
+          </div>
         </div>
-        <br/>
       </div>
     )
   }
@@ -79,11 +93,12 @@ class OrderDetail extends React.Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({orders, currentUser}, ownProps) => {
+const mapState = ({ orders, currentUser }, ownProps) => {
   const order = orders.find(orderIter => orderIter.id === +ownProps.match.params.id)
   const OrderId = ownProps.orderId
-  return {order, OrderId, currentUser}
+  return { order, OrderId, currentUser}
 }
+
 const mapDispatch = (dispatch, ownProps) => {
   return {
     fetchOrderData: () => {

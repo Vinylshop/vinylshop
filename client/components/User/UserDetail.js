@@ -45,8 +45,8 @@ class UserDetail extends Component {
             </div>
           </div>
           <div className='col-lg-6 col-lg-offset-3'>
-            <ul>
-              <li>
+            <ul className='list-group'>
+              <li className='list-group-item'>
                 {
                   orders
                   .filter(order => order.userId === user.id)

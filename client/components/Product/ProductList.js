@@ -2,11 +2,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchProduct, addProduct } from '../../store'
-import ProductItem from './ProductItem'
+import ProductCard from './ProductCard'
 
 /* -----------------    COMPONENT     ------------------ */
 class ProductList extends Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -25,14 +24,32 @@ class ProductList extends Component {
 
   render () {
     return (
-      <div className="container product-container">
-        <h1>Product List</h1>
-        <hr />
-        { this.renderProductSearch() }
-        <br />
-        { this.renderAddProductForm() }
-        <br />
-        <div className="product-list">
+      <div className='container'>
+
+        <div className='row heading text-center'>
+          <div className='col-lg-6 col-lg-offset-3'>
+            <h3 className='display-5'>ADD A NEW PRODUCT</h3>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-lg-6 col-lg-offset-3'>
+            { this.renderAddProductForm() }
+          </div>
+        </div>
+        <div className='row separator' />
+
+        <div className='row heading text-center'>
+          <div className='col-lg-6 col-lg-offset-3'>
+            <h3 className='display-5'>PRODUCT LIST</h3>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-lg-6 col-lg-offset-3'>
+            { this.renderProductSearch() }
+          </div>
+        </div>
+
+        <div className='row'>
           { this.renderProducts() }
         </div>
       </div>
@@ -42,38 +59,38 @@ class ProductList extends Component {
   renderProducts () {
     const {products} = this.props
     const {title, description} = this.state
-    if (!title && !description) return <div className="container-fluid">Please search for product</div>
+
     return products
       .filter(this.filterProduct)
       .map(product => {
         return (
-          <ProductItem product={product} key={product.id}/>
+          <ProductCard product={product} key={product.id} />
         )
       })
   }
 
   renderProductSearch () {
     return (
-      <div className="container-fluid">
-        <form className="list-group-item product-item">
-          <input
-            name="title"
-            type="text"
-            className="form-like large-font"
-            placeholder="Product Title"
-            onChange={evt => this.setState({title: evt.target.value})}
-            value={this.state.title}
+      <form className='form-inline'>
+        <input
+          name='title'
+          type='text'
+          className='form-control'
+          id='inlineFormInput'
+          placeholder='Product Title'
+          onChange={evt => this.setState({title: evt.target.value})}
+          value={this.state.title}
           />
-          <input
-            name="description"
-            type="text"
-            className="form-like large-font"
-            placeholder="Product Description"
-            onChange={evt => this.setState({description: evt.target.value})}
-            value={this.state.description}
+        <input
+          name='description'
+          type='text'
+          className='form-control'
+          id='inlineFormInput'
+          placeholder='Product Description'
+          onChange={evt => this.setState({description: evt.target.value})}
+          value={this.state.description}
           />
-        </form>
-      </div>
+      </form>
     )
   }
 
@@ -81,54 +98,53 @@ class ProductList extends Component {
     const titleMatch = new RegExp(this.state.title, 'i')
     const descriptionMatch = new RegExp(this.state.description, 'i')
 
-    return titleMatch.test(product.title)
-      && descriptionMatch.test(product.description)
-      && product.quantity > 0
+    return titleMatch.test(product.title) &&
+      descriptionMatch.test(product.description) &&
+      product.quantity > 0
   }
 
   renderAddProductForm () {
     return (
-      <div className="container-fluid">
-        <form className="list-group-item" onSubmit={this.onSubmit}>
-          <input
-            className="form-like large-font"
-            value={this.state.title}
-            onChange={evt => this.setState({title: evt.target.value})}
-            placeholder="Product Title"
+
+      <form onSubmit={this.onSubmit}>
+        <input
+          className='form-control'
+          id='form-field'
+          value={this.state.title}
+          onChange={evt => this.setState({title: evt.target.value})}
+          placeholder='Product Title'
           />
-          <input
-            className="form-like large-font"
-            value={this.state.description}
-            onChange={evt => this.setState({description: evt.target.value})}
-            placeholder="Product Description"
+        <input
+          className='form-control'
+          id='form-field'
+          value={this.state.description}
+          onChange={evt => this.setState({description: evt.target.value})}
+          placeholder='Product Description'
           />
-          <input
-            className="form-like large-font"
-            value={this.state.price}
-            onChange={evt => this.setState({price: evt.target.value})}
-            placeholder="Product Price"
+        <input
+          className='form-control'
+          id='form-field'
+          value={this.state.price}
+          onChange={evt => this.setState({price: evt.target.value})}
+          placeholder='Product Price'
           />
-          <input
-            className="form-like large-font"
-            value={this.state.quantity}
-            onChange={evt => this.setState({quantity: evt.target.value})}
-            placeholder="Product Quantity"
+        <input
+          className='form-control'
+          id='form-field'
+          value={this.state.quantity}
+          onChange={evt => this.setState({quantity: evt.target.value})}
+          placeholder='Product Quantity'
           />
-          <input
-            className="form-like large-font"
-            value={this.state.images}
-            onChange={evt => this.setState({images: evt.target.value})}
-            placeholder="Product Image"
+        <input
+          className='form-control'
+          id='form-field'
+          value={this.state.images}
+          onChange={evt => this.setState({images: evt.target.value})}
+          placeholder='Product Image'
           />
-          <br />
-          <button
-            type="submit"
-            className="btn btn-default">
-            <span className="glyphicon glyphicon-plus"/>
-            Submit
-          </button>
-        </form>
-      </div>
+        <button type='submit' className='btn btn-submit'>Submit</button>
+      </form>
+
     )
   }
 
@@ -146,7 +162,6 @@ class ProductList extends Component {
       images: ''
     })
   }
-
 }
 
 const mapState = ({products}) => ({products})

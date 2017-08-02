@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {updateOrder} from '../../store/orders'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { updateOrder } from '../../store/orders'
 
 /* -----------------    COMPONENT     ------------------ */
 const orderState = ['CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED']
@@ -13,13 +13,13 @@ class OrderItem extends Component {
     this.renderOrderChange = this.renderOrderChange.bind(this)
     this.onChangeHandler = this.onChangeHandler.bind(this)
   }
+
   render () {
     const {currentUser, order} = this.props
     const creation = order.createdAt.split('T')
 
     return (
       <div>
-
         <ul className="list-inline">
           <li className="list-group-item">
             {currentUser.isAdmin && this.renderOrderChange()}
@@ -43,23 +43,27 @@ class OrderItem extends Component {
             </li>
           </li>
         </ul>
-
       </div>
     )
   }
 
   renderOrderChange () {
     return (
+      <select
+        className='form-control'
+        name='status'
+        defaultValue=''
+        onChange={this.onChangeHandler}
+        required
+      >
 
-      <select name="status" defaultValue="" onChange={this.onChangeHandler} required>
-
-        <option value="" disabled>(Change Order Status)</option>
-        {orderState.map((status, i) => (
-          <option key={i} value={status}>{status}</option>
-        ))
+        <option value='' disabled>Change Order Status</option>
+        {
+          orderState.map((status, i) => (
+            <option key={i} value={status}>{status}</option>
+          ))
         }
       </select>
-
     )
   }
 
