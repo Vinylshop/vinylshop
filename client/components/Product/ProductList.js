@@ -26,7 +26,7 @@ class ProductList extends Component {
     const {currentUser, isLoggedIn} = this.props
     return (
       <div className='container'>
-        {isLoggedIn && currentUser &&
+        {isLoggedIn && currentUser.isAdmin &&
           (<div>
             <div className='row heading text-center'>
               <div className='col-lg-6 col-lg-offset-3'>

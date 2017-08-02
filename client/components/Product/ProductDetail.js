@@ -52,18 +52,18 @@ class ProductDetail extends Component {
    *****************************************************/
   render () {
     const {product} = this.state
-    console.log(product)
+    const {currentUser, isLoggedIn} = this.props
     return (
       <div className="container product-container">
         <h1>Product Detail</h1>
         <hr/>
-        {this.renderProductDetailForm()}
+        { isLoggedIn && currentUser.isAdmin && this.renderProductDetailForm()}
         <hr/>
         {this.renderProductDetail()}
         {this.renderProductDescription()}
         <CartBuyButton productId={product.id} price={product.price} productname={product.title}/>
         <hr/>
-        {this.renderProductReviews()}
+        { isLoggedIn && this.renderProductReviews()}
       </div>
     )
   }
@@ -189,10 +189,10 @@ class ProductDetail extends Component {
 /**
  * CONTAINER
  */
-const mapState = ({products}, ownProps) => {
+const mapState = ({products, currentUser}, ownProps) => {
   const product = products.find(aProduct => aProduct.id === +ownProps.match.params.id)
   const productId = ownProps.productId
-  return {product, productId}
+  return {product, productId, currentUser, isLoggedIn: !!currentUser}
 }
 
 const mapDispatch = (dispatch, ownProps) => {
