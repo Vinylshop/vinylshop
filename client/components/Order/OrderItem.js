@@ -20,29 +20,25 @@ class OrderItem extends Component {
 
     return (
       <div>
-        <ul className="list-inline">
-          <li className="list-group-item">
-            {currentUser.isAdmin && this.renderOrderChange()}
-            <li>
-              Order #:
-              <Link to={`/orders/${order.id}`}>{order.id}</Link>
-            </li>
-            <li>
-              <span>Status: {order.status}
-              </span>
-            </li>
-            <li>
-              <span>Date: {creation[0]}
-                Time: {creation[1].substr(0, 5)}</span>
-            </li>
-            <li>
-              Shipped To:
-
-              {order.user && <Link to={`/users/${order.userId}`}>{order.user.username}</Link>}
-              {order.email}
-            </li>
+        <li className="list-group-item">
+          {currentUser.isAdmin && this.renderOrderChange()}
+          <li>
+            Order #:
+            <Link to={`/orders/${order.id}`}>{order.id}</Link>
           </li>
-        </ul>
+          <li>
+            <span>Status: {order.status}
+            </span>
+          </li>
+          <li>
+            <span>Date: {creation[0]} Time: {creation[1].substr(0, 5)}</span>
+          </li>
+          <li>
+            Shipped To:
+            {order.userId && (<Link to={`/users/${order.userId}`}>{order.user.username}</Link>)}
+            {order.email}
+          </li>
+        </li>
       </div>
     )
   }

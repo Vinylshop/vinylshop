@@ -2,6 +2,16 @@ const nodemailer = require('nodemailer')
 const router = require('express').Router()
 module.exports = router
 
+function isAdmin (req, res, next) {
+  if (req.user && req.user.isAdmin) {
+    next()
+  } else {
+    const error = new Error('Must have admin privileges')
+    error.status = 401
+    next(error)
+  }
+}
+
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   secure: false,
@@ -16,7 +26,7 @@ const transporter = nodemailer.createTransport({
 })
 
 router.post('/sendInitial', sendInitial)
-router.post('/sendUpdate', sendEmail)
+router.post('/sendUpdate', isAdmin , sendEmail)
 
 function sendEmail (req, res, next) {
   const order = req.body
@@ -29,7 +39,7 @@ function sendEmail (req, res, next) {
   const mailOptions = {
     from: 'vinylrocksgs@gmail.com',
     to: req.body.email,
-    subject: `Order ${req.body.id} Update`,
+    subject: `Order ${req.body.id} made`,
     text: message
   }
   transporter.sendMail(mailOptions, function (error, info) {
