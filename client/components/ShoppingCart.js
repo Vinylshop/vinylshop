@@ -18,7 +18,6 @@ class ShoppingCart extends Component {
 
   render () {
     const {currentUser, isLoggedIn, cart} = this.props
-    console.log('CARRRRTTTTTT ======>', cart)
     return (
       <div className='container'>
         <div className='row'>
@@ -41,6 +40,9 @@ class ShoppingCart extends Component {
             <div>Subtotal: {cart.total}</div>
           </div>
         </div>
+        <Link to={`/checkout`}><button className="btn btn-warning btn-xs d-inline">
+          Go to checkout
+        </button></Link>
       </div>
     )
   }
@@ -70,7 +72,7 @@ class ShoppingCart extends Component {
             <span className="glyphicon glyphicon-pencil"/>
             Update
           </button>
-          
+
         </form>
         <button className="btn btn-warning btn-xs d-inline" onClick={() =>{
           this.props.deleteFromCart((item))

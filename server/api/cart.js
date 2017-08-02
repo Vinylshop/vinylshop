@@ -63,6 +63,6 @@ router.post('checkout/charge', (req, res) => {
 })
 
 router.delete('/', (req, res, next) => {
-  req.session.cart.destroy()
+  req.session.cart = {total: 0, items: []}
   next()
 })

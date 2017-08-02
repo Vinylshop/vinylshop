@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, NavLink} from 'react-router-dom'
-// import { getCart, addToCart } from '../../store/users'
+import { removeCart } from '../store/cart'
 import { addOrder } from '../store/orders'
 import Items from './Order/Items'
 
@@ -19,7 +19,7 @@ class Checkout extends Component {
 
   render () {
     const {currentUser, isLoggedIn, cart} = this.props
-    if (!cart.items.length) return <div>No products added yet. Go add some!</div>
+    if (!cart.items.length) return <div>No products added yet. <Link to={`/products/`}>Go add some!</Link></div>
     return (
       <div className='container'>
         <div className='row'>
@@ -72,7 +72,9 @@ class Checkout extends Component {
           zipCode:
           <input type="text" name="zipcode" required/>
         </label>
-        <input type="submit" value="Submit" required/>
+        <Link to={this.props.isLoggedIn ? `/home` : `/products`}>
+          <input type="submit" value="Submit" required/>
+        </Link>
       </form>
     )
   }
@@ -109,7 +111,8 @@ const mapState = ({
 const mapDispatch = (dispatch) => {
   return ({
     placeOrder (order, orderItems) {
-      dispatch(addOrder(order))
+      dispatch(addOrder(order, orderItems))
+      dispatch(removeCart())
     }
   })
 }
