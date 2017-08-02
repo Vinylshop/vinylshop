@@ -23,19 +23,23 @@ class ProductList extends Component {
   }
 
   render () {
+    const {currentUser, isLoggedIn} = this.props
     return (
       <div className='container'>
-
-        <div className='row heading text-center'>
-          <div className='col-lg-6 col-lg-offset-3'>
-            <h3 className='display-5'>ADD A NEW PRODUCT</h3>
-          </div>
-        </div>
-        <div className='row'>
-          <div className='col-lg-6 col-lg-offset-3'>
-            { this.renderAddProductForm() }
-          </div>
-        </div>
+        {isLoggedIn && currentUser.isAdmin &&
+          (<div>
+            <div className='row heading text-center'>
+              <div className='col-lg-6 col-lg-offset-3'>
+                <h3 className='display-5'>ADD A NEW PRODUCT</h3>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-lg-6 col-lg-offset-3'>
+                {this.renderAddProductForm() }
+              </div>
+            </div>
+          </div>)
+        }
         <div className='row separator' />
 
         <div className='row heading text-center'>
@@ -80,7 +84,7 @@ class ProductList extends Component {
           placeholder='Product Title'
           onChange={evt => this.setState({title: evt.target.value})}
           value={this.state.title}
-          />
+        />
         <input
           name='description'
           type='text'
@@ -89,7 +93,7 @@ class ProductList extends Component {
           placeholder='Product Description'
           onChange={evt => this.setState({description: evt.target.value})}
           value={this.state.description}
-          />
+        />
       </form>
     )
   }
@@ -164,7 +168,7 @@ class ProductList extends Component {
   }
 }
 
-const mapState = ({products}) => ({products})
+const mapState = ({products, currentUser}) => ({products, currentUser, isLoggedIn: !!currentUser.id})
 const mapDispatch = (dispatch) => {
   return {
     fetchProductItem (id) {
