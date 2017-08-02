@@ -9,12 +9,11 @@ class Items extends Component {
     const { item } = this.props
 
     return (
-      <ul className='list-group'>
-        <li className='list-group-item'>
-          <Link to={`/products/${item.productId}`}>{item.product ? item.product.title : item.productname }</Link>
-        </li>
+      <li className='list-group-item list-inline'>
+        <Link to={`/products/${item.productId}`}>{item.product ? item.product.title : item.productname }</Link>
+
         <li>
-          <span>Quantity: {item.quantity}</span>
+          <span> {item.quantity}</span>
         </li>
         <li>
           <span>Price: {item.price}</span>
@@ -22,7 +21,7 @@ class Items extends Component {
         <li>
           <span>Item total: {item.quantity * item.price}</span>
         </li>
-      </ul>
+      </li>
     )
   }
 }

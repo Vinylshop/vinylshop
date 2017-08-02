@@ -32,6 +32,10 @@ class Navbar extends Component {
               <li>
                 <NavLink to='/home' activeClassName='active'>Vinylshop</NavLink>
               </li>
+              <li>
+                <NavLink to='/products' activeClassName='active'>Products</NavLink>
+              </li>
+
             </ul>
           </div>
           <div className='collapse navbar-collapse'>
@@ -47,6 +51,20 @@ class Navbar extends Component {
   renderLoggedIn () {
     return (
       <ul className='nav navbar-nav navbar-right'>
+        {
+          this.props.currentUser.isAdmin && (
+            <li>
+              <NavLink to='/orders' activeClassName='active'>All Orders</NavLink>
+            </li>
+          )
+        }
+        {
+          this.props.currentUser.isAdmin && (
+            <li>
+              <NavLink to='/users' activeClassName='active'>All Users</NavLink>
+            </li>
+          )
+        }
         <li>
           <a href='/cart'>
             <i className='fa fa-shopping-cart white' aria-hidden='true' />
@@ -66,6 +84,11 @@ class Navbar extends Component {
     return (
       <ul className='nav navbar-nav navbar-right'>
         <li>
+          <a href='/cart'>
+            <i className='fa fa-shopping-cart white' aria-hidden='true' />
+          </a>
+        </li>
+        <li>
           <NavLink to='/signup' activeClassName='active'>Signup</NavLink>
         </li>
         <li>
@@ -80,7 +103,8 @@ class Navbar extends Component {
 
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.currentUser.id
+    isLoggedIn: !!state.currentUser.id,
+    currentUser: state.currentUser
   }
 }
 

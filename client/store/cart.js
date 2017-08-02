@@ -1,5 +1,6 @@
 'use strict'
 import axios from 'axios'
+import history from '../history'
 
 const initialState = {
   total: 0,
@@ -14,16 +15,41 @@ const REMOVE_CART = 'DELETE_CART'
 const init = cart => ({type: INIT, cart})
 const add = cart => ({type: ADD_TO_CART, cart})
 const remove = cart => ({type: REMOVE_FROM_CART, cart})
-const del = cart => ({type: REMOVE_CART, cart})
+const del = () => ({type: REMOVE_CART})
 
 export default function reducer (state = initialState, action) {
   switch (action.type) {
     case INIT:
       return action.cart
     case ADD_TO_CART:
-      return Object.assign({}, action.cart)
+      // let found = false
+      // let totalDiff = 0
+      // let newItems = state.items.map(item => {
+      //   if (item.productId !== action.itemToAdd.productId) return item
+      //   found = true
+      //   totalDiff = (action.itemToAdd.quantity - item.quantity) * action.itemToAdd.price
+      //   return action.itemToAdd
+      // })
+      // if (!found) {
+      //   newItems = [...newItems, action.itemToAdd]
+      //   totalDiff = action.itemToAdd.price * action.itemToAdd.quantity
+      // }
+      // return Object.assign({}, {
+      //   total: state.total - totalDiff,
+      //   items: newItems
+      // })
+      return action.cart
     case REMOVE_FROM_CART:
-      return Object.assign({}, action.cart)
+      // let diff = 0
+      // return Object.assign({}, {
+      //   items: state.items.filter(item => {
+      //     if (item.productIdid !== action.itemToRemove.productId) return true
+      //     diff = item.price * item.quantity
+      //     return false
+      //   }),
+      //   total: (state.total - diff)
+      // })
+      return action.cart
     case REMOVE_CART:
       return Object.assign({}, initialState)
     default:
@@ -49,6 +75,8 @@ export const removeFromCart = (itemToRemove) => dispatch => {
 }
 export const removeCart = () => dispatch => {
   axios.delete(`/api/cart`)
-    .then(res => dispatch(del(res.data)))
+    .then(res => {
+      return dispatch(del())
+    })
     .catch(err => console.error('Removing cart', err))
 }

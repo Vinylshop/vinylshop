@@ -54,7 +54,8 @@ const randOrder = () => {
     city: faker.address.city(),
     state: faker.address.state(),
     zipCode: faker.address.zipCode(),
-    userId: Math.ceil(Math.random() * (TOTAL_USERS + 1))
+    userId: Math.ceil(Math.random() * (TOTAL_USERS + 1)),
+    total: faker.commerce.price()
   }
 }
 

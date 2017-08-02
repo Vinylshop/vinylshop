@@ -5,8 +5,6 @@ import { removeCart } from '../store/cart'
 import { addOrder } from '../store/orders'
 import Items from './Order/Items'
 
-/* -----------------    COMPONENT     ------------------ */
-
 class Checkout extends Component {
   constructor (props) {
     super(props)
@@ -72,9 +70,7 @@ class Checkout extends Component {
           zipCode:
           <input type="text" name="zipcode" required/>
         </label>
-        <Link to={this.props.isLoggedIn ? `/home` : `/products`}>
-          <input type="submit" value="Submit" required/>
-        </Link>
+        <input type="submit" value="Submit" required/>
       </form>
     )
   }
@@ -88,7 +84,8 @@ class Checkout extends Component {
       state: event.target.state.value,
       zipCode: event.target.zipcode.value,
       userId: (!guest ? this.props.currentUser.id : null),
-      status: 'CREATED'
+      status: 'CREATED',
+      total: this.props.cart.total
     }
     console.log(newOrder)
     this.props.placeOrder(newOrder, this.props.cart.items)
