@@ -78,7 +78,7 @@ class OrderDetail extends React.Component {
                   return <Items key={item.id} item={item} />
                 })
               }
-              <span>SUBTOTAL:</span>
+              <span>SUBTOTAL:{order.total}</span>
             </div>
           </div>
         </div>

@@ -20,6 +20,9 @@ const Order = db.define('order', {
   },
   zipCode: {
     type: Sequelize.STRING
+  },
+  total: {
+    type: Sequelize.STRING
   }
 })
 

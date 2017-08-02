@@ -4,8 +4,7 @@ import {Link, NavLink} from 'react-router-dom'
 import { removeCart } from '../store/cart'
 import { addOrder } from '../store/orders'
 import Items from './Order/Items'
-
-/* -----------------    COMPONENT     ------------------ */
+import StripeCheckout from 'react-stripe-checkout';
 
 class Checkout extends Component {
   constructor (props) {
@@ -43,9 +42,45 @@ class Checkout extends Component {
           </div>
         </div>
         {this.renderCheckOutForm()}
+
+      <StripeCheckout
+  name="Vinyl Rocks!"
+  description="your best source for the unexpected"
+  image="https://www.vidhub.co/assets/logos/vidhub-icon-2e5c629f64ced5598a56387d4e3d0c7c.png"
+  ComponentClass="div"
+  panelLabel="Buy those vinyls!"
+  amount={cart.total}
+  currency="USD"
+  stripeKey="pk_test_LW9HNJMnUxHo0N3C1RBDSXnI"
+  locale="zh"
+  email="vinylrocksgs@gmail.com"
+  billingAddress={true}
+  zipCode={true}
+  token={this.onToken}
+  reconfigureOnUpdate={false}
+  >
+  <button className="btn btn-primary">
+    Pay with Stripe
+  </button>
+</StripeCheckout>
       </div>
     )
   }
+
+
+  onToken = (token) => {
+    console.log(token)
+    fetch('/save-stripe-token', {
+      method: 'POST',
+      body: JSON.stringify(token),
+    }).then(response => {
+      response.json().then(data => {
+
+        alert(`We are in business, ${data.email}`);
+      });
+    });
+  }
+
 
   renderCheckOutForm () {
     return (
@@ -72,10 +107,6 @@ class Checkout extends Component {
           zipCode:
           <input type="text" name="zipcode" required/>
         </label>
-        <input type='text' data-stripe='number' placeholder='credit card number'/><br/>
-        <input type='text' data-stripe='exp-month' placeholder='expiration month'/><br/>
-        <input type='text' data-stripe='exp-year' placeholder='expiration year'/><br/>
-        <input type='text' data-stripe='cvc' placeholder='cvc'/><br/>
         <Link to={this.props.isLoggedIn ? `/home` : `/products`}>
           <input type="submit" value="Submit" required/>
         </Link>
@@ -92,11 +123,14 @@ class Checkout extends Component {
       state: event.target.state.value,
       zipCode: event.target.zipcode.value,
       userId: (!guest ? this.props.currentUser.id : null),
-      status: 'CREATED'
+      status: 'CREATED',
+      total: this.props.cart.total
     }
     console.log(newOrder)
     this.props.placeOrder(newOrder, this.props.cart.items)
   }
+
+
 }
 
 /* -----------------    CONTAINER     ------------------ */
