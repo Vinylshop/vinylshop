@@ -74,7 +74,9 @@ class ProductDetail extends Component {
               <div className="col-xs-7">
                 {this.renderProductDetail()}
                 ${product.price}
-                <CartBuyButton productId={product.id} price={product.price} productname={product.title}/>
+                {product.quantity
+                  ? <CartBuyButton productId={product.id} price={product.price} productname={product.title}/>
+                  : <div>Too slow! We're currently out of stock of this item. Check back later</div>}
                 <hr/>
               </div>
               {this.renderProductDescription()}
