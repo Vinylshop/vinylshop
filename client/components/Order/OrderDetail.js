@@ -35,7 +35,7 @@ class OrderDetail extends React.Component {
   }
   render () {
     const order = this.state.order
-    if (!order.userId) return <div/> // if order has yet to load or is invalid
+    if (!order.id) return <div/> // if order has yet to load or is invalid
 
     return (
       <div className="container">

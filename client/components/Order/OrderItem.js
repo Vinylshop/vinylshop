@@ -38,8 +38,8 @@ class OrderItem extends Component {
             <li>
               Shipped To:
 
-              <Link to={`/users/${order.userId}`}>{order.user.username}</Link>
-              ({order.email})
+              {order.user && <Link to={`/users/${order.userId}`}>{order.user.username}</Link>}
+              {order.email}
             </li>
           </li>
         </ul>
