@@ -42,27 +42,6 @@ class Checkout extends Component {
           </div>
         </div>
         {this.renderCheckOutForm()}
-
-      <StripeCheckout
-  name="Vinyl Rocks!"
-  description="your best source for the unexpected"
-  image="https://www.vidhub.co/assets/logos/vidhub-icon-2e5c629f64ced5598a56387d4e3d0c7c.png"
-  ComponentClass="div"
-  panelLabel="Buy those vinyls!"
-  amount={cart.total}
-  currency="USD"
-  stripeKey="pk_test_LW9HNJMnUxHo0N3C1RBDSXnI"
-  locale="zh"
-  email="vinylrocksgs@gmail.com"
-  billingAddress={true}
-  zipCode={true}
-  token={this.onToken}
-  reconfigureOnUpdate={false}
-  >
-  <button className="btn btn-primary">
-    Pay with Stripe
-  </button>
-</StripeCheckout>
       </div>
     )
   }
@@ -107,12 +86,11 @@ class Checkout extends Component {
           zipCode:
           <input type="text" name="zipcode" required/>
         </label>
-        <Link to={this.props.isLoggedIn ? `/home` : `/products`}>
           <input type="submit" value="Submit" required/>
-        </Link>
       </form>
     )
   }
+
   onSubmit (event) {
     event.preventDefault()
     const guest = !this.props.isLoggedIn
