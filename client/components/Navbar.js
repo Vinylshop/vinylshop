@@ -48,6 +48,11 @@ class Navbar extends Component {
     return (
       <ul className='nav navbar-nav navbar-right'>
         <li>
+          <a href='/cart'>
+            <i className='fa fa-shopping-cart white' aria-hidden='true' />
+          </a>
+        </li>
+        <li>
           <NavLink to='/home' activeClassName='active'>Home</NavLink>
         </li>
         <li>
