@@ -7,17 +7,15 @@ import { removeProduct } from '../../store'
 /**
  * COMPONENT
  */
-class ProductItem extends Component {
+class ProductCard extends Component {
   render () {
     const {product} = this.props
     return (
-      <div>
-        <div className="card card-outline-secondary">
-          <div className="card-block">{product.title}</div>
-          <Link to={`/products/${product.id}`}>
-            <ImageWithStatusText imageUrl={product.images} height={318}/>
-          </Link>
-        </div>
+      <div className='col-lg-4'>
+        <p className='h4 text-center'>{product.title}</p>
+        <Link to={`/products/${product.id}`}>
+          <ImageWithStatusText imageUrl={product.images} />
+        </Link>
       </div>
     )
   }
@@ -27,5 +25,6 @@ class ProductItem extends Component {
  * CONTAINER
  */
 const mapState = ({currentUser}) => ({currentUser})
-const mapDispatch = {removeProduct}
-export default connect(mapState, mapDispatch)(ProductItem)
+const mapDispatch = null
+
+export default connect(mapState, mapDispatch)(ProductCard)

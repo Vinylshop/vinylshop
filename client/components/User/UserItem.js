@@ -23,7 +23,6 @@ class UserItem extends Component {
             <i className='fa fa-times fa-2x fa-pull-right' />
           </button>
         </div>
-
       </li>
     )
   }

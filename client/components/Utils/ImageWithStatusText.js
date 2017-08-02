@@ -16,7 +16,7 @@ class ImageWithStatusText extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className='text-center'>
         <img
           src={this.props.imageUrl}
           height={this.props.height}
