@@ -15,7 +15,7 @@ class CartBuyButton extends Component {
       <div>
         <form onSubmit={this.onSubmit}>
           <input
-            className="form-like large-font"
+            className="form-control mx-sm-3"
             value={this.state.quantity}
             onChange={evt => this.setState({quantity: Number(evt.target.value)})}
           />

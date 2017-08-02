@@ -54,16 +54,35 @@ class ProductDetail extends Component {
     const {product} = this.state
     const {currentUser, isLoggedIn} = this.props
     return (
-      <div className="container product-container">
-        <h1>Product Detail</h1>
-        <hr/>
-        { isLoggedIn && currentUser.isAdmin && this.renderProductDetailForm()}
-        <hr/>
-        {this.renderProductDetail()}
-        {this.renderProductDescription()}
-        <CartBuyButton productId={product.id} price={product.price} productname={product.title}/>
-        <hr/>
-        { isLoggedIn && this.renderProductReviews()}
+      <div className="container">
+        <div className="row heading text-center">
+          <h3 className='display-5'>PRODUCT DETAILS</h3>
+        </div>
+
+        <div className="row separator"/>
+        <div className="row">
+          <div className='col-xs-6 col-xs-offset-3'>
+            {isLoggedIn && currentUser.isAdmin && this.renderProductDetailForm()}
+          </div>
+        </div>
+        <div>
+          <div className="row">
+            <div className="col-xs-5">
+              {this.renderProductImage()}
+            </div>
+            <div className="row">
+              <div className="col-xs-7">
+                {this.renderProductDetail()}
+                ${product.price}
+                <CartBuyButton productId={product.id} price={product.price} productname={product.title}/>
+                <hr/>
+              </div>
+              {this.renderProductDescription()}
+              {this.renderProductReviews()}
+            </div>
+          </div>
+        </div>
+
       </div>
     )
   }
@@ -76,7 +95,6 @@ class ProductDetail extends Component {
     return (
       <div>
         {this.renderProductMainTitle()}
-        {this.renderProductImage()}
       </div>
     )
   }
@@ -84,11 +102,7 @@ class ProductDetail extends Component {
   renderProductMainTitle () {
     const {product} = this.state
     if (!product || !product.images) return <div/>
-    return (
-      <div className="container-fluid">
-        <h2>{product.title}</h2>
-      </div>
-    )
+    return ( <h3 className="display-5">{product.title}</h3> )
   }
 
   renderProductImage () {
@@ -106,11 +120,7 @@ class ProductDetail extends Component {
   renderProductDescription () {
     const {product} = this.state
     if (!product.images) return <div/>
-    return (
-      <div className="container-fluid">
-        {product.description}
-      </div>
-    )
+    return ( <div> {product.description} </div> )
   }
 
   renderProductReviews () {
@@ -131,41 +141,57 @@ class ProductDetail extends Component {
     const {product} = this.state
     if (!product) return <div/>
     return (
-      <div>
-        <h4>Detail Form</h4>
-        Title, Price, Description, Quantity, imageUrl<br/>
-        <form className="list-group-item product-item" onSubmit={this.onSubmit}>
+      <div className="row">
+        <form onSubmit={this.onSubmit}>
           <input
-            className="form-like large-font"
+            className="form-control"
+            id="form-field"
+            placeholder="Product Title"
+            type="input"
             value={product.title}
             onChange={evt => this.onProductUpdate({title: evt.target.value})}
           />
           <input
-            className="form-like large-font"
+            id="description"
+            type="input"
+            className="form-control"
+            placeholder="Product Description"
             value={product.description}
             onChange={evt => this.onProductUpdate({description: evt.target.value})}
           />
           <input
-            className="form-like large-font"
+            type="input"
+            id="price"
+            className="form-control"
+            placeholder="Price"
             value={product.price}
             onChange={evt => this.onProductUpdate({price: evt.target.value})}
           />
           <input
-            className="form-like large-font"
+            type="input"
+            placeholder="Quantity"
+            id="quantity"
+            className="form-control"
             value={product.quantity}
             onChange={evt => this.onProductUpdate({quantity: evt.target.value})}
           />
           <input
-            className="form-like large-font"
+            type="input"
+            placeholder="Category"
+            id="Category"
+            className="form-control"
+            value={product.quantity}
+            onChange={evt => this.onProductUpdate({quantity: evt.target.value})}
+          />
+          <input
+            type="input"
+            placholder="Image"
+            id="image"
+            className="form-control"
             value={product.images}
             onChange={evt => this.onProductUpdate({images: evt.target.value})}
           />
-          <button
-            type="submit"
-            className="btn btn-default">
-            <span className="glyphicon glyphicon-plus"/>
-            Submit
-          </button>
+          <button type='submit' className='btn btn-submit'>Submit</button>
         </form>
       </div>
     )

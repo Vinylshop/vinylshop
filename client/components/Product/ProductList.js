@@ -13,6 +13,7 @@ class ProductList extends Component {
       description: '',
       price: '',
       quantity: '',
+      category: '',
       images: ''
     }
     this.renderProductSearch = this.renderProductSearch.bind(this)
@@ -27,34 +28,34 @@ class ProductList extends Component {
     return (
       <div className='container'>
         {isLoggedIn && currentUser.isAdmin &&
-          (<div>
-            <div className='row heading text-center'>
-              <div className='col-lg-6 col-lg-offset-3'>
-                <h3 className='display-5'>ADD A NEW PRODUCT</h3>
-              </div>
+        (<div>
+          <div className='row heading text-center'>
+            <div className='col-xs-6 col-xs-offset-3'>
+              <h3 className='display-5'>ADD A NEW PRODUCT</h3>
             </div>
-            <div className='row'>
-              <div className='col-lg-6 col-lg-offset-3'>
-                {this.renderAddProductForm() }
-              </div>
+          </div>
+          <div className='row'>
+            <div className='col-xs-6 col-xs-offset-3'>
+              {this.renderAddProductForm()}
             </div>
-          </div>)
-        }
-        <div className='row separator' />
+          </div>
+        </div>)
+        }}
+        <div className="row separator"/>
 
-        <div className='row heading text-center'>
-          <div className='col-lg-6 col-lg-offset-3'>
-            <h3 className='display-5'>PRODUCT LIST</h3>
+        <div className="row heading text-center">
+          <div className="col-xs-6 col-xs-offset-3">
+            <h3 className="display-5">PRODUCT LIST</h3>
           </div>
         </div>
-        <div className='row'>
-          <div className='col-lg-6 col-lg-offset-3'>
-            { this.renderProductSearch() }
+        <div className="row">
+          <div className="col-xs-12">
+            {this.renderProductSearch()}
           </div>
         </div>
 
         <div className='row'>
-          { this.renderProducts() }
+          {this.renderProducts()}
         </div>
       </div>
     )
@@ -64,37 +65,46 @@ class ProductList extends Component {
     const {products} = this.props
     const {title, description} = this.state
 
-    return products
+    return products.slice(1)
       .filter(this.filterProduct)
       .map(product => {
         return (
-          <ProductCard product={product} key={product.id} />
+          <ProductCard product={product} key={product.id}/>
         )
       })
   }
 
   renderProductSearch () {
     return (
-      <form className='form-inline'>
-        <input
-          name='title'
-          type='text'
-          className='form-control'
-          id='inlineFormInput'
-          placeholder='Product Title'
-          onChange={evt => this.setState({title: evt.target.value})}
-          value={this.state.title}
-        />
-        <input
-          name='description'
-          type='text'
-          className='form-control'
-          id='inlineFormInput'
-          placeholder='Product Description'
-          onChange={evt => this.setState({description: evt.target.value})}
-          value={this.state.description}
-        />
-      </form>
+      <div className="row">
+        <form>
+          <div className="col-xs-3 col-xs-offset-3">
+            <input
+              name='title'
+              type='text'
+              className='form-control'
+              id='inlineFormInput'
+              placeholder='Product Title'
+              onChange={evt => this.setState({title: evt.target.value})}
+              value={this.state.title}
+            />
+          </div>
+          <div className="col-xs-3 col-xs-off">
+            <div className="form-group">
+              <select
+                className="form-control"
+                onChange={evt => this.setState({description: evt.target.value})}
+                value={this.state.description}
+              >
+                <option value="Bacon">Bacon</option>
+                <option value="Chicken">Chicken</option>
+                <option value="Fish">Fish</option>
+                <option value="Wood">Wood</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
     )
   }
 
@@ -117,35 +127,42 @@ class ProductList extends Component {
           value={this.state.title}
           onChange={evt => this.setState({title: evt.target.value})}
           placeholder='Product Title'
-          />
+        />
         <input
           className='form-control'
           id='form-field'
           value={this.state.description}
           onChange={evt => this.setState({description: evt.target.value})}
           placeholder='Product Description'
-          />
+        />
         <input
           className='form-control'
           id='form-field'
           value={this.state.price}
           onChange={evt => this.setState({price: evt.target.value})}
           placeholder='Product Price'
-          />
+        />
         <input
           className='form-control'
           id='form-field'
           value={this.state.quantity}
           onChange={evt => this.setState({quantity: evt.target.value})}
           placeholder='Product Quantity'
-          />
+        />
+        <input
+          className='form-control'
+          id='form-field'
+          value={this.state.category}
+          onChange={evt => this.setState({category: evt.target.value})}
+          placeholder='Product Category'
+        />
         <input
           className='form-control'
           id='form-field'
           value={this.state.images}
           onChange={evt => this.setState({images: evt.target.value})}
           placeholder='Product Image'
-          />
+        />
         <button type='submit' className='btn btn-submit'>Submit</button>
       </form>
 
