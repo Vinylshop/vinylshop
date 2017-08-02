@@ -6,6 +6,7 @@
 const router = require('express').Router()
 const {Product, Review} = require('../db/models')
 module.exports = router
+const Sequelize = require('sequelize')
 
 /**
  * Default columns to return for ALL products and Product by ID
@@ -74,6 +75,11 @@ router.get('/', (req, res, next) => {
  */
 router.get('/:productId', (req, res, next) => {
   res.json(req.product)
+})
+
+router.get('/categories', (req, res, next) => {
+  Sequelize.query('select distinct category from products', {type: Sequelize.QueryTypes.SELECT})
+    .then(categories => res.json(categories))
 })
 
 /**
