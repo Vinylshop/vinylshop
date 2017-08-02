@@ -72,6 +72,10 @@ class Checkout extends Component {
           zipCode:
           <input type="text" name="zipcode" required/>
         </label>
+        <input type='text' data-stripe='number' placeholder='credit card number'/><br/>
+        <input type='text' data-stripe='exp-month' placeholder='expiration month'/><br/>
+        <input type='text' data-stripe='exp-year' placeholder='expiration year'/><br/>
+        <input type='text' data-stripe='cvc' placeholder='cvc'/><br/>
         <Link to={this.props.isLoggedIn ? `/home` : `/products`}>
           <input type="submit" value="Submit" required/>
         </Link>

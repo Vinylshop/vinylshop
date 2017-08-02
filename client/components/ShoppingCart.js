@@ -13,7 +13,6 @@ class ShoppingCart extends Component {
       total: 0
     }
     this.editItemRender = this.editItemRender.bind(this)
-    this.renderCreditCardForm = this.renderCreditCardForm.bind(this)
   }
 
   render () {
@@ -40,7 +39,7 @@ class ShoppingCart extends Component {
             <div>Subtotal: {cart.total}</div>
           </div>
         </div>
-        <Link to={`/checkout`}><button className="btn btn-warning btn-xs d-inline">
+        <Link to={`/checkout`}><button className="btn btn-warning btn-lg d-inline">
           Go to checkout
         </button></Link>
       </div>
@@ -49,49 +48,31 @@ class ShoppingCart extends Component {
 
   editItemRender (item) {
     return (
-      <div className="d-inline">
-        <form className="list-inline"
-          onSubmit={(event) => {
-            event.preventDefault()
-            let newItem = item
-            console.log(item)
-            newItem.quantity = Number(event.target.quantity.value)
-            this.props.addToCart((item))
-          }}>
-          <ul className="list-inline">
-            <li className="list-inline">
-              <input
-                name="quantity"
-                type="text"
-                placeholder={item.quantity}
-                onChange={evt => this.setState({quantity: evt.target.value})}
-              />
-            </li>
-          </ul>
-          <button type="submit" className="btn btn-warning btn-xs d-inline">
-            <span className="glyphicon glyphicon-pencil"/>
-            Update
-          </button>
-
-        </form>
-        <button className="btn btn-warning btn-xs d-inline" onClick={() =>{
-          this.props.deleteFromCart((item))
+      <form className="list-inline list-group-item"
+        onSubmit={(event) => {
+          event.preventDefault()
+          let newItem = item
           console.log(item)
+          newItem.quantity = Number(event.target.quantity.value)
+          this.props.addToCart((item))
+        }}>
+        <li className="list-inline">
+          <input
+            name="quantity"
+            type="text"
+            placeholder={item.quantity}
+            onChange={evt => this.setState({quantity: evt.target.value})}
+          />
+        </li>
+        <button type="submit" className="btn btn-warning btn-xs d-inline">
+          <span className="glyphicon glyphicon-pencil"/>
+          Update
+        </button>
+        <button className="btn btn-warning btn-xs inline" onClick={() => {
+          this.props.deleteFromCart((item))
         }}>
           Delete
         </button>
-      </div>
-    )
-  }
-
-  renderCreditCardForm () {
-    return (
-      <form>
-        <input type='text' data-stripe='number' placeholder='credit card number'/><br/>
-        <input type='text' data-stripe='exp-month' placeholder='expiration month'/><br/>
-        <input type='text' data-stripe='exp-year' placeholder='expiration year'/><br/>
-        <input type='text' data-stripe='cvc' placeholder='cvc'/><br/>
-        <input type='submit' value='Purchase'/>
       </form>
     )
   }
