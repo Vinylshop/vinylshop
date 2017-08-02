@@ -15,7 +15,7 @@ class OrderItem extends Component {
   }
 
   render () {
-    const { currentUser, order } = this.props
+    const {currentUser, order} = this.props
     const creation = order.createdAt.split('T')
 
     return (
@@ -33,7 +33,6 @@ class OrderItem extends Component {
           </li>
           <li>
             Shipped To:
-
             <Link to={`/users/${order.userId}`}>{order.user.username}</Link> ({order.email})
           </li>
         </li>
@@ -73,6 +72,8 @@ class OrderItem extends Component {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapState = ({currentUser}) => ({currentUser})
-const mapDispatch = {updateOrder}
+const mapDispatch = {
+  updateOrder
+}
 
 export default connect(mapState, mapDispatch)(OrderItem)

@@ -31,9 +31,7 @@ class OrderDetail extends React.Component {
       this.props.fetchOrderData()
     }
 
-    this.setState({
-      order: newProps.order
-    })
+    this.setState({order: newProps.order})
   }
 
   render () {

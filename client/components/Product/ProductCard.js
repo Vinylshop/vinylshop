@@ -25,5 +25,6 @@ class ProductCard extends Component {
  * CONTAINER
  */
 const mapState = ({currentUser}) => ({currentUser})
-const mapDispatch = {removeProduct}
+const mapDispatch = null
+
 export default connect(mapState, mapDispatch)(ProductCard)

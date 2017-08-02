@@ -1,7 +1,6 @@
 'use strict'
 const Sequelize = require('sequelize')
 const db = require('../db')
-const {Product} = require('./product')
 
 const OrderItem = db.define('orderItem', {
   quantity: {
@@ -14,7 +13,7 @@ const OrderItem = db.define('orderItem', {
     set (val) {
       this.setDataValue('price', val * 100)
     },
-    get() {
+    get () {
       return (this.getDataValue('price') / 100)
     }
   }

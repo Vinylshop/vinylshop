@@ -61,7 +61,7 @@ class ProductDetail extends Component {
         <hr/>
         {this.renderProductDetail()}
         {this.renderProductDescription()}
-        <CartBuyButton productId={product.id} price={product.price}/>
+        <CartBuyButton productId={product.id} price={product.price} productname={product.title}/>
         <hr/>
         {this.renderProductReviews()}
       </div>

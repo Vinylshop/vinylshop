@@ -19,7 +19,6 @@ class Items extends Component {
         <li>
           <span>Price: {item.price}</span>
         </li>
-
         <li>
           <span>Item total: {item.quantity * item.price}</span>
         </li>

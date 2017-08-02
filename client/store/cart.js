@@ -8,10 +8,12 @@ const initialState = {
 
 const INIT = 'INITIALIZE_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const REMOVE_CART = 'DELETE_CART'
 
 const init = cart => ({type: INIT, cart})
-const add = item => ({type: ADD_TO_CART, item})
+const add = cart => ({type: ADD_TO_CART, cart})
+const remove = cart => ({type: REMOVE_FROM_CART, cart})
 const del = cart => ({type: REMOVE_CART, cart})
 
 export default function reducer (state = initialState, action) {
@@ -19,9 +21,11 @@ export default function reducer (state = initialState, action) {
     case INIT:
       return action.cart
     case ADD_TO_CART:
-      return Object.assign({}, state, {items: [action.item, ...state.items]})
+      return Object.assign({}, action.cart)
+    case REMOVE_FROM_CART:
+      return Object.assign({}, action.cart)
     case REMOVE_CART:
-      return Object.assign({}, state)
+      return Object.assign({}, initialState)
     default:
       return state
   }
@@ -38,9 +42,13 @@ export const addToCart = (itemToAdd) => dispatch => {
     .then(res => dispatch(add(res.data)))
     .catch(err => console.error('Adding item to cart', err))
 }
-
+export const removeFromCart = (itemToRemove) => dispatch => {
+  axios.put('/api/cart/removeItem', itemToRemove)
+    .then(res => dispatch(remove(res.data)))
+    .catch(err => console.error(`Removing items from cart`, err))
+}
 export const removeCart = () => dispatch => {
-  axios.delete(`/cart`)
+  axios.delete(`/api/cart`)
     .then(res => dispatch(del(res.data)))
     .catch(err => console.error('Removing cart', err))
 }

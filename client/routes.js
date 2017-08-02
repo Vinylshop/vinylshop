@@ -16,7 +16,7 @@ import { fetchUsers } from './store/users'
 import UserList from './components/User/UserList'
 import UserDetail from './components/User/UserDetail'
 import ShoppingCart from './components/ShoppingCart'
-
+import Checkout from './components/Checkout'
 /**
  * COMPONENT
  */
@@ -48,6 +48,7 @@ class Routes extends Component {
             <Route exact path='/orders' component={OrderList} />
             <Route path='/orders/:id' component={OrderDetail} />
             <Route path='/cart' component={ShoppingCart} />
+            <Route path ='/checkout' component={Checkout}/>
             {
               isLoggedIn
                 ? <Switch>

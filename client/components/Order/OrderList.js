@@ -22,8 +22,8 @@ class OrderList extends React.Component {
 
   render () {
     const {orders, currentUser} = this.props
-    if (!orders.length) return (<div> NO ORDERS TO DISPLAY </div>)
-    if (!currentUser.isAdmin) return (<div> Only Admin can view all Orders</div>)
+    if (!orders.length) return (<div>NO ORDERS TO DISPLAY</div>)
+    if (!currentUser.isAdmin) return (<div>Only Admin can view all Orders</div>)
     return (
       <div className='container'>
         <div className='row heading text-center'>
@@ -75,8 +75,9 @@ class OrderList extends React.Component {
   }
 
   filterOrder (order) {
-    const statusMatch = (this.state.status !== 'ALL') ? new RegExp(this.state.status, 'i')
-                        : new RegExp('', 'i')
+    const statusMatch = (this.state.status !== 'ALL')
+      ? new RegExp(this.state.status, 'i')
+      : new RegExp('', 'i')
     return statusMatch.test(order.status)
   }
 }
