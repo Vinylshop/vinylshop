@@ -2,6 +2,16 @@ const nodemailer = require('nodemailer')
 const router = require('express').Router()
 module.exports = router
 
+function isAdmin (req, res, next) {
+  if (req.user && req.user.isAdmin) {
+    next()
+  } else {
+    const error = new Error('Must have admin privileges')
+    error.status = 401
+    next(error)
+  }
+}
+
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   secure: false,
@@ -16,20 +26,20 @@ const transporter = nodemailer.createTransport({
 })
 
 router.post('/sendInitial', sendInitial)
-router.post('/sendUpdate', sendEmail)
-router.get('/dummy', sendDummy)
+router.post('/sendUpdate', isAdmin , sendEmail)
 
 function sendEmail (req, res, next) {
   const order = req.body
-  let message = `Congratulations ${order.user.username} Order ${order.id} has been ${order.status}.\n`
+  const name = (order.userId ? order.user.username : '') + `<${order.email}>`
+  let message = `Congratulations ${name} Order ${order.id} has been updated to status: ${order.status}.\n`
   message += `Order details:\n`
   order.orderItems.map(item => {
-    message += `Item:\t\t${item.product.title}\nQuantity:\t${item.quantity}\nPrice:\t\t${item.price}`
+    message += `Item:\t\t${item.product.title}\nQuantity:\t${item.quantity}\nPrice:\t\t${item.price}\n\n`
   })
   const mailOptions = {
     from: 'vinylrocksgs@gmail.com',
     to: req.body.email,
-    subject: `Order ${req.body.id} Update`,
+    subject: `Order ${req.body.id} made`,
     text: message
   }
   transporter.sendMail(mailOptions, function (error, info) {
@@ -56,25 +66,6 @@ function sendInitial (req, res, next) {
       console.log(error)
     } else {
       console.log('Message sent' + info.response)
-    }
-  })
-}
-function sendDummy (req, res, next) {
-  const message = `Order 4 has been created.`
-  const mailOptions = {
-    from: 'vinylrocksgs@gmail.com',
-    to: 'vinylrocksgs@gmail.com',
-    subject: `Order 4 Update`,
-    text: message
-
-  }
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error)
-      res.json({yo: error})
-    } else {
-      console.log('Message sent' + info.response)
-      res.json({yo: info.response})
     }
   })
 }

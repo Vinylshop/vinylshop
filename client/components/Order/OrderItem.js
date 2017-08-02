@@ -20,20 +20,23 @@ class OrderItem extends Component {
 
     return (
       <div>
-        <li className='list-group-item'>
-          {currentUser.isAdmin && this.renderOrderChange() }
+        <li className="list-group-item">
+          {currentUser.isAdmin && this.renderOrderChange()}
           <li>
-            Order #: <Link to={`/orders/${order.id}`}>{order.id}</Link>
+            Order #:
+            <Link to={`/orders/${order.id}`}>{order.id}</Link>
           </li>
           <li>
-            <span>Status: {order.status} </span>
+            <span>Status: {order.status}
+            </span>
           </li>
           <li>
             <span>Date: {creation[0]} Time: {creation[1].substr(0, 5)}</span>
           </li>
           <li>
             Shipped To:
-            <Link to={`/users/${order.userId}`}>{order.user.username}</Link> ({order.email})
+            {order.userId && (<Link to={`/users/${order.userId}`}>{order.user.username}</Link>)}
+            {order.email}
           </li>
         </li>
       </div>
@@ -48,14 +51,14 @@ class OrderItem extends Component {
         defaultValue=''
         onChange={this.onChangeHandler}
         required
-        >
+      >
 
         <option value='' disabled>Change Order Status</option>
         {
-            orderState.map((status, i) => (
-              <option key={i} value={status}>{status}</option>
-            ))
-          }
+          orderState.map((status, i) => (
+            <option key={i} value={status}>{status}</option>
+          ))
+        }
       </select>
     )
   }
