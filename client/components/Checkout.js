@@ -42,6 +42,26 @@ class Checkout extends Component {
           </div>
         </div>
         {this.renderCheckOutForm()}
+
+      <StripeCheckout
+  name="Vinyl Rocks!"
+  description="your best source for the unexpected"
+  ComponentClass="div"
+  panelLabel="Buy those vinyls!"
+  amount={cart.total}
+  currency="USD"
+  stripeKey="pk_test_LW9HNJMnUxHo0N3C1RBDSXnI"
+  locale="zh"
+  email="vinylrocksgs@gmail.com"
+  billingAddress={true}
+  zipCode={true}
+  token={this.onToken}
+  reconfigureOnUpdate={false}
+  >
+  <button className="btn btn-primary">
+    Pay with Stripe
+  </button>
+</StripeCheckout>
       </div>
     )
   }
@@ -90,7 +110,6 @@ class Checkout extends Component {
       </form>
     )
   }
-
   onSubmit (event) {
     event.preventDefault()
     const guest = !this.props.isLoggedIn
