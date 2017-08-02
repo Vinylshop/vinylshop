@@ -53,7 +53,7 @@ router.param('orderId', (req, res, next, id) => {
   }).catch(next)
 })
 
-router.get('/', isAdmin, (req, res, next) => {
+router.get('/', (req, res, next) => {
 // router.get('/', (req, res, next) => {
   Order.findAll({
     include: [
