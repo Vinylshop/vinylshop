@@ -1,5 +1,5 @@
 'use strict'
-const TOTAL_USERS = 20
+const TOTAL_USERS = 7
 const TOTAL_PRODUCTS = TOTAL_USERS * 2.5
 const TOTAL_REVIEWS = TOTAL_PRODUCTS * .2
 const TOTAL_ORDERS = TOTAL_USERS / .8
@@ -23,6 +23,7 @@ const randProduct = () => {
     description: faker.lorem.paragraph(),
     price: faker.commerce.price(),
     quantity: 100,
+    category: faker.commerce.product(),
     images: faker.image.imageUrl()
   }
 }
@@ -33,7 +34,7 @@ const randReview = () => {
     content: faker.lorem.paragraphs(),
     rating: faker.random.number({min: 1, max: 10}),
     productId: faker.random.number({min: 1, max: TOTAL_PRODUCTS - 10}),
-    userId: faker.random.number({min: 1, max: TOTAL_USERS - 10})
+    userId: faker.random.number({min: 1, max: TOTAL_USERS - 2})
   }
 }
 
@@ -68,7 +69,7 @@ const randOrderItem = () => {
   }
 }
 
-const generateItems = (total = 200, callback, type) => {
+const generateItems = (total = 20, callback, type) => {
   const items = []
   for (let i = 0; i < total; i++) {
     items.push(callback())
