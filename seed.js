@@ -91,7 +91,7 @@ const generateItems = (total = 200, callback, type) => {
 console.log('Seeding Database')
 db.sync({force: true})
   .then(() => {
-    console.log('Seeding Admin')
+    console.log('Seeding Addfasdfsdmin')
     return User.create({
       username: 'Joe Cool',
       email: 'admin@admin.com',
